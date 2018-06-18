@@ -1,0 +1,124 @@
+@import '~less/mixin.less';
+
+.list {
+  margin: 20px 0;
+}
+.box {
+  background: #fff;
+  margin-bottom: 20px;
+  position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &-inner {
+    padding: 20px;
+    padding-right: 100px;
+    position: relative;
+
+    &-time {
+      font-size: 13px;
+      color: #4A4A4A;
+      margin-bottom: 6px;
+
+      .text-overflow();
+    }
+
+    &-amount {
+      font-size: 15px;
+      color: #1B160C;
+      margin-bottom: 15px;
+      line-height: 1.2;
+
+      .text-overflow();
+
+      em {
+        font-weight: 500;
+        font-style: normal;
+        font-size: 30px;
+        letter-spacing: -1px;
+        margin-right: 5px;
+        vertical-align: -3px;
+      }
+    }
+
+    &-extra {
+      font-size: 15px;
+      color: #1B160C;
+      line-height: 1.2;
+      margin-top: 5px;
+      .text-overflow();
+    }
+
+    &-qrcode {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      top: 30px;
+      right: 30px;
+      background: #ddd;
+    }
+
+    &-action {
+      position: absolute;
+      bottom: 20px;
+      right: 0;
+      line-height: 30px;
+      height: 30px;
+      padding: 0 10px 0 18px;
+      background: #293677;
+      color: #fff;
+      font-size: 15px;
+      border-radius: 15px 0 0 15px;
+
+      &-disabled {
+        background: #eee;
+        color: #c2c2c2;
+      }
+    }
+  }
+
+  &-qrcode {
+    background: rgba(255,255,255,.97);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &-img-wrap {
+      width: 95px;
+      height: 95px;
+      overflow: hidden;
+      margin-bottom: 13px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &-title {
+      font-size: 13px;
+      color: #1B160C;
+      padding: 0 20px;
+    }
+
+    &-back:after {
+      content: "\E61F";
+      color: #1B160C;
+      font-size: 18px;
+      font-family: 'anticon';
+      right: 20px;
+      top: 66px;
+      position: absolute;
+    }
+  }
+}

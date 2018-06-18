@@ -45,14 +45,18 @@ const routerConfig = {
     name: '新盘',
     component: dynamicWrapper(() => import('container/new_building/home'))
   },
-  // '/new_building/search': {
-  //   name: '搜索',
-  //   component: dynamicWrapper(() => import('container/new_building/search'))
-  // },
-  // '/new_building/search:word': {
-  //   name: '搜索结果',
-  //   component: dynamicWrapper(() => import('container/new_building/search/result'))
-  // },
+  '/new_building/search': {
+    name: '搜索',
+    component: dynamicWrapper(() => import('container/new_building/search'))
+  },
+  '/new_building/search/home': {
+    name: '搜索',
+    component: dynamicWrapper(() => import('container/new_building/search/home'))
+  },
+  '/new_building/search/:word': {
+    name: '搜索结果',
+    component: dynamicWrapper(() => import('container/new_building/search/result'))
+  },
 
   '/house': {
     name: '房屋',
@@ -60,56 +64,88 @@ const routerConfig = {
     auth: true
   },
 
-  // '/building/:id': {
-  //   name: '楼盘详情',
-  //   component: dynamicWrapper(() => import('container/building'))
-  // },
-  // '/building/:id/track': {
-  //   name: '追踪',
-  //   component: dynamicWrapper(() => import('container/building/track'))
-  // },
-  // '/building/:id/detail': {
-  //   name: '详情',
-  //   component: dynamicWrapper(() => import('container/building/detail'))
-  // },
-  // '/building/:id/service': {
-  //   name: '服务',
-  //   component: dynamicWrapper(() => import('container/building/service'))
-  // },
+  '/building/:id': {
+    name: '楼盘详情',
+    component: dynamicWrapper(() => import('container/building'))
+  },
+  '/building/:id/track': {
+    name: '追踪',
+    component: dynamicWrapper(() => import('container/building/track'))
+  },
+  '/building/:id/track/protocol': {
+    name: '追踪',
+    component: dynamicWrapper(() => import('container/building/track/protocol'))
+  },
+  '/building/:id/track/progress': {
+    name: '追踪',
+    component: dynamicWrapper(() => import('container/building/track/progress'))
+  },
+  '/building/:id/detail': {
+    name: '详情',
+    component: dynamicWrapper(() => import('container/building/detail'))
+  },
+  '/building/:id/detail/home': {
+    name: '详情',
+    component: dynamicWrapper(() => import('container/building/detail/home'))
+  },
+  '/building/:id/detail/dynamic': {
+    name: '动态',
+    component: dynamicWrapper(() => import('container/building/detail/dynamic'))
+  },
+  '/building/:id/service': {
+    name: '服务',
+    component: dynamicWrapper(() => import('container/building/service'))
+  },
 
-  // '/service/appointment': {
-  //   name: '预约看房',
-  //   component: dynamicWrapper(() => import('container/service/appointment'))
-  // },
+  '/service/appointment': {
+    name: '预约看房',
+    component: dynamicWrapper(() => import('container/service/appointment'))
+  },
   // '/service/loan_calculator': {
   //   name: '贷款计算器',
   //   component: dynamicWrapper(() => import('container/service/loan_calculator'))
   // },
-  // '/service/tax_calculator': {
-  //   name: '税务计算器',
-  //   component: dynamicWrapper(() => import('container/service/tax_calculator'))
-  // },
+  '/service/tax_calculator': {
+    name: '税务计算器',
+    component: dynamicWrapper(() => import('container/service/tax_calculator'))
+  },
+  '/service/tax_calculator/home': {
+    name: '税务计算器',
+    component: dynamicWrapper(() => import('container/service/tax_calculator/home'))
+  },
+  '/service/tax_calculator/result': {
+    name: '税务计算器',
+    component: dynamicWrapper(() => import('container/service/tax_calculator/result'))
+  },
 
-  // '/service/choice_house': {
-  //   name: '在线选房',
-  //   component: dynamicWrapper(() => import('container/service/choice_house'))
-  // },
-  // '/service/choice_house/certificate': {
-  //   name: '存款证明',
-  //   component: dynamicWrapper(() => import('container/service/choice_house/certificate'))
-  // },
-  // '/service/choice_house/certificate/:period': {
-  //   name: '选择期数',
-  //   component: dynamicWrapper(() => import('container/service/choice_house/certificate/period'))
-  // },
-  // '/service/choice_house/certificate/:period/choice_house': {
-  //   name: '选房',
-  //   component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/choice_house'))
-  // },
-  // '/service/choice_house/i': {
-  //   name: '我的房源',
-  //   component: dynamicWrapper(() => import('container/service/choice_house/i'))
-  // },
+  '/service/choice_house': {
+    name: '在线选房',
+    component: dynamicWrapper(() => import('container/service/choice_house'))
+  },
+  '/service/choice_house/certificate': {
+    name: '存款证明',
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate'))
+  },
+  '/service/choice_house/certificate/home': {
+    name: '存款证明',
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate/home'))
+  },
+  '/service/choice_house/certificate/:period': {
+    name: '选择期数',
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period'))
+  },
+  '/service/choice_house/certificate/:period/home': {
+    name: '选择期数',
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/home'))
+  },
+  '/service/choice_house/certificate/:period/choice_house': {
+    name: '选房',
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/choice_house'))
+  },
+  '/service/choice_house/i': {
+    name: '我的房源',
+    component: dynamicWrapper(() => import('container/service/choice_house/i'))
+  },
 
   '/i': {
     name: '个人中心',

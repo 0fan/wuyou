@@ -1,0 +1,59 @@
+@import '~less/mixin.less';
+
+.focus {
+  background: #fff;
+  display: flex;
+  padding: 15px 16px 30px;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-right: 20px;
+  }
+
+  &-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  &-tag-wrap {
+    display: flex;
+    margin-right: -6px;
+    margin-bottom: -6px;
+    flex-wrap: wrap;
+  }
+
+  &-tag {
+    line-height: 20px;
+    padding: 0 8px;
+    font-size: 12px;
+    color: #9B9B9B;
+    margin-right: 6px;
+    margin-bottom: 6px;
+
+    .hairline(around, #CACACA);
+  }
+
+  &-right {
+    flex-shrink: 0;
+  }
+
+  &-price {
+    display: flex;
+
+    &-title {
+      font-size: 13px;
+      color: #9B9B9B;
+      margin-right: 4px;
+    }
+
+    &-value {
+      color: #F41906;
+      font-size: 13px;
+    }
+  }
+}

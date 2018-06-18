@@ -1,0 +1,39 @@
+@import '~less/mixin.less';
+
+.box {
+  &-title {
+    font-size: 15px;
+    color: #1B160C;
+    line-height: 1.5;
+
+    .line-overflow(2);
+
+    + .img-wrap {
+      margin-top: 15px;
+    }
+  }
+}
+
+.img-wrap {
+  :global {
+    .ant-col-12 {
+      margin-top: 8px;
+
+      &:nth-child(1),
+      &:nth-child(2) {
+        margin-top: 0;
+      }
+    }
+  }
+}
+.img-item-wrap {
+  overflow: hidden;
+  border-radius: 5px;
+  height: 96px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

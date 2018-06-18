@@ -1,0 +1,35 @@
+.tabs-wrap {
+  display: flex;
+  background: #fff;
+}
+.tabs {
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  text-align: center;
+  flex: 0 0 33.3333%;
+  font-size: 15px;
+  font-weight: 500;
+  color: #CDCDCD;
+
+  &:after {
+    content: '';
+    display: none;
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    border-radius: 2px 2px 0 0;
+    background: #293677;
+    bottom: 0;
+    left: 50%;
+    margin-left: -30px;
+  }
+
+  &-active {
+    color: #1B160C;
+
+    &:after {
+      display: block;
+    }
+  }
+}

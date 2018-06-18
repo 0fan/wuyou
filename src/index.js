@@ -9,10 +9,13 @@ import { LocaleProvider } from 'antd'
 import zh_CN from 'antd/lib/locale-provider/zh_CN'
 import 'moment/locale/zh-cn'
 import getUserData from 'config/store'
+import 'config/method'
 
 import App from './app'
 
 import reducer from 'model/index'
+
+import 'less/index.less'
 
 const store = createStore(reducer, compose(
   applyMiddleware(thunk),

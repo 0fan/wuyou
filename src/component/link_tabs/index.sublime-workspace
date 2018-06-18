@@ -1,0 +1,1537 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ste",
+				"stepIndex"
+			],
+			[
+				"cont",
+				"contentConfig"
+			],
+			[
+				"val",
+				"isValid"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"objc",
+				"object-fit"
+			],
+			[
+				"qr",
+				"qrcode"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"viis",
+				"visibleTip"
+			],
+			[
+				"scr",
+				"scrollTop\t.scrollTop()"
+			],
+			[
+				"ON",
+				"onLoad"
+			],
+			[
+				"on",
+				"onLoad"
+			],
+			[
+				"positi",
+				"position"
+			],
+			[
+				"act",
+				"activeHouse"
+			],
+			[
+				"curen",
+				"currentHouse"
+			],
+			[
+				"activ",
+				"activeFloor"
+			],
+			[
+				"ac",
+				"activeFloor"
+			],
+			[
+				"r",
+				"row"
+			],
+			[
+				"qrco",
+				"qrcodeImage"
+			],
+			[
+				"va",
+				"value"
+			],
+			[
+				"con",
+				"content"
+			],
+			[
+				"his",
+				"historyList"
+			],
+			[
+				"siz",
+				"background-size"
+			],
+			[
+				"inl",
+				"inline-block"
+			],
+			[
+				"posit",
+				"position"
+			],
+			[
+				"co",
+				"common/"
+			],
+			[
+				"trans",
+				"transform"
+			],
+			[
+				"Re",
+				"Redirect"
+			],
+			[
+				"load",
+				"loaded"
+			],
+			[
+				"loading",
+				"loadingMsg"
+			],
+			[
+				"class",
+				"className"
+			],
+			[
+				"loadi",
+				"loadingMsg"
+			],
+			[
+				"valid",
+				"valid"
+			],
+			[
+				"pre",
+				"preventDefault"
+			],
+			[
+				"row",
+				"row-reverse"
+			],
+			[
+				"clsa",
+				"className"
+			],
+			[
+				"ra",
+				"random"
+			],
+			[
+				"lad",
+				"loading"
+			],
+			[
+				"hane",
+				"handleRelease"
+			],
+			[
+				"handl",
+				"handleChangeStatus"
+			],
+			[
+				"borderco",
+				"border-color"
+			],
+			[
+				"cals",
+				"className"
+			],
+			[
+				"ali",
+				"align-items"
+			],
+			[
+				"sty",
+				"styleString"
+			],
+			[
+				"data",
+				"DataSource"
+			],
+			[
+				"set",
+				"setState"
+			],
+			[
+				"section",
+				"sectionIDs"
+			],
+			[
+				"da",
+				"DataSource"
+			],
+			[
+				"List",
+				"Listview"
+			],
+			[
+				"To",
+				"toFixed"
+			],
+			[
+				"han",
+				"handleChange"
+			],
+			[
+				"onC",
+				"onChange"
+			],
+			[
+				"ind",
+				"index.less"
+			],
+			[
+				"borde-to",
+				"border-top-left-radius"
+			],
+			[
+				"clas",
+				"className"
+			],
+			[
+				"COL",
+				"color"
+			],
+			[
+				"box",
+				"box.js"
+			],
+			[
+				"overri",
+				"overwrite.less"
+			],
+			[
+				"el_",
+				"el_subscribe"
+			],
+			[
+				"i",
+				"img/"
+			],
+			[
+				"com",
+				"component/"
+			],
+			[
+				"bord-rra",
+				"border-radius"
+			],
+			[
+				"li",
+				"limit"
+			],
+			[
+				"fle",
+				"flex-start"
+			],
+			[
+				"childr",
+				"children\t.children()"
+			],
+			[
+				"auth",
+				"authData"
+			],
+			[
+				"Red",
+				"RenderAuthorized"
+			],
+			[
+				"togg",
+				"toggleCollapsed"
+			],
+			[
+				"me",
+				"menu.js"
+			],
+			[
+				"an",
+				"animate.less"
+			],
+			[
+				"styl",
+				"styleName"
+			],
+			[
+				"contain",
+				"container/"
+			],
+			[
+				"index",
+				"index.less"
+			],
+			[
+				"inde",
+				"index.less"
+			],
+			[
+				"le",
+				"less/"
+			],
+			[
+				"app",
+				"app.less"
+			],
+			[
+				"posi",
+				"position"
+			],
+			[
+				"ta",
+				"detail-temp-1.png\tw:629 h:629"
+			],
+			[
+				"1",
+				"innovate-icon-1.png\tw:144 h:144"
+			],
+			[
+				"hi",
+				"history-timeline.png\tw:608 h:1808"
+			],
+			[
+				"bai",
+				"background-image"
+			],
+			[
+				"b",
+				"block"
+			],
+			[
+				"remo",
+				"removeClass\t.removeClass()"
+			],
+			[
+				"fonst",
+				"font-style"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"info",
+				"infoArr"
+			],
+			[
+				"border-b",
+				"border-bottom"
+			],
+			[
+				"nav",
+				"list-nav-arrow.png\tw:10 h:11"
+			],
+			[
+				"no",
+				"nowrap"
+			],
+			[
+				"teal",
+				"text-align"
+			],
+			[
+				"texal",
+				"text-align"
+			],
+			[
+				"fon",
+				"font-style"
+			],
+			[
+				"bor",
+				"border"
+			],
+			[
+				"user",
+				"userInfo"
+			],
+			[
+				"ba",
+				"background"
+			],
+			[
+				"bac",
+				"background-size"
+			],
+			[
+				"baco",
+				"background-color"
+			],
+			[
+				"pare",
+				"parentAuthority"
+			],
+			[
+				"handle",
+				"handlePageChange"
+			],
+			[
+				"map",
+				"mapStateToProps"
+			],
+			[
+				"conf",
+				"config.json"
+			],
+			[
+				"fetch",
+				"fetchUser"
+			],
+			[
+				"hell",
+				"helloSaga"
+			],
+			[
+				"hel",
+				"helloSaga"
+			],
+			[
+				"parent",
+				"parentPath"
+			],
+			[
+				"in",
+				"interceptor/"
+			],
+			[
+				"input",
+				"inputPosOrder"
+			],
+			[
+				"retu",
+				"result"
+			],
+			[
+				"border-bo",
+				"border-bottom-right-radius"
+			],
+			[
+				"exte",
+				"extends"
+			],
+			[
+				"border-r",
+				"border-right"
+			],
+			[
+				"tabl",
+				"table-layout"
+			],
+			[
+				"acti",
+				"activeKey"
+			],
+			[
+				"tab",
+				"tabs.less"
+			],
+			[
+				"onCl",
+				"onClose"
+			],
+			[
+				"show",
+				"showModifyMobile"
+			],
+			[
+				"IS",
+				"isShowModifyBankcard"
+			],
+			[
+				"mock",
+				"mockChangeCb"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"isM",
+				"isUnmount"
+			],
+			[
+				"spa",
+				"space-between"
+			],
+			[
+				"is",
+				"isOpenFail"
+			],
+			[
+				"isSh",
+				"isShowOpenAccount"
+			],
+			[
+				"isS",
+				"isShowModifyMobileModal"
+			],
+			[
+				"imag",
+				"background-image"
+			],
+			[
+				"key",
+				"readKeyboard.js"
+			],
+			[
+				"Bs",
+				"BasicLayout"
+			],
+			[
+				"context",
+				"contextTypes"
+			],
+			[
+				"uni",
+				"uniqueId"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/JSHint/JSHint.sublime-build",
+					""
+				],
+				[
+					"Packages/User/JavaScript.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/JavaScript.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Java/Ant.sublime-build",
+					""
+				],
+				[
+					"Packages/Java/JavaC.sublime-build",
+					""
+				],
+				[
+					"Packages/User/java.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/User/java.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 219.0,
+		"last_filter": "jsx",
+		"selected_items":
+		[
+			[
+				"jsx",
+				"Set Syntax: JSX"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"less",
+				"Set Syntax: Less"
+			],
+			[
+				"les",
+				"Set Syntax: Less"
+			],
+			[
+				"babel",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"remov p",
+				"Package Control: Remove Package"
+			],
+			[
+				"babe",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"JSX",
+				"Set Syntax: JSX"
+			],
+			[
+				"format",
+				"Format: Javascript"
+			],
+			[
+				"forma",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"bab",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"typesc",
+				"Set Syntax: TypeScript"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"au",
+				"Autoprefix CSS"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				"for",
+				"Format: Javascript"
+			],
+			[
+				"aut",
+				"Autoprefix CSS"
+			],
+			[
+				"auto",
+				"Autoprefix CSS"
+			],
+			[
+				"ksx",
+				"Bookmarks: Select Next"
+			],
+			[
+				"jx",
+				"Snippet: jQuery.parseXML"
+			],
+			[
+				"hsx",
+				"Markdown Preview: Export HTML in Sublime Text"
+			],
+			[
+				"mini",
+				"View: Toggle Minimap"
+			],
+			[
+				"map",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"htm",
+				"Set Syntax: HTML"
+			],
+			[
+				"tab",
+				"View: Toggle Tabs"
+			],
+			[
+				"setcss",
+				"Set Syntax: CSS"
+			],
+			[
+				"jax",
+				"Snippet: jQuery.parseXML"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"aligen",
+				"Preferences: Alignment File Settings – Syntax Specific – User"
+			],
+			[
+				"cs",
+				"Set Syntax: CSS"
+			],
+			[
+				"cs com",
+				"Format CSS: Compact"
+			],
+			[
+				"java",
+				"Set Syntax: Java"
+			],
+			[
+				"news",
+				"Build: New Build System"
+			],
+			[
+				"document",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"form",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"h",
+				"Set Syntax: HTML"
+			],
+			[
+				"froma",
+				"Format Arguments"
+			],
+			[
+				"action sc",
+				"Set Syntax: ActionScript"
+			],
+			[
+				"css com",
+				"Run CSScomb"
+			],
+			[
+				"mar",
+				"Set Syntax: Markdown"
+			],
+			[
+				"FO",
+				"Format: Javascript"
+			],
+			[
+				"FORMAT",
+				"Format: Javascript"
+			],
+			[
+				"foramtj",
+				"Format: Javascript"
+			],
+			[
+				"vue",
+				"Set Syntax: Vue Component"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"formatd ",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"formatdo",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"packi",
+				"Package Control: Install Package"
+			],
+			[
+				"action",
+				"Set Syntax: ActionScript"
+			],
+			[
+				"mni",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"markdo",
+				"Set Syntax: Markdown"
+			],
+			[
+				"hs",
+				"HTML: Encode Special Characters"
+			],
+			[
+				"actionsc",
+				"Set Syntax: ActionScript"
+			],
+			[
+				"wrao",
+				"Word Wrap: Toggle"
+			],
+			[
+				"documen",
+				"Set Syntax: Rd (R Documentation)"
+			],
+			[
+				"jhs",
+				"JSHint"
+			],
+			[
+				"base",
+				"Bookmarks: Select All"
+			],
+			[
+				"index",
+				"Indexing Status"
+			],
+			[
+				"foma",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"lss",
+				"Permute Lines: Shuffle"
+			],
+			[
+				"format du",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"format doc",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"l",
+				"Set Syntax: LESS"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Emmet: Remove Tag"
+			],
+			[
+				"jsa",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"fold",
+				"Tag: Fold Attributes"
+			],
+			[
+				"tag",
+				"HTML: Wrap Selection With Tag"
+			],
+			[
+				"close a",
+				"Tag: Close Tag"
+			],
+			[
+				"HTML",
+				"Set Syntax: HTML"
+			],
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"text",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"",
+				"Emmet: Expand Abbreviation"
+			],
+			[
+				"JAVA",
+				"Set Syntax: Java"
+			],
+			[
+				"xml",
+				"Set Syntax: XML"
+			],
+			[
+				"wra",
+				"Word Wrap: Toggle"
+			],
+			[
+				"f",
+				"Format: Javascript"
+			],
+			[
+				"menu",
+				"View: Toggle Menu"
+			],
+			[
+				"jsva",
+				"Project: Save As"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"css co",
+				"Run CSScomb"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"INSTALL",
+				"Package Control: Install Package"
+			],
+			[
+				"insstal",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"open file",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"wraop",
+				"Word Wrap: Toggle"
+			],
+			[
+				"pci",
+				"Package Control: Install Package"
+			],
+			[
+				"align",
+				"Preferences: Alignment File Settings – Syntax Specific – User"
+			],
+			[
+				"vie",
+				"View: Toggle Menu"
+			],
+			[
+				"anto",
+				"Tag: Auto-Format Tags on Document"
+			],
+			[
+				"cssco",
+				"Run CSScomb"
+			],
+			[
+				"csscom",
+				"Run CSScomb"
+			],
+			[
+				"csscon",
+				"Format CSS: Compact (No Spaces)"
+			],
+			[
+				"TAG",
+				"Tag: Get CSS Classes"
+			],
+			[
+				"insall",
+				"Package Control: Install Package"
+			],
+			[
+				"css combo",
+				"Format CSS: Compact (Break Selectors)"
+			],
+			[
+				"ins",
+				"Tag: Insert as Tag"
+			],
+			[
+				"Js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"mi",
+				"View: Toggle Minimap"
+			],
+			[
+				"fa",
+				"Format: Javascript"
+			],
+			[
+				"ja",
+				"Format: Javascript"
+			],
+			[
+				"JS",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"famat",
+				"Format: Javascript"
+			],
+			[
+				"men",
+				"View: Toggle Menu"
+			],
+			[
+				"foir",
+				"Snippet: for (…) {…} (Improved Native For-Loop)"
+			],
+			[
+				"eme",
+				"Emmet: Expand Abbreviation"
+			],
+			[
+				"view",
+				"View: Toggle Menu"
+			],
+			[
+				"emmet",
+				"Emmet: Balance (inward)"
+			],
+			[
+				"git",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 528.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/chenxiaoxiao/Desktop/wuyou",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/common",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/choice_house",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-list/item",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/layout/footer/menu",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/layout/footer/menu/img",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/modal",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/service/img",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/track/progress",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/setting/change_phome_bind",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/setting/home",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/home",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/search/home",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/search/result",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/certificate",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/certificate/home",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/certificate/period",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/i",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/loan_calculator",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/layout/basic_layout"
+	],
+	"file_history":
+	[
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/choice_house/certificate-box/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/choice_house/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/i/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/certificate/home/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/choice_house/certificate-box/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/box/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/common/router.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/certificate/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/certificate/period/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/service/choice_house/certificate/period/home/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/service/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/track/progress/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/less/animate.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/model/user.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/less/scaffolding.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/less/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/modal/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/modal/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/track/protocol/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/track/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/track/progress/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/track/protocol/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/detail/dynamic/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/detail/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/detail/home/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/detail/home/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/setting/change_phome_bind/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/building/service/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/link_tabs/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/config/method.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/link_tabs/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/house/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/house/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/home/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/home/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/util/wait.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/bottom-text/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/search/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/search/result/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/search/home/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/search/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/search/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/search/result/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/search/home/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/sort/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/sort/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-inline-list/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-inline-list/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-inline-list/item/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-inline-list/item/index.less",
+		"/C/Users/chenxiaoxiao/AppData/Roaming/Sublime Text 3/Packages/User/Plain text.sublime-settings",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-list/item/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-list/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-list/item/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/house-list/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/new_building/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/auth/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/auth/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/alert/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/alert/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/feedback/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/feedback/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/bind_phone/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/layout/basic_layout/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/list/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/context/config.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/list/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/setting/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/setting/home/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/home/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/about/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/message/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/message/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/about/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/home/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/login/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/bottom-text/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/i/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/button/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/button/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/public/index.html",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/input/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/bind_phone/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/input/index.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/container/login/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/app.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/input/ndex.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/component/layout/footer/menu/index.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/less/mixin.less",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/config/store.js",
+		"/C/Users/chenxiaoxiao/Desktop/wuyou/src/context/footer.js",
+		"/E/work/wuyou/src/layout/basic_layout/index.js",
+		"/E/work/wuyou/src/common/router.js",
+		"/E/work/wuyou/src/container/house/index.js",
+		"/E/work/wuyou/src/container/house/i/index.js",
+		"/E/work/wuyou/src/common/router2.js",
+		"/E/work/wuyou/src/app.js",
+		"/E/work/wuyou/src/index.js",
+		"/E/work/wuyou/src/config/store.js",
+		"/E/work/wuyou/src/container/house/i/home/index.js",
+		"/E/work/wuyou/src/container/house/i/home/index.less",
+		"/E/work/wuyou/src/container/choice_house/home/period/choice_house/index.js",
+		"/E/work/wuyou/src/container/choice_house/home/period/home/index.less",
+		"/E/work/wuyou/src/container/house/i/index.less",
+		"/E/work/wuyou/src/less/overwrite.less",
+		"/E/work/wuyou/src/container/choice_house/period/choice_house/index.js",
+		"/E/work/wuyou/src/component/alert/index.less",
+		"/E/work/wuyou/src/container/choice_house/period/choice_house/index.less",
+		"/E/work/wuyou/src/container/choice_house/period/home/index.less",
+		"/E/work/wuyou/src/container/choice_house/choice_house/index.js",
+		"/E/work/wuyou/src/container/choice_house/period/home/index.js",
+		"/E/work/wuyou/src/container/choice_house/period/index.js",
+		"/E/work/wuyou/src/container/choice_house/choice_house/index.less",
+		"/E/work/wuyou/src/container/choice_house/period/index.less",
+		"/E/work/wuyou/src/container/choice_house/home/index.less",
+		"/E/work/wuyou/src/container/choice_house/home/index.js",
+		"/E/work/wuyou/src/container/house/home/index.js",
+		"/E/work/wuyou/src/container/house/home/index.less",
+		"/E/work/wuyou/src/container/choice_house/index.js",
+		"/E/work/wuyou/src/container/choice_house/index.less",
+		"/E/work/wuyou/src/container/choice_house/less.js",
+		"/E/work/wuyou/src/component/sort/bounding.js",
+		"/E/work/wuyou/src/component/sort/sort.js",
+		"/E/work/wuyou/src/component/sort/index.js"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 207.0,
+		"where_history":
+		[
+			"E:\\work\\wuyou\\src\\container",
+			"E:\\work\\wuyou\\src",
+			"E:\\work\\wuyou\\src\\container",
+			"E:\\work\\wuyou\\src",
+			"E:\\work\\wuyou\\src\\component",
+			"E:\\work\\1m2-app\\src",
+			"E:\\work\\1m2-app",
+			"E:\\work\\backstage-react\\src\\component\\layout",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\container\\deposit_certificate",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\service\\server\\deposit_certificate",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\container\\deposit_certificate",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\redux",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\container\\deposit_certificate",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\service\\server\\deposit_certificate",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\container\\deposit_certificate",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\webpack-seed\\src\\pages\\index\\login",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\my-project\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\container\\deposit_certificate",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\container",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\container\\deposit_certificate",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src\\component",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\one-machine-scaffolding\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\njsuhe-iCenter",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\1m2-onemachine-choice-house\\src\\container",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\1m2-onemachine-choice-house\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\react-component\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\1m2-onemachine-choice-house\\src\\redux2",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\html",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\1m2-backStage\\src\\js",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\aowei",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\aowei\\css",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\report-backstage\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\esp-less\\src\\js",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\esp-less\\src\\js\\page",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\Framework7\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\Framework7\\src\\js",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\esp-less\\src\\html",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\esp-less\\src",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\esp-less\\src\\less",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\esp-less",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\framework7\\src\\less",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\framework7\\src\\less\\ios",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\SUI-Mobile",
+			"C:\\Users\\chenxiaoxiao\\Desktop\\wechat-1m2"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"Fragment",
+			"16",
+			"CertificateBox",
+			"Button",
+			"Image",
+			"service",
+			"home",
+			"certificate",
+			"home",
+			"url",
+			"choice_house",
+			"aleet",
+			"certificate",
+			"house",
+			"url",
+			"ma",
+			"componentDidMount",
+			"footer",
+			"contentConfig",
+			"por",
+			"comc",
+			"url",
+			"Modal",
+			"AntdModal",
+			"rightContent",
+			"''",
+			"leftContent",
+			"darkblue",
+			"stepIndex",
+			"1",
+			"disbled",
+			"Alert",
+			"handleModal",
+			"AntdModal",
+			"Modal",
+			"Divider",
+			"存款证明",
+			"step",
+			"naame",
+			"打他",
+			" \n",
+			"step",
+			"购房备案",
+			"购房网签",
+			"name",
+			"ba",
+			"title",
+			"label",
+			"title",
+			"building",
+			"step",
+			"stepIndex",
+			"step",
+			"state",
+			"Button",
+			"protocol",
+			" size = 'large'",
+			"} size = 'large'",
+			"Button",
+			"url",
+			"paream",
+			"honme",
+			"url",
+			"path",
+			"footerConfig",
+			"this",
+			"footerConfig",
+			"Context",
+			"'\n",
+			"service",
+			"appointment",
+			"tool",
+			"props",
+			"type",
+			"CONS",
+			"cont",
+			" ",
+			"cas",
+			"classa",
+			"store",
+			"bottom",
+			"text",
+			"BottomText",
+			"divBottomText",
+			"div",
+			"Fragment",
+			"impport",
+			"trtue",
+			"2",
+			"bottomText",
+			"BottomText",
+			"sort",
+			"Sort",
+			"building",
+			"wait",
+			"await",
+			"true",
+			"ali",
+			"sort",
+			"Sort",
+			"Carousel",
+			"Search",
+			"red",
+			"SearchBox",
+			"Search",
+			"sera",
+			"antd",
+			"mobile",
+			"SearchBar",
+			"Search",
+			"SearchBar",
+			"srea",
+			"word",
+			"home",
+			"cons",
+			"url",
+			"hist",
+			"atnd",
+			"wrap",
+			"Sort",
+			"house",
+			"list",
+			"HouseList",
+			"6",
+			"8",
+			"3",
+			"10",
+			"classanems"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"getRouterListData",
+			"Component",
+			"pureHanzi",
+			"",
+			"'",
+			"var editor\n\n  KindEditor.ready(function(K) {\n    editor = K.create('#editor', {\n    })\n  })",
+			"<script src=\"kindeditor/kindeditor-all-min.js\"></script>\n<script src=\"kindeditor/lang/zh-CN.js\"></script>",
+			"<textarea id=\"editor\"></textarea>",
+			"<li class=\"sidebar-nav-drop-item\"><a href=\"joined-project.html?tab=0\" class=\"sidebar-nav-drop-item-link\">发起中项目</a></li>\n                <li class=\"sidebar-nav-drop-item\"><a href=\"joined-project.html?tab=1\" class=\"sidebar-nav-drop-item-link\">进行中项目</a></li>\n                <li class=\"sidebar-nav-drop-item\"><a href=\"joined-project.html?tab=2\" class=\"sidebar-nav-drop-item-link\">已完成项目</a></li>",
+			"redux",
+			"Data",
+			"<li class=\"header-nav-item \">\n          <a href=\"service.html\">产品与服务</a>\n          <div class=\"header-nav-item-bound\">\n            <div class=\"header-nav-item-bound-wrap\">\n              <a href=\"#\" class=\"header-nav-item-bound-item\">展览会</a>\n              <a href=\"#\" class=\"header-nav-item-bound-item\">刊物</a>\n              <a href=\"#\" class=\"header-nav-item-bound-item\">B2B网站</a>\n            </div>\n          </div>\n        </li>",
+			"<div class=\"edu-thumbnail\" data-video-id='1'>",
+			"<div class=\"edu-thumbnail\" data-id='1'>",
+			"<div class=\"edu-media\" data-news-id='1'>",
+			"<button class=\"btn btn-default btn-sm\" type=\"button\">忘记?</button>",
+			"fdfcf3",
+			"import './public/index'",
+			"esp",
+			"<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\">\n\t<meta name=\"format-detection\" content=\"telephone=no\">",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 234.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.nodejs":
+	{
+		"height": 30.0
+	},
+	"pinned_build_system": "",
+	"project": "index.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"html",
+				"terminal\\node_modules\\syntax-error\\test\\html.js"
+			],
+			[
+				"o",
+				"C:\\Users\\chenxiaoxiao\\Dropbox\\通信领地\\web\\css\\layout.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 271.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,0 +1,63 @@
+@import '~less/mixin.less';
+
+.tool-list {
+  margin: 36px 15px;
+
+  :global {
+    .ant-col-8 {
+      margin-top: 10px;
+      padding-right: 5px;
+      padding-left: 5px;
+
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3) {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.tool-item {
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  background: #fff;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+
+  &-title {
+    font-size: 14px;
+    color: #1B160C;
+
+    .text-overflow();
+  }
+
+  &:before {
+    content: '';
+    width: 34px;
+    height: 34px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  &-choice_house:before {
+    background-image: ~"url('./img/choice_house.png')";
+  }
+
+  &-loan_calculator:before {
+    background-image: ~"url('./img/loan_calculator.png')";
+  }
+
+  &-tax_calculator:before {
+    background-image: ~"url('./img/tax_calculator.png')";
+  }
+
+  &-appointment:before {
+    background-image: ~"url('./img/appointment.png')";
+  }
+}

@@ -1,0 +1,84 @@
+@import '~less/mixin.less';
+
+.card {
+  &-header {
+    border-radius: 7px 7px 0 0;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    color: #fff;
+
+    &-left,
+    &-right {
+      display: flex;
+      min-width: 0;
+    }
+
+    h2 {
+      font-size: 17px;
+      font-weight: 500;
+      color: #fff;
+      margin: 0;
+      margin-right: 17px;
+    }
+  }
+
+  &-body {
+    padding: 18px 20px;
+    border-radius: 0 0 7px 7px;
+    background: #F8F8F8;
+  }
+
+  &-blue {
+    .card-header {
+      background: #3096F4;
+    }
+  }
+  &-darkblue {
+    .card-header {
+      background: #28357A;
+    }
+  }
+
+  &-info {
+    &-item {
+      margin-bottom: 8px;
+      font-size: 15px;
+
+      .text-overflow();
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &-title {
+        color: #9B9B9B;
+      }
+      &-value {
+        color: #1B160C;
+
+        a {
+          color: #3096F4;
+        }
+      }
+    }
+  }
+
+  &-disabled {
+    .card-header {
+      background: #E3E3E3 !important;
+    }
+
+    .card-info-item-title,
+    .card-info-item-value {
+      color: #C2C2C2 !important;
+
+      a {
+        color: #3096F4;
+      }
+    }
+  }
+}
+

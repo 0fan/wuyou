@@ -1,0 +1,101 @@
+@import '~less/mixin.less';
+
+.list {
+  padding: 25px 16px;
+}
+
+.box {
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &-header {
+    background: #fff;
+    border-radius: 7px 7px 0 0;
+    height: 50px;
+    display: flex;
+    padding: 0 18px;
+    align-items: center;
+    font-size: 15px;
+    color: #222;
+    position: relative;
+
+    .text-overflow();
+    .hairline(bottom, #D7D7D7);
+  }
+
+  &-body {
+    display: flex;
+    background: #fff;
+    border-radius: 0 0 7px 7px; 
+    padding: 14px 0 16px 18px;
+
+    &-content {
+      min-width: 0;
+      flex-grow: 1;
+      padding-right: 10px;
+    }
+
+    &-right {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-width: 0;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+  }
+
+  &-title {
+    font-size: 17px;
+    color: #222;
+    font-weight: 500;
+    margin-bottom: 15px;
+
+    .text-overflow();
+  }
+
+  &-extra {
+    color: #9B9B9B;
+    font-size: 13px;
+    margin-bottom: 6px;
+
+    .text-overflow();
+  }
+
+  &-time {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #4A4A4A;
+
+    .text-overflow();
+
+    a {
+      color: #3698F0;
+    }
+  }
+
+  &-deposit {
+    font-size: 15px;
+    color: #F21E1E;
+    padding-right: 20px;
+
+    .text-overflow();;
+  }
+
+  &-action {
+    line-height: 30px;
+    color: #fff;
+    font-size: 15px;
+    padding: 0 16px;
+    border-radius: 15px 0 0 15px;
+    background: #293677;
+
+    &-disabled {
+      color: #C2C2C2;
+      background: #eee;
+    }
+  }
+}

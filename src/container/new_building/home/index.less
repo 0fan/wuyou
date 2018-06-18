@@ -1,0 +1,74 @@
+@import '~less/mixin.less';
+
+.carousel {
+  :global {
+    .slider-list {
+      height: 160px !important;
+    }
+  }
+  &-item {
+    height: 160px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.new {
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 24px 16px 30px;
+
+  &-filter-wrap {
+    .scrollable();
+    margin-bottom: 24px;
+  }
+
+  &-filter {
+    display: inline-flex;
+    flex-wrap: nowrap;
+
+    &-item {
+      font-size: 15px;
+      font-weight: 500;
+      margin-right: 14px;
+      color: #CDCDCD;
+      white-space: nowrap;
+
+      &-active {
+        color: #293677;
+      }
+    }
+  }
+
+  &-header {
+    font-size: 20px;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 12px;
+  }
+}
+
+.search {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  background: rgba(0,0,0,.3);
+  border-radius: 18px;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 600;
+
+  :global {
+    .anticon {
+      color: #F2F2F2;
+      font-size: 18px;
+    }
+  }
+}

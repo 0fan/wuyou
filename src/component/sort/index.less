@@ -1,0 +1,68 @@
+@import '~less/mixin.less';
+
+.sort {
+  height: 48px;
+  position: relative;
+  display: flex;
+  background: #fff;
+  justify-content: space-between;
+
+  .hairline(bottom, #E0E0E0);
+
+  &-item {
+    flex: 1;
+    display: flex;
+    height: 100%;
+    position: relative;
+    font-size: 13px;
+    color: #666;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+
+    .text-overflow();
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 1px;
+      height: 15px;
+      top: 50%;
+      margin-top: -7px;
+      background: #d8d8d8;
+      right: 0;
+
+      @media only screen and (-webkit-min-device-pixel-ratio:2) {
+        transform: scaleX(0.5);
+      }
+
+      @media only screen and (-webkit-min-device-pixel-ratio:3) {
+        transform: scaleX(0.33);
+      }
+    }
+
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      margin-left: 8px;
+      margin-top: -1px;
+      border-right: 4px solid transparent;
+      border-left: 4px solid transparent;
+      border-top: 5px solid #D8D8D8;
+    }
+
+    &:last-child:after {
+      display: none;
+    }
+
+    &-active {
+      color: #293677;
+
+      &:after {
+        border-top: none;
+        border-bottom: 5px solid #293677;
+      }
+    }
+  }
+}

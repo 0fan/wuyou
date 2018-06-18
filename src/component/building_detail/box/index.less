@@ -1,0 +1,51 @@
+@import '~less/mixin.less';
+
+.box {
+  margin: 10px 0;
+  background: #fff;
+  padding: 40px 15px 30px;
+
+  &-header {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    :global {
+      .anticon {
+        color: #9B9B9B;
+        font-size: 18px;
+      }
+    }
+
+    &-left,
+    &-right {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+    }
+
+    &-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: #000;
+      margin-right: 14px;
+    }
+
+    &-extra {
+      font-size: 14px;
+      color: #9B9B9B;
+    }
+
+    :global　{
+      .ant-divider {
+        margin-right: 14px;
+        margin-left: 0;
+      }
+    }
+  }
+
+  &-body {
+    padding-top: 20px;
+  }
+}

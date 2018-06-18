@@ -1,0 +1,33 @@
+.alert {
+  :global {
+    .rc-dialog-mask {
+      background-color: rgba(0,0,0,.4);
+    }
+    .rc-dialog {
+      margin: 60px 24px 0;
+    }
+    .rc-dialog-content {
+      border-radius: 7px;
+    }
+    .rc-dialog-body {
+      padding: 26px 20px 30px;
+      position: relative;
+    }
+  }
+
+  p {
+    font-size: 15px;
+    color: #4A4A4A; 
+  }
+}
+.close {
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  position: absolute;
+  bottom: -52px;
+  left: 50%;
+  margin-left: -18px;
+  background: ~"url('./img/close.png')" no-repeat center center;
+  background-size: cover;
+}

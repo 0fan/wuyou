@@ -1,0 +1,39 @@
+.search {
+  padding: 20px 16px;
+  background: #fff;
+
+  :global {
+    .am-search {
+      padding: 0;
+      background: transparent;
+      height: 34px;
+
+      .am-search-synthetic-ph {
+        height: 34px;
+        line-height: 34px;
+        padding-left: 10px !important;
+      }
+    }
+    .am-search-input {
+      height: 34px;
+      background: #F8F8F8;
+
+      input[type="search"] {
+        height: 34px;
+      }
+
+      .am-search-clear {
+        padding: (34px - 15px) / 2;
+      }
+    }
+    .am-search-cancel {
+      font-size: 15px;
+      font-weight: 500;
+      color: #000;
+      padding-left: 13px;
+    }
+    .am-search-input .am-search-synthetic-ph-icon {
+      margin-right: 11px;
+    }
+  }
+}

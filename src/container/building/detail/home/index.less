@@ -1,0 +1,27 @@
+.map {
+  &-container {
+    height: 200px;
+    background: #fff;
+  }
+
+  &-navigation {
+    padding: 8px 15px;
+    background: #fff;
+
+    :global {
+      .ant-btn {
+        display: block;
+        height: 44px;
+        border-radius: 5px;
+        width: 100%;
+      }
+    }
+  }
+
+  &-marker {
+    width: 28px;
+    height: 28px;
+    background: ~"url('./img/marker.png')" no-repeat center center;
+    background-size: contain;
+  }
+}

@@ -26,7 +26,8 @@ export default class App extends Component {
 
     this.state = {
       contentConfig: {
-        grey: true
+        grey: true,
+        flex: false
       },
       changeContent: v => {
         this.setState(prevState => ({

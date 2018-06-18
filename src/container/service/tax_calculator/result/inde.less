@@ -1,0 +1,48 @@
+@import '~less/mixin.less';
+
+.wrap {
+  padding: 20px 16px;
+}
+.box {
+  display: flex;
+  padding: 0 20px;
+  height: 46px;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 15px;
+  background: #F3F3F3;
+  margin-top: 14px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &-reverse {
+    background: #293677;
+    color: #fff;
+
+    .box-title,
+    .box-value {
+      color: #fff;
+    }
+  }
+
+  &-title {
+    min-width: 0;
+    width: 80px;
+    color: #A1A4A6;
+
+    &:after {
+      content: '：'
+    }
+
+    .text-overflow();
+  }
+
+  &-value {
+    min-width: 0;
+    color: #222;
+
+    .text-overflow();
+  }
+}
