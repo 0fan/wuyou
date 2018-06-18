@@ -1,0 +1,62 @@
+@import '~less/mixin.less';
+
+.footer-menu {
+  flex: 1 1 auto;
+  position: relative;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-active {
+    .footer-menu-text {
+      color: #293677;
+    }
+
+    &.footer-menu-building .footer-menu-text:before {
+      background-image: ~"url('./img/building_active.png')";
+    }
+
+    &.footer-menu-i .footer-menu-text:before {
+      background-image: ~"url('./img/i_active.png')";
+    }
+  }
+
+  .hairline(top, #eee);
+
+  &-text {
+    font-size: 16px;
+    color: #9B9B9B;
+    font-weight: 500;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      width: 22px;
+      height: 22px;
+      margin-right: 6px;
+      vertical-align: -3px;
+    }
+  }
+
+  &-building {
+    .footer-menu-text:before {
+      background-image: ~"url('./img/building.png')";
+    }
+  }
+
+  &-house {
+    .footer-menu-text:before {
+      background-image: ~"url('./img/building.png')";
+    }
+  }
+
+  &-i {
+    .footer-menu-text:before {
+      background-image: ~"url('./img/i.png')";
+    }
+  }
+}

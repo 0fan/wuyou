@@ -1,0 +1,37 @@
+@import '~less/mixin.less';
+
+.header {
+  position: relative;
+  flex-shrink: 0;
+  height: 44px;
+  background: #F2F2F2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+
+  &-center {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+  }
+
+  &-center,
+  &-right,
+  &-left {
+    min-height: 1px;
+    display: flex;
+
+    .text-overflow();
+  }
+
+  &-right,
+  &-left {
+    width: 30%;
+    display: flex;   
+  }
+
+  &-right {
+    flex-direction: row-reverse;
+  }
+}

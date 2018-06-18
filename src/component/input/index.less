@@ -1,0 +1,39 @@
+@import '~less/mixin.less';
+
+.list {
+  // background: red;
+  padding: 0 30px;
+
+  :global {
+    .am-list-body {
+      &:before {
+        display: none !important;
+      }
+    }
+  }
+}
+.item {
+  height: 52px !important;
+  padding-left: 0 !important;
+
+  :global {
+    .am-input-label {
+      width: auto !important;
+    }
+
+    .am-input-control input {
+      color: #222;
+      font-size: 15px;
+
+      .resetPlaceholder(#9B9B9B);
+    }
+
+    .am-input-extra {
+      line-height: 1.5;
+    }
+
+    .am-list-line {
+      padding-right: 0;
+    }
+  }
+}

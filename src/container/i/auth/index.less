@@ -1,0 +1,25 @@
+@import '~less/mixin.less';
+
+.box {
+  background: #fff;
+  margin-bottom: 10px;
+
+  &-body {
+    text-align: center;
+    padding: 25px 18px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  &-footer {
+    line-height: 52px;
+    position: relative;
+    font-size: 17px;
+    color: #F21E1E;
+
+    .hairline(top, #D7D7D7);
+    .text-overflow();
+
+    text-align: center;
+  }
+}

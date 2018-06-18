@@ -1,0 +1,84 @@
+@import '~less/mixin.less';
+
+.panel {
+  background: #fff;
+  padding: 30px 20px;
+  min-height: 133px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  &-auth {
+    min-width: 0;
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    &-login {
+      display: inline-block;
+      color: #fff !important;
+      background: #2FD04D;
+      line-height: 32px;
+      border-radius: 16px;
+      text-align: center;
+      min-width: 94px;
+      font-size: 15px;
+      padding: 0 17px;
+    }
+  }
+
+  &-name {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+
+    &-text {
+      font-size: 24px;
+      font-weight: 500;
+      color: #000;
+      min-width: 0;
+
+      .text-overflow();
+    }
+
+    &-role {
+      flex-shrink: 0;
+      line-height: 20px;
+      height: 20px;
+      font-size: 12px;
+      color: #3698F0;
+      padding: 0 5px;
+      margin-left: 12px;
+      vertical-align: 4px;
+
+      .hairline(around, #3698F0);
+    }
+
+  }
+
+  &-id {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #9B9B9B;
+
+    .text-overflow();
+  }
+
+  &-content {
+    min-width: 0;
+
+    flex-grow: 1;
+  }
+
+  &-right {
+    margin-left: 20px;
+    min-width: 0;
+
+    flex-shrink: 0;
+  }
+}

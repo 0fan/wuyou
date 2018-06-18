@@ -1,0 +1,29 @@
+@import '~less/mixin.less';
+
+.content {
+  flex-grow: 1;
+  background: #fff;
+  position: relative;
+
+  &-grey {
+    background: #F8F8F8;
+  }
+
+  &-flex {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scrollable();
+}
+
+
+:global {
+  .content-grow {
+    &:after {
+      content: '';
+      display: block;
+      height: 1000px;
+    }
+  }
+}

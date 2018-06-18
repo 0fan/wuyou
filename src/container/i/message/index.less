@@ -1,0 +1,60 @@
+@import '~less/mixin.less';
+
+.tip {
+  background: #293677;
+  font-size: 13px;
+  color: #fff;
+  padding: 11px 20px;
+}
+.list-wrap {
+  margin-bottom: 40px;
+}
+.list {
+  padding-left: 15px;
+  background: #fff;
+}
+.item {
+  padding: 15px 15px 15px 0;
+  position: relative;
+  display: block;
+
+  .hairline(bottom, #EBEBEB);
+
+  &:last-child {
+    .hairline-remove(bottom);
+  }
+
+  &-title {
+    margin-bottom: 5px;
+    padding-right: 44px;
+
+    &-text {
+      font-size: 15px;
+      color: #1B160C;
+      position: relative;
+    }
+
+    .text-overflow();
+  }
+
+  &-date {
+    color: #9B9B9B;
+    font-size: 13px;
+  }
+
+  &-new {
+    .item-title-text:after {
+      content: 'NEW';
+      display: inline-block;
+      line-height: 16px;
+      padding: 0 5px;
+      margin-left: 6px;
+      font-size: 12px;
+      color: #F21E1E;
+      position: absolute;
+      margin-top: 3px;
+
+      .hairline(around, #F21E1E);
+    }
+  }
+}

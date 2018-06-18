@@ -1,0 +1,23 @@
+.alert {
+  position: relative;
+  z-index: 100;
+
+  &-fixed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  :global {
+    .ant-alert-message {
+      font-size: 15px;
+    }
+
+    .ant-alert-info {
+      .ant-alert-message {
+        color: #3698F0;
+      }
+    }
+  }
+}

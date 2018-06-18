@@ -1,0 +1,205 @@
+.scrollable() {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.clearfix() {
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+
+}
+
+.hairline(@position, @color) when (@position = around) {
+  background-repeat: no-repeat;
+  background-image: linear-gradient(180deg, @color 100%, transparent 0), linear-gradient(270deg, @color 100%, transparent 0), linear-gradient(0deg, @color 100%, transparent 0), linear-gradient(90deg, @color 100%, transparent 0);
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+  background-position: top, right, bottom, left;
+
+  @media only screen and (-webkit-min-device-pixel-ratio:2) {
+    background-image: linear-gradient(180deg, @color 50%, transparent 0), linear-gradient(270deg, @color 50%, transparent 0), linear-gradient(0deg, @color 50%, transparent 0), linear-gradient(90deg, @color 50%, transparent 0);
+  }
+
+  @media only screen and (-webkit-min-device-pixel-ratio:3) {
+    background-image: linear-gradient(180deg, @color 33.3333%, transparent 0), linear-gradient(270deg, @color 33.3333%, transparent 0), linear-gradient(0deg, @color 33.3333%, transparent 0), linear-gradient(90deg, @color 33.3333%, transparent 0);
+  }
+}
+
+.hairline(@position, @color) when (@position = top) {
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: auto;
+    right: auto;
+    height: 1px;
+    width: 100%;
+    background-color: @color;
+    display: block;
+    z-index: 15;
+    transform-origin: 50% 0%;
+
+    @media only screen and (-webkit-min-device-pixel-ratio:2) {
+      transform: scaleY(0.5);
+    }
+
+    @media only screen and (-webkit-min-device-pixel-ratio:3) {
+      transform: scaleY(0.33);
+    }
+
+  }
+
+}
+
+.hairline(@position, @color) when (@position = left) {
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: auto;
+    right: auto;
+    width: 1px;
+    height: 100%;
+    background-color: @color;
+    display: block;
+    z-index: 15;
+    transform-origin: 0% 50%;
+
+    @media only screen and (-webkit-min-device-pixel-ratio:2) {
+      transform: scaleY(0.5);
+    }
+
+    @media only screen and (-webkit-min-device-pixel-ratio:3) {
+      transform: scaleY(0.33);
+    }
+
+  }
+
+}
+
+.hairline(@position, @color) when (@position = bottom) {
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: auto;
+    top: auto;
+    height: 1px;
+    width: 100%;
+    background-color: @color;
+    display: block;
+    z-index: 15;
+    transform-origin: 50% 100%;
+
+    @media only screen and (-webkit-min-device-pixel-ratio:2) {
+      transform: scaleY(0.5);
+    }
+
+    @media only screen and (-webkit-min-device-pixel-ratio:3) {
+      transform: scaleY(0.33);
+    }
+
+  }
+
+}
+
+.hairline(@position, @color) when (@position = right) {
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: auto;
+    bottom: auto;
+    width: 1px;
+    height: 100%;
+    background-color: @color;
+    display: block;
+    z-index: 15;
+    transform-origin: 100% 50%;
+
+    @media only screen and (-webkit-min-device-pixel-ratio:2) {
+      transform: scaleY(0.5);
+    }
+
+    @media only screen and (-webkit-min-device-pixel-ratio:3) {
+      transform: scaleY(0.33);
+    }
+
+  }
+
+}
+
+// For right and bottom
+.hairline-remove(@position) when not (@position = left) and not (@position = top) {
+  &:after {
+    display: none;
+  }
+
+}
+
+// For left and top
+.hairline-remove(@position) when not (@position = right) and not (@position = bottom) {
+  &:before {
+    display: none;
+  }
+
+}
+
+// For right and bottom
+.hairline-color(@position, @color) when not (@position = left) and not (@position = top) {
+  &:after {
+    background-color: @color;
+  }
+
+}
+
+// For left and top
+.hairline-color(@position, @color) when not (@position = right) and not (@position = bottom) {
+  &:before {
+    background-color: @color;
+  }
+
+}
+
+.resetPlaceholder(@color: @input-placeholder-color) {
+  // Firefox
+  &::-moz-placeholder {
+    color: @color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  // Internet Explorer 10+
+  &:-ms-input-placeholder {
+    color: @color;
+  }
+  // Safari and Chrome
+  &::-webkit-input-placeholder {
+    color: @color;
+  }
+}
+
+.text-overflow() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-overflow {
+  .text-overflow();
+}
+
+.line-overflow(@line) {
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: @line;
+  -webkit-box-orient: vertical;
+}

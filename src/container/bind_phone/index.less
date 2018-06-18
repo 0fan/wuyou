@@ -1,0 +1,33 @@
+@import '~less/mixin.less';
+
+.logo {
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  overflow: hidden;
+  background: #C2C2C2;
+  margin: 38px auto 30px;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  &-phone {
+    background-image: ~"url('./img/phone.png')";
+  }
+  &-auth {
+    background-image: ~"url('./img/auth.png')";
+  }
+}
