@@ -1,6 +1,11 @@
 import React, { Component, Fragment } from 'react'
+import _ from 'lodash'
+import axios from 'axios'
+import store from 'store'
 
+import { Icon } from 'antd'
 import Search from 'component/search'
+import BottomText from 'component/bottom-text'
 
 import style from './index.less'
 
@@ -9,13 +14,32 @@ export default class App extends Component {
     value: '',
 
     hotList: ['融创九樾府', '中环国际', '观府壹号'],
-    historyList: ['中环国际', '融创九樾府', '观府壹号']
+    historyList: []
+  }
+
+  componentDidMount () {
+    const historyList = store.get('history-search') || []
+    this.setState({ historyList })
+  }
+
+  // 在这里时保存历史搜索记录
+  componentWillUnmount () {
+    // 保持数据唯一性
+    store.set('history-search', _.uniq(this.state.historyList))
   }
 
   handleChange = v => {
     this.setState({
       value: v
     })
+  }
+
+  handleRemoveHistory = (v, i, e) => {
+    e.stopPropagation()
+
+    this.setState(prevState => ({
+      historyList: prevState.historyList.filter((_v, _i) => i !== _i)
+    }))
   }
 
   handleSearch = v => {
@@ -27,7 +51,12 @@ export default class App extends Component {
     } = this.props
 
     if (v) {
-      history.push(`/new_building/search/${ v }`)
+      this.setState(prevState => ({
+        value: v,
+        historyList: prevState.historyList.concat(v)
+      }), () => {
+        history.push(`/new_building/search/${ v }`)
+      })
     }
   }
 
@@ -45,6 +74,7 @@ export default class App extends Component {
         <HistoryList
           data = { this.state.historyList }
           onClick = { this.handleSearch }
+          onDelete = { this.handleRemoveHistory }
         />
       </Fragment>
     )
@@ -68,7 +98,12 @@ const SearchBox = props => {
           <div className = { style['search-hot-list'] }>
             {
               hot.map((v, i) => (
-                <div className = { style['search-hot-list-item'] } onClick = { e => onClick(v, i, e) } key = { i }>{ v }</div>
+                <div
+                  className = { style['search-hot-list-item'] }
+                  onClick = { e => onClick(v, i, e) } key = { i }
+                >
+                  { v }
+                </div>
               ))
             }
           </div>
@@ -78,34 +113,50 @@ const SearchBox = props => {
   )
 }
 
-const HistoryList = props => (
-  <div className = { style['history'] }>
-    <div className = { style['history-header'] }>历史搜索</div>
-    <div className = { style['history-body'] }>
-      <div className = { style['history-list'] }>
+const HistoryList = props => {
+  const {
+    data,
+    onDelete = f => f
+  } = props
+
+  return (
+    <div className = { style['history'] }>
+      <div className = { style['history-header'] }>历史搜索</div>
+      <div className = { style['history-body'] }>
         {
-          props.data.map((v, i) => (
-            <HistoryList.Item
-              value = { v }
+          data && data.length ?
+            <div className = { style['history-list'] }>
+              {
+                props.data.map((v, i) => (
+                  <HistoryList.Item
+                    value = { v }
 
-              onClick = { e => props.onClick(v, i, e) }
+                    onClick = { e => props.onClick(v, i, e) }
+                    onDelete = { e => onDelete(v, i, e) }
 
-              key = { i }
-            />
-          ))
+                    key = { i }
+                  />
+                ))
+              }
+            </div> :
+            <BottomText>没有数据</BottomText>
         }
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 HistoryList.Item = props => {
   const {
     value,
-    onClick
+    onClick,
+    onDelete
   } = props
 
   return (
-    <div onClick = { props.onClick } className = { style['history-list-item'] }>{ value }</div>
+    <div onClick = { props.onClick } className = { style['history-list-item'] }>
+      { value }
+      <Icon type = 'close' className = { style['history-list-item-remove'] } onClick = { e => { onDelete(e) } } />
+    </div>
   )
 }

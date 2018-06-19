@@ -1,7 +1,15 @@
 import React, { Component, Fragment } from 'react'
+import axios from 'axios'
 import cs from 'classnames'
 
+import { Toast } from 'antd-mobile'
+
+import { url, api } from 'config/api'
+
 import style from './index.less'
+
+const { server } = url
+const { getMessageList } = api.i
 
 export default class App extends Component {
   state = {
@@ -11,6 +19,25 @@ export default class App extends Component {
       id: i,
       isNew: i <= 3,
     }))
+  }
+
+  componentDidMount () {
+    this.getMessageList()
+  }
+
+  getMessageList = async () => {
+    Toast.loading('获取数据中...', 0, null, true)
+
+    const [err, res] = await axios.post(server + getMessageList)
+
+    Toast.hide()
+
+    if (err) {
+      Toast.fail(err, 3, null, false)
+
+      return [err]
+    }
+    return [null, res]
   }
 
   render () {

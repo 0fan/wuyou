@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import { connect } from 'react-redux'
 import cs from 'classnames'
 
+import { Toast } from 'antd-mobile'
 import Layout from 'component/layout'
 import Image from 'component/image'
 import Button from 'component/button'
 import Alert from 'component/alert'
+
+import { url, api } from 'config/api'
+
+import { logout, updatePhone } from 'model/user'
 
 import List from 'component/input'
 
@@ -13,8 +20,17 @@ import style from './index.less'
 const { Input } = List
 const { Content } = Layout
 
+const { server } = url
+const { sendCode, bindPhone } = api
+
 const GetAuthLimit = 60
 
+@connect(state => ({
+  user: state.user
+}), {
+  logout,
+  updatePhone
+})
 export default class App extends Component {
   isMount = true
   authTimer = null
@@ -31,9 +47,12 @@ export default class App extends Component {
     isGetAuth: false
   }
 
-  // componentDidMount () {
-  //   this.props.form.validateFields()
-  // }
+  componentDidMount () {
+    // 只有登录之后才能进入此页面
+    // if (!this.props.user.auth) {
+    //   this.props.history.push('/')
+    // }
+  }
 
   componentWillUnmount () {
     this.isMount = false
@@ -41,12 +60,55 @@ export default class App extends Component {
     this.clear()
   }
 
+  sendCode = async () => {
+    Toast.loading('发送验证码...', 0, null, true)
+
+    const [err, res] = await axios.post(server + sendCode, {
+      mobile: this.state.phone
+    })
+
+    Toast.hide()
+
+    if (err) {
+      Toast.fail(err, 3, null, false)
+
+      return [err]
+    }
+
+    Toast.success('验证发送成功', 3, null, false)
+
+    return [null, res]
+  }
+
+  bindPhone = async () => {
+    Toast.loading('绑定手机号中...', 0, null, true)
+
+    const [err, res] = await axios.post(server + bindPhone, {
+      phone: this.state.phone,
+      smsCode: this.state.auth,
+      userId: this.props.user.id,
+    })
+
+    Toast.hide()
+
+    if (err) {
+      Toast.fail(err, 3, null, false)
+
+      return [err]
+    }
+
+    Toast.success('绑定手机号发送成功', 3, null, false)
+    this.props.updatePhone(this.state.phone)
+
+    return [null, res]
+  }
+
   clear = () => {
     clearInterval(this.authTimer)
     this.authTimer = null
   }
 
-  getAuthCode = e => {
+  getAuthCode = async e => {
     e.preventDefault()
 
     if (this.state.isAuth) {
@@ -54,6 +116,12 @@ export default class App extends Component {
     }
 
     if (!this.valid('phone')) {
+      return
+    }
+
+    const [err, res] = await this.sendCode()
+
+    if (err) {
       return
     }
 
@@ -129,10 +197,15 @@ export default class App extends Component {
     })
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     if (this.valid()) {
-      console.log(this.valid())
+      const [err, res] = await this.bindPhone()
     }
+  }
+
+  handleLogout = () => {
+    this.props.logout()
+    this.props.history.push('/')
   }
 
   render () {
@@ -160,7 +233,8 @@ export default class App extends Component {
                   <a href = '#' onClick = { this.getAuthCode }>获取验证码</a>
               }
             />
-            <Button htmlType = 'submit' type = 'primary' onClick = { this.handleSubmit }>登录</Button>
+            <Button htmlType = 'submit' type = 'primary' onClick = { this.handleSubmit } style = { { marginBottom: 20 } }>绑定手机号</Button>
+            <Button onClick = { this.handleLogout }>退出登录</Button>
           </List>
           <Alert
             message = { this.state.msg }

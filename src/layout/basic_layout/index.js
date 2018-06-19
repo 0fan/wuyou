@@ -3,6 +3,7 @@ import _ from 'lodash'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
+import { Toast } from 'antd-mobile'
 import DocumentTitle from 'react-document-title'
 import { AuthRouter } from 'component/auth'
 import Layout from 'component/layout'
@@ -108,6 +109,22 @@ export default class App extends Component {
     return auth ? '/house' : '/new_building'
   }
 
+  // 如果已登录且未绑定手机号码则必须绑定手机号码才能进行操作
+  renderRedirectToBindPhone = () => {
+    const {
+      phone,
+      auth,
+    } = this.props.user
+
+    if (auth && !phone) {
+      Toast.info('必须绑定手机号码才能进行操作', 3, null, false)
+
+      return <Redirect to = '/bind_phone' />
+    }
+
+    return null
+  }
+
   render () {
     const {
       routerData,
@@ -133,6 +150,7 @@ export default class App extends Component {
               { ...this.state.contentConfig }
             >
               <Switch>
+                { this.renderRedirectToBindPhone() }
                 {
                   getRoutes(path, routerData).map((v, i) => (
                     <AuthRouter

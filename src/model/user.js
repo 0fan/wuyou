@@ -1,4 +1,9 @@
+import axios from 'axios'
+import store from 'store'
+
 import reduxGenerator from 'util/reduxGenerator'
+
+const update_phone = 'update_phone'
 
 export const {
   reducer,
@@ -13,11 +18,60 @@ export const {
   type: 'user',
 
   state: {
+    token: '',
+
     id: '',
+    wechatId: '',
+
+    userType: '',
+
     name: '',
-    role: '',
+    nickName: '',
+    headPhoto: '',
+    // 性别
+    // 1 男
+    // 2 女
+    // 0 未知
+    sex: '',
+    idCardNo: '',
+    phone: '',
   },
 
-  auth: true
+  auth: true,
+
+  reduxArr: [{
+    action: update_phone,
+    result: (state, payload) => ({
+      ...state,
+      phone: payload
+    })
+  }]
 
 })
+
+export function updatePhone (payload) {
+  return dispatch => {
+    dispatch({
+      payload,
+      type: update_phone
+    })
+
+    const user = store.get('user')
+
+    if (user) {
+      store.set('user', {
+        ...user,
+        phone: payload
+      })
+    }
+  }
+}
+
+export function logout () {
+  return dispatch => {
+    dispatch(reset())
+
+    store.remove('user')
+    axios.defaults.headers.common['token'] = undefined
+  }
+}

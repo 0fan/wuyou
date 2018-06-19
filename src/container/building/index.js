@@ -1,18 +1,39 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
+import { Toast } from 'antd-mobile'
 import LinkTabs from 'component/link_tabs'
 import Image from 'component/image'
 
 import { AuthRouter } from 'component/auth'
 import { getRoutes } from 'util/getRoutes'
 
+import { getBuilding  } from 'model/building'
+
 import Context from 'context/config'
 
 import style from './index.less'
 
+@connect(state => ({
+  user: state.user,
+  building: state.building
+}), {
+  getBuilding
+})
 class App extends Component {
+  isMount = true
+
+  state = {
+    focus: '',
+    building: '',
+    price: '',
+    tag: []
+  }
+
   componentDidMount () {
+    const { id } = this.props.match.params
+
     const {
       footerConfig,
       changeFooter
@@ -21,6 +42,12 @@ class App extends Component {
     if (footerConfig.length) {
       changeFooter([])
     }
+
+    this.props.getBuilding(id)
+  }
+
+  componentWillUnmount () {
+    this.isMount = false
   }
 
   render () {
@@ -34,11 +61,11 @@ class App extends Component {
 
     return (
       <Fragment>
-        <Focus src = 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=454443111,856819310&fm=200&gp=0.jpg' />
+        <Focus src = { this.state.focus } />
         <Panel
-          title = '融创九樾府'
-          tag = { ['观山湖区', '高层'] }
-          price = '10,000元/平'
+          title = { this.state.building }
+          tag = { this.state.tag }
+          price = { this.state.price }
         />
         <LinkTabs
           tabs = {
@@ -87,10 +114,14 @@ const Focus = props => {
 
   return (
     <div className = { style.focus } { ...rest }>
-      <Image
-        src = { src }
-        { ...rest }
-      />
+      {
+        src ?
+          <Image
+            src = { src }
+            { ...rest }
+          /> :
+          null
+      }
     </div>
   )
 }
@@ -125,7 +156,13 @@ const Panel = props => {
       <div className = { style['panel-right'] }>
         <div className = { style['panel-price'] }>
           <span className = { style['panel-price-title'] }>参考价</span>
-          <span className = { style['panel-price-value'] }>{ price }</span>
+          <span className = { style['panel-price-value'] }>
+            {
+              price ?
+                price + '元/平' :
+                '未知'
+            }
+          </span>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import Avatar from 'component/avatar'
 import List from 'component/list'
 import BottomText from 'component/bottom-text'
 
-import { reset } from 'model/user'
+import { logout } from 'model/user'
 
 import style from './index.less'
 
@@ -15,7 +15,7 @@ const { Item } = List
 @connect(state => ({
   user: state.user
 }), {
-  reset
+  logout
 })
 export default class App extends Component {
   render () {
@@ -42,7 +42,7 @@ export default class App extends Component {
           <Item title = '反馈建议' to = '/i/feedback' />
           <Item title = '关于我们' to = '/i/about' />
         </List>
-        <button onClick = { this.props.reset }>退出</button>
+        <button onClick = { this.props.logout }>退出</button>
         <BottomText>
           <p>筑房无忧</p>
           <p>v1.0.0</p>
@@ -57,15 +57,26 @@ const Panel = props => {
     auth,
     userData: {
       nickName,
-      role,
+      userType,
       id,
-      avatar = ''
+      headPhoto = ''
     },
 
     children,
 
     ...rest
   } = props
+
+  const renderRole = code => {
+    switch (code) {
+      case '0':
+        return <span className = { style['panel-name-role'] }>准业主</span>
+      case '1':
+        return <span className = { style['panel-name-role'] }>管理员</span>
+      default:
+        return null
+    }
+  }
 
   if (!auth) {
     return (
@@ -89,11 +100,7 @@ const Panel = props => {
                 nickName
             }
           </span>
-          {
-            role ?
-              <span className = { style['panel-name-role'] }>{ role }</span> :
-              null
-          }
+          { renderRole(userType) }
         </div>
         {
           id ?
@@ -102,7 +109,7 @@ const Panel = props => {
         }
       </div>
       <div className = { style['panel-right'] }>
-        <Avatar size = { 62 } data = { avatar } />
+        <Avatar size = { 62 } data = { headPhoto } />
       </div>
     </div>
   )

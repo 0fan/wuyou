@@ -101,10 +101,26 @@ const routerConfig = {
     name: '预约看房',
     component: dynamicWrapper(() => import('container/service/appointment'))
   },
-  // '/service/loan_calculator': {
-  //   name: '贷款计算器',
-  //   component: dynamicWrapper(() => import('container/service/loan_calculator'))
-  // },
+  '/service/loan_calculator': {
+    name: '贷款计算器',
+    component: dynamicWrapper(() => import('container/service/loan_calculator'))
+  },
+  '/service/loan_calculator/home': {
+    name: '贷款计算器',
+    component: dynamicWrapper(() => import('container/service/loan_calculator/home'))
+  },
+  '/service/loan_calculator/common': {
+    name: '贷款计算器',
+    component: dynamicWrapper(() => import('container/service/loan_calculator/common'))
+  },
+  '/service/loan_calculator/combine': {
+    name: '贷款计算器',
+    component: dynamicWrapper(() => import('container/service/loan_calculator/combine'))
+  },
+  '/service/loan_calculator/result': {
+    name: '贷款计算器',
+    component: dynamicWrapper(() => import('container/service/loan_calculator/result'))
+  },
   '/service/tax_calculator': {
     name: '税务计算器',
     component: dynamicWrapper(() => import('container/service/tax_calculator'))
@@ -157,11 +173,13 @@ const routerConfig = {
   },
   '/i/message': {
     name: '消息记录',
-    component: dynamicWrapper(() => import('container/i/message'))
+    component: dynamicWrapper(() => import('container/i/message')),
+    auth: true
   },
   '/i/setting': {
     name: '帐号设置',
-    component: dynamicWrapper(() => import('container/i/setting'))
+    component: dynamicWrapper(() => import('container/i/setting')),
+    auth: true
   },
   '/i/setting/home': {
     name: '帐号设置',
@@ -173,7 +191,8 @@ const routerConfig = {
   },
   '/i/auth': {
     name: '授权管理',
-    component: dynamicWrapper(() => import('container/i/auth'))
+    component: dynamicWrapper(() => import('container/i/auth')),
+    auth: true
   },
   '/i/feedback': {
     name: '反馈建议',

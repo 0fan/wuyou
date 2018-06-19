@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import cs from 'classnames'
@@ -11,9 +13,18 @@ import Sort from 'component/sort'
 import HouseList from 'component/house-list'
 import HouseInlineList from 'component/house-inline-list'
 
+import { url, api } from 'config/api'
+
 import wait from 'util/wait'
 
 import style from './index.less'
+
+const { server } = url
+const {
+  getFlash,
+  getNewBuildingList,
+  getBuildingList
+} = api.new_building
 
 const getData = count => (
   Array(count).fill({
@@ -26,27 +37,36 @@ const getData = count => (
   })
 )
 
+@connect(state => ({
+  user: state.user
+}), {})
 export default class App extends Component {
   state = {
-    flash: Array(5).fill({
-      src: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=360869140,1895507837&fm=27&gp=0.jpg',
-    }),
+    flash: [],
 
-    newBuilding: {
-      '高层': getData(5),
-      '洋房': getData(5),
-      '大平层': getData(5),
-      '别墅': getData(5),
+    newBuilding: {},
+
+    building: [],
+    buildingFilter: {
+      buildingName: '',
+      area: '',
+      type: '',
+      minPrice: '',
+      maxPrice: '',
+      layOut: '',
+      currentPage: 1,
     },
+    buildingLoding: true,
 
-    building: getData(2),
-
-    loading: false,
     isEnd: false
   }
 
   componentDidMount () {
     this.$content = document.getElementById('content')
+
+    this.getFlash()
+    this.getNewBuilding()
+    this.getBuilding()
 
     this.$content.addEventListener('scroll', this.handleSrcoll)
   }
@@ -55,10 +75,11 @@ export default class App extends Component {
     this.$content.removeEventListener('srcoll', this.handleSrcoll)
   }
 
+  // 滚动到底部拉去数据
   handleSrcoll = _.throttle(async e => {
-    const { loading, isEnd } = this.state
+    const { buildingLoding, isEnd } = this.state
 
-    if (isEnd || loading) {
+    if (isEnd || buildingLoding) {
       return
     }
 
@@ -69,28 +90,95 @@ export default class App extends Component {
     } = e.target
 
     if (clientHeight + scrollTop >= scrollHeight) {
-      await this.setState({ loading: true })
-
-      await wait(3)
-
-      this.setState(prevState => ({
-        building: prevState.building.concat(getData(2)),
-
-        loading: false,
-      }))
+      await this.getBuilding()
     }
   }, 100)
+
+  // 获取轮播图
+  getFlash = async () => {
+    const [err, res] = await axios.get(server + getFlash)
+
+    if (err) {
+      return [err]
+    }
+
+    this.setState({
+      flash: res.object.map(v => ({
+        src: this.getLink(v.imgPath),
+        title: v.title,
+        href: this.getLink(v.buttonLinkHref),
+      }))
+    })
+
+    return [null, res]
+  }
+
+  // 获取新开楼盘
+  getNewBuilding = async () => {
+    const [err, res] = await axios.get(server + getNewBuildingList)
+
+    if (err) {
+      return [err]
+    }
+
+    this.setState({
+      newBuilding: res.object || {}
+    })
+
+    return [null, res]
+  }
+
+  // 获取楼盘列表
+  getBuilding = async () => {
+    const { buildingFilter } = this.state
+
+    this.setState({ buildingLoding: true })
+
+    const [err, res] = await axios.post(server + getBuildingList, buildingFilter)
+
+    this.setState({ buildingLoding: false })
+
+    if (err) {
+      return [err]
+    }
+
+    const { object = [] } = res
+
+    this.setState(prevState => ({
+      building: prevState.building.concat(object),
+      isEnd: object.length < 5,
+
+      buildingFilter: {
+        ...prevState.buildingFilter,
+        currentPage: prevState.buildingFilter.currentPage + 1
+      }
+    }))
+
+    return [null, res]
+  }
+
+  getLink = v => {
+    if (!v) {
+      return ''
+    }
+
+    return (
+      /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i.test(v) ?
+        v :
+        server + v
+    )
+  }
 
   render () {
     let bottomText = ''
 
     const {
-      loading,
+      buildingLoding,
       isEnd,
       building
     } = this.state
 
-    if (loading) {
+    if (buildingLoding) {
       bottomText = <Spin />
     } else {
       if (building.length <= 0) {
@@ -193,7 +281,7 @@ class Tabs extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (this.props.tabs !== nextProps.tabs) {
+    if (nextProps.tabs) {
       this.setState({ tabs: nextProps.tabs })
     }
   }
