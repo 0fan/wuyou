@@ -58,5 +58,5 @@ export const valid_money = type => [{
   required: true,
   message: `请输入${ type }`
 }, {
-  validator: type
+  validator: money
 }]

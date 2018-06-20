@@ -25,10 +25,14 @@ export default class App extends Component {
   constructor (props) {
     super(props)
 
+    const config = this.getConfig(props)
+
     this.state = {
+      hideMenu: config.hideMenu,
+
       contentConfig: {
-        grey: true,
-        flex: false
+        flex: config.flex,
+        grey: true
       },
       changeContent: v => {
         this.setState(prevState => ({
@@ -42,7 +46,10 @@ export default class App extends Component {
 
       footerConfig: this.getFooter(props.user.auth),
       changeFooter: v => {
-        this.setState({ footerConfig: v })
+        this.setState({
+          footerConfig: v,
+          hideMenu: v && v.length ? true : false
+        })
       }
     }
   }
@@ -80,7 +87,11 @@ export default class App extends Component {
   }
 
   renderFooter = () => {
-    const { footerConfig } = this.state
+    const { footerConfig, hideMenu } = this.state
+
+    if (hideMenu) {
+      return null
+    }
 
     if (footerConfig && footerConfig.length) {
       return (
@@ -125,6 +136,32 @@ export default class App extends Component {
     return null
   }
 
+  getConfig = (props) => {
+    const { routerData, location: { pathname } } = props || this.props
+
+    let currRouterData = {}
+
+    Object.keys(routerData).forEach(v => {
+      if (pathToRegexp(v).test(pathname)) {
+        currRouterData = routerData[v]
+      }
+    })
+
+    return currRouterData
+  }
+
+  getTitle = () => {
+    const data = this.getConfig()
+
+    let title = '筑房无忧'
+
+    if (data && data.name) {
+      title = `${ data.name } ${ title }`
+    }
+
+    return title
+  }
+
   render () {
     const {
       routerData,
@@ -136,7 +173,7 @@ export default class App extends Component {
     const renderFooter = this.renderFooter()
 
     return (
-      <DocumentTitle title = 'hello world'>
+      <DocumentTitle title = { this.getTitle() }>
         <Context.Provider
           value = { {
             contentConfig: this.state.contentConfig,

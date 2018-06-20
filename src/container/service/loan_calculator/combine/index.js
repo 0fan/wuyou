@@ -29,18 +29,12 @@ class App extends Component {
 
   componentDidMount () {
     const {
-      contentConfig,
-      changeContent,
       footerConfig,
       changeFooter
     } = this.props
 
     if (footerConfig.length) {
       changeFooter([])
-    }
-
-    if (!contentConfig.grey) {
-      changeContent({ grey: true })
     }
   }
 

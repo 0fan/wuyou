@@ -111,7 +111,8 @@ const routerConfig = {
   },
   '/service/loan_calculator/common': {
     name: '贷款计算器',
-    component: dynamicWrapper(() => import('container/service/loan_calculator/common'))
+    component: dynamicWrapper(() => import('container/service/loan_calculator/common')),
+    hideMenu: true
   },
   '/service/loan_calculator/combine': {
     name: '贷款计算器',
@@ -119,7 +120,9 @@ const routerConfig = {
   },
   '/service/loan_calculator/result': {
     name: '贷款计算器',
-    component: dynamicWrapper(() => import('container/service/loan_calculator/result'))
+    component: dynamicWrapper(() => import('container/service/loan_calculator/result')),
+    hideMenu: true,
+    flex: true,
   },
   '/service/tax_calculator': {
     name: '税务计算器',

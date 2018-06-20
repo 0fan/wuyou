@@ -17,7 +17,7 @@ export default class App extends Component {
     this.$slider = this.$el.querySelector('[aria-valuenow]')
 
     if (this.$slider) {
-      this.$slider.setAttribute('aria-valuenow', this.$slider.getAttribute('aria-valuenow') + this.props.suffix)
+      this.$slider.setAttribute('valuenow', this.$slider.getAttribute('aria-valuenow') + this.props.suffix)
     }
   }
 
@@ -29,9 +29,9 @@ export default class App extends Component {
       const value = this.$slider.getAttribute('aria-valuenow')
 
       if (suffix && !new RegExp(`${ suffix }$`).test(value)) {
-        this.$slider.setAttribute('aria-valuenow', value + suffix)
+        this.$slider.setAttribute('valuenow', value + suffix)
       }
-    }, 10)
+    }, 0)
 
     onChange(v)
   }
