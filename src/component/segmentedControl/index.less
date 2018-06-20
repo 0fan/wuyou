@@ -1,3 +1,29 @@
+@import '~less/mixin.less';
+
 .switch {
   min-height: 46px;
+
+  [aria-selected="true"] {
+    .box-title {
+      color: #939ABA;
+    }
+    .box-value {
+      color: #fff;
+    }
+  }
+}
+.box {
+  text-align: center;
+
+  &-title {
+    font-size: 12px;
+    color: #ADADAD;
+    margin-bottom: 5px;
+    line-height: 1.2;
+  }
+
+  &-value {
+    color: #222;
+    font-size: 16px;
+  }
 }

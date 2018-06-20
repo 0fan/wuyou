@@ -59,13 +59,20 @@ class App extends Component {
       }
     } = this.props
 
+    const {
+      buildingName,
+      buildingTag,
+      amount,
+      backgroundImg
+    } = this.props.building
+
     return (
       <Fragment>
-        <Focus src = { this.state.focus } />
+        <Focus src = { backgroundImg } />
         <Panel
-          title = { this.state.building }
-          tag = { this.state.tag }
-          price = { this.state.price }
+          title = { buildingName }
+          tag = { buildingTag.split(',').filter(v => v) }
+          price = { amount }
         />
         <LinkTabs
           tabs = {

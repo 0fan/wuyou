@@ -23,8 +23,9 @@ const { server } = url
 const {
   getFlash,
   getNewBuildingList,
-  getBuildingList
+  getBuildingList,
 } = api.new_building
+const { building_filter } = api.dict
 
 const getData = count => (
   Array(count).fill({
@@ -47,18 +48,27 @@ export default class App extends Component {
     newBuilding: {},
 
     building: [],
+    // 筛选条件
     buildingFilter: {
       buildingName: '',
       area: '',
       type: '',
+      // omit
+      price: '',
       minPrice: '',
       maxPrice: '',
       layOut: '',
       currentPage: 1,
     },
+    // 筛选数据
+    buildingFilterData: [],
     buildingLoding: true,
 
-    isEnd: false
+    isEnd: false,
+
+    // 右上角选房搜索按钮
+    // 在做楼盘筛选的时候需要隐藏一下
+    visibleFixedSearch: true
   }
 
   componentDidMount () {
@@ -67,6 +77,7 @@ export default class App extends Component {
     this.getFlash()
     this.getNewBuilding()
     this.getBuilding()
+    this.getFilter()
 
     this.$content.addEventListener('scroll', this.handleSrcoll)
   }
@@ -122,19 +133,45 @@ export default class App extends Component {
     }
 
     this.setState({
-      newBuilding: res.object || {}
+      newBuilding: res.object
     })
 
     return [null, res]
   }
 
   // 获取楼盘列表
-  getBuilding = async () => {
-    const { buildingFilter } = this.state
+  getBuilding = async (isFilter) => {
+    // 需要把筛选条件处理一下
+    const {
+      price = '',
+      ...rest
+    } = this.state.buildingFilter
+
+    let minPrice = ''
+    let maxPrice = ''
+
+    // 魔性的处理
+    if (/以上$/g.test(price)) {
+      minPrice = parseFloat(price)
+    } else if (/以下$/g.test(price)) {
+      maxPrice = parseFloat(price)
+    } else {
+      const range = price.split('-').filter(v => v.length)
+
+      if (range.length) {
+        minPrice = parseFloat(range[0])
+        maxPrice = parseFloat(range[1])
+      }
+    }
 
     this.setState({ buildingLoding: true })
 
-    const [err, res] = await axios.post(server + getBuildingList, buildingFilter)
+    const [err, res] = await axios.post(server + getBuildingList, {
+      ...rest,
+
+      minPrice,
+      maxPrice
+    })
 
     this.setState({ buildingLoding: false })
 
@@ -145,16 +182,71 @@ export default class App extends Component {
     const { object = [] } = res
 
     this.setState(prevState => ({
-      building: prevState.building.concat(object),
+      // 从筛选来请求的数据要重新开始,页码也要重置
+      building: isFilter ? object : prevState.building.concat(object),
       isEnd: object.length < 5,
 
       buildingFilter: {
         ...prevState.buildingFilter,
-        currentPage: prevState.buildingFilter.currentPage + 1
+        currentPage: isFilter ? 1 : prevState.buildingFilter.currentPage + 1
       }
     }))
 
     return [null, res]
+  }
+
+  // 获取楼盘筛选数据
+  getFilter = async () => {
+    const [err, res] = await axios.get(server + building_filter)
+
+    if (err) {
+      return [err]
+    }
+
+    const { object } = res
+
+    const keys = Object.keys(object)
+
+    let data = {}
+
+    keys.forEach((key, i) => {
+      let label = ''
+
+      switch (key) {
+        case 'area':
+          label = '区域'
+          break
+        case 'layOut':
+          label = '户型'
+          break
+        case 'price':
+          label = '价格'
+          break
+        case 'type':
+          label = '类型'
+          break
+      }
+
+      data[key] = [{
+        label: `不限${ label }`,
+        value: ''
+      }]
+    })
+
+    keys.map((key, i) => {
+      object[key].map((_v, _i) => {
+        data[key].push({
+          value: _v,
+          label: _v
+        })
+      })
+    })
+
+    this.setState({
+      buildingFilterData: data
+    })
+
+    return [null, res.object]
   }
 
   getLink = v => {
@@ -168,6 +260,21 @@ export default class App extends Component {
         server + v
     )
   }
+
+  handleFilterChange = _.debounce(v => {
+    // 不重复获取数据
+    if (!_.isEqual(v, this.state.buildingFilter)) {
+      this.setState({
+        buildingFilter: {
+          ...v,
+          currentPage: 1
+        },
+      }, () => {
+        // 触发筛选啦
+        this.getBuilding(true)
+      })
+    }
+  }, 500)
 
   render () {
     let bottomText = ''
@@ -215,7 +322,13 @@ export default class App extends Component {
             ))
           }
         </Tabs>
-        <Sort />
+        <Sort
+          data = { this.state.buildingFilterData }
+          value = { this.state.buildingFilter }
+          onChange = { this.handleFilterChange }
+          onOpen = { () => this.setState({ visibleFixedSearch: false }) }
+          onClose = { () => this.setState({ visibleFixedSearch: true }) }
+        />
         <HouseList>
           {
             this.state.building.map((v, i) => (
@@ -233,7 +346,7 @@ export default class App extends Component {
           }
         </HouseList>
         <BottomText>{ bottomText }</BottomText>
-        <Search />
+        <Search visible = { this.state.visibleFixedSearch } />
       </Fragment>
     )
   }
@@ -314,8 +427,18 @@ class Tabs extends Component {
   }
 }
 
-const Search = props => (
-  <Link to = '/new_building/search' className = { style.search } { ...props }>
-    <Icon type = 'search' />
-  </Link>
-)
+const Search = props => {
+  const {
+    visible,
+
+    ...rest
+  } = props
+
+  return (
+    visible ?
+      <Link to = '/new_building/search' className = { style.search } { ...rest }>
+        <Icon type = 'search' />
+      </Link> :
+      null
+  )
+}

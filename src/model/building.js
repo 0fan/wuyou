@@ -21,25 +21,31 @@ export const {
   type: 'building',
 
   state: {
-    // 楼盘id
     id: '',
-    // 标签
-    tag: [],
-    // 价格
-    price: '',
-    // 区域
-    area: '',
+    // 纬度
+    latitude: '',
     // 经度
     longitude: '',
-    // 维度
-    latitude: '',
+    // 类型
+    type: '',
+    // 楼盘价格
+    amount: '',
+    // 区域
+    area: '',
+    // 背景图
+    backgroundImg: '',
+    // 楼盘名称
+    buildingName: '',
+    // 楼盘标签
+    buildingTag: '',
 
+    // 列表数据
     // 动态
-    dynamic: [],
+    renews: [],
     // 图集
     atlas: [],
-    // 户型
-    houseType: []
+    // 户型图列表
+    buildingType: []
   }
 
 })
@@ -48,18 +54,19 @@ export function getBuilding (buildingId) {
   return async (dispatch, getState) => {
     const store = getState().building
 
-    console.log(store)
-
+    // 需要id
     if (!buildingId) {
       return ['没有传递buildingId']
     }
 
+    // 不能重复请求
     if (store.loading) {
-      return ['重复获取']
+      return ['不能重复请求']
     }
 
+    // id相同就不重新获取数据啦
     if (store.id && buildingId === store.id) {
-      return [null, getState().building]
+      return [null, store]
     }
 
     // 重置之前的数据
@@ -76,21 +83,43 @@ export function getBuilding (buildingId) {
     }
 
     const {
-      latitude,
-      longitude,
-      type,
       id,
+      // 纬度
+      latitude,
+      // 经度
+      longitude,
+      // 类型
+      type,
+      // 楼盘价格
+      amount,
+      // 区域
       area,
-      renews,
-      tag,
-      price,
+      // 背景图
       backgroundImg,
+      // 楼盘名称
       buildingName,
-      buildingType,
+      // 楼盘标签
+      buildingTag,
+
+      renews = [],
+      jcvImgArrayMobie = '',
+      buildingType = []
     } = res.object
 
     dispatch(success({
-      id: id.toString()
+      id: id.toString(),
+      latitude,
+      longitude,
+      type,
+      amount,
+      area,
+      backgroundImg,
+      buildingName,
+      buildingTag,
+
+      renews,
+      atlas: jcvImgArrayMobie.split(',').filter(v => v),
+      buildingType
     }))
 
     return [null, res]

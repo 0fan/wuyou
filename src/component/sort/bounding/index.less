@@ -1,0 +1,50 @@
+@import '~less/mixin.less';
+
+.list {
+  background: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  max-height: 400px;
+
+  z-index: 500;
+
+  .scrollable();
+
+  // .hairline(top, #E5E5E5);
+}
+.item {
+  height: 40px;
+  align-items: center;
+  display: flex;
+  padding-left: 15px;
+  position: relative;
+  padding-right: 60px;
+
+  span {
+    .text-overflow();
+  }
+
+
+  .hairline(bottom, #E5E5E5);
+
+  &-select {
+    color: #293677;
+
+    &:before {
+      color: #293677;
+      content: "\E632";
+      font-family: 'anticon';
+      position: absolute;
+      right: 18px;
+      font-size: 20px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+  }
+
+  &:last-child {
+    .hairline-remove(bottom);
+  }
+}

@@ -1,13 +1,17 @@
 @import '~less/mixin.less';
 
 .sort {
-  height: 48px;
   position: relative;
-  display: flex;
-  background: #fff;
-  justify-content: space-between;
 
-  .hairline(bottom, #E0E0E0);
+  &-inner {
+    display: flex;
+    background: #fff;
+    justify-content: space-between;
+    height: 48px;
+    position: relative;
+
+    .hairline(bottom, #E0E0E0);
+  }
 
   &-item {
     flex: 1;
@@ -19,8 +23,11 @@
     align-items: center;
     justify-content: center;
     min-width: 0;
+    padding: 0 5px;
 
-    .text-overflow();
+    span {
+      .text-overflow();
+    }
 
     &:before {
       content: '';
@@ -46,7 +53,7 @@
       width: 0;
       height: 0;
       margin-left: 8px;
-      margin-top: -1px;
+      margin-top: 1px;
       border-right: 4px solid transparent;
       border-left: 4px solid transparent;
       border-top: 5px solid #D8D8D8;

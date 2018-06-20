@@ -24,11 +24,14 @@ export default class App extends Component {
   handleChange = v => {
     const { onChange } = this.props
 
-    if (this.$slider) {
-      setTimeout(() => {
-        this.$slider.setAttribute('aria-valuenow', this.$slider.getAttribute('aria-valuenow') + this.props.suffix)
-      }, 0)
-    }
+    setTimeout(() => {
+      const { suffix } = this.props
+      const value = this.$slider.getAttribute('aria-valuenow')
+
+      if (suffix && !new RegExp(`${ suffix }$`).test(value)) {
+        this.$slider.setAttribute('aria-valuenow', value + suffix)
+      }
+    }, 10)
 
     onChange(v)
   }

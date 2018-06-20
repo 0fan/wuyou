@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Image from 'component/image'
+import BottomText from 'component/bottom-text'
 
 import style from './index.less'
 
@@ -27,25 +28,29 @@ const Box =  props => {
           <div className = { style['box-header'] }>{ headerContent }</div> :
           null
       }
-      <div className = { style['box-wrap'] }>
-        <div className = { style['box-list'] }>
-          {
-            children ?
-              children :
-              data.map((v, i) => (
-                <Box.Item
-                  size = { size }
-                  radius = { radius }
-                  data = { v }
+      {
+        children || data.length ?
+          <div className = { style['box-wrap'] }>
+            <div className = { style['box-list'] }>
+              {
+                children ?
+                  children :
+                  data.map((v, i) => (
+                    <Box.Item
+                      size = { size }
+                      radius = { radius }
+                      data = { v }
 
-                  onClick = { e => { onClick(v, i, e) } }
+                      onClick = { e => { onClick(v, i, e) } }
 
-                  key = { i }
-                />
-              ))
-          }
-        </div>
-      </div>
+                      key = { i }
+                    />
+                  ))
+              }
+            </div>
+          </div> :
+          <BottomText>没有数据</BottomText>
+      }
       {
         footerContent ?
           <div className = { style['box-header'] }>{ footerContent }</div> :

@@ -27,17 +27,36 @@ export default class Mask extends Component {
       visible,
       onMaskClick,
 
+      top = 0,
+      zIndex = 1000,
+
+      animate = true,
+
       ...rest
     } = this.props
 
+    const styleString = {
+      top,
+      zIndex
+    }
+
+    if (animate) {
+      return createPortal(
+        <Animate transitionName = 'fade'>
+          {
+            visible ?
+              <div style = { styleString } className = { style.mask } onClick = { onMaskClick }></div> :
+              null
+          }
+        </Animate>,
+        this.el
+      )
+    }
+
     return createPortal(
-      <Animate transitionName = 'fade'>
-        {
-          visible ?
-            <div className = { style.mask } onClick = { onMaskClick }></div> :
-            null
-        }
-      </Animate>,
+      visible ?
+        <div style = { styleString } className = { style.mask } onClick = { onMaskClick }></div> :
+        null,
       this.el
     )
   }

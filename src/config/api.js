@@ -36,7 +36,7 @@ const api = {
 
   // 字典
   dict: {
-    search: 'app/index/getSerch'
+    building_filter: 'app/index/getSerch'
   }
 }
 

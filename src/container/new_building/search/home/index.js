@@ -13,7 +13,8 @@ export default class App extends Component {
   state = {
     value: '',
 
-    hotList: ['融创九樾府', '中环国际', '观府壹号'],
+    // hotList: ['融创九樾府', '中环国际', '观府壹号'],
+    hotList: [],
     historyList: []
   }
 
@@ -95,18 +96,22 @@ const SearchBox = props => {
       <div className = { style['search-hot'] }>
         <div className = { style['search-hot-title'] }>热门搜索</div>
         <div className = { style['search-hot-content'] }>
-          <div className = { style['search-hot-list'] }>
-            {
-              hot.map((v, i) => (
-                <div
-                  className = { style['search-hot-list-item'] }
-                  onClick = { e => onClick(v, i, e) } key = { i }
-                >
-                  { v }
-                </div>
-              ))
-            }
-          </div>
+          {
+            hot && hot.length ?
+              <div className = { style['search-hot-list'] }>
+                {
+                  hot.map((v, i) => (
+                    <div
+                      className = { style['search-hot-list-item'] }
+                      onClick = { e => onClick(v, i, e) } key = { i }
+                    >
+                      { v }
+                    </div>
+                  ))
+                }
+              </div> :
+              <BottomText style = { { padding: '10px 0' } }>没有数据</BottomText>
+          }
         </div>
       </div>
     </div>

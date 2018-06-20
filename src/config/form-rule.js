@@ -20,6 +20,15 @@ export const mobile = (r, v, cb) => {
   }
 }
 
+// 手机号码
+export const money = (r, v, cb) => {
+  if (!/^([0-9]*[1-9][0-9]*(.[0-9]+)?|[0]+.[0-9]*[1-9][0-9]*)$/.test(v)) {
+    cb(new Error('格式错误'))
+  } else {
+    cb()
+  }
+}
+
 // 组合验证规则
 
 // 中文姓名
@@ -42,4 +51,12 @@ export const valid_mobile = [{
   message: '请输入手机号码'
 }, {
   validator: mobile
+}]
+
+// 金额
+export const valid_money = type => [{
+  required: true,
+  message: `请输入${ type }`
+}, {
+  validator: type
 }]

@@ -1,6 +1,16 @@
+@import '~less/mixin.less';
+
 .search {
   padding: 20px 16px;
   background: #fff;
+  position: relative;
+
+  &-top-border {
+    .hairline(top, #E0E0E0);
+  }
+  &-bottom-border {
+    .hairline(bottom, #E0E0E0);
+  }
 
   :global {
     .am-search {
