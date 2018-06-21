@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 
+import { Badge } from 'antd-mobile'
+
 import regex from 'path-to-regexp'
 import cs from 'classnames'
 
@@ -11,6 +13,7 @@ export default class App extends Component {
   render () {
     const {
       text,
+      badge,
       type,
       children,
       to,
@@ -36,7 +39,12 @@ export default class App extends Component {
 
         to = { to }
       >
-        <div className = { style['footer-menu-text'] }>{ text }</div>
+        <div className = { style['footer-menu-text'] }>
+          {
+            badge ? <Badge text = { badge } /> : null
+          }
+          { text }
+        </div>
       </Link>
     )
   }

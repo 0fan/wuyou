@@ -102,6 +102,7 @@ export default class App extends Component {
                 type = { v.type }
                 to = { v.to || '/' }
                 text = { v.text }
+                badge = { v.badge }
 
                 key = { i }
               />

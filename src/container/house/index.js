@@ -1,31 +1,86 @@
 import React, { Component, Fragment } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import { Spin } from 'antd'
+import Alert from 'component/alert'
 import Image from 'component/image'
 import BottomText from 'component/bottom-text'
+import Empty from 'component/empty'
+
+import { url, api } from 'config/api'
 
 import style from './index.less'
+
+const { server } = url
+const { getHouseList } = api.i
 
 @connect(state => ({
   user: state.user
 }), {})
 export default class App extends Component {
-  state = {
-    data: Array(2).fill(0).map((v, i) => ({
-      id: i,
-      img: 'http://img5.imgtn.bdimg.com/it/u=1249777653,196599392&fm=27&gp=0.jpg',
-      title: '融创九樾府',
-      tag: ['观山湖区', '高层'],
-      news: {
-        text: '融创九樾府5月25日2栋大平层开盘',
-        link: '/i'
-      },
-      referencePrice: 14000,
-      owner: 342,
-      hot: 70,
-      to: `/building/${ i }`
-    }))
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      data: [],
+      msg: '',
+      loading: false
+      // data: Array(2).fill(0).map((v, i) => ({
+      //   id: i,
+      //   img: 'http://img5.imgtn.bdimg.com/it/u=1249777653,196599392&fm=27&gp=0.jpg',
+      //   title: '融创九樾府',
+      //   tag: ['观山湖区', '高层'],
+      //   news: {
+      //     text: '融创九樾府5月25日2栋大平层开盘',
+      //     link: '/i'
+      //   },
+      //   referencePrice: 14000,
+      //   owner: 342,
+      //   hot: 70,
+      //   to: `/building/${ i }`
+      // }))
+    }
+  }
+
+  componentDidMount () {
+    this.getHouse()
+  }
+
+  getHouse = async () => {
+    this.setState({ loading: true })
+
+    const [err, res] = await axios.post(server + getHouseList)
+
+    this.setState({ loading: false })
+
+    if (err) {
+      this.setState({ msg: err })
+
+      return [err]
+    }
+
+    const {
+      propertySize,
+      returnBuildings = []
+    } = res.object
+
+    this.setState({
+      data: returnBuildings.map(v => ({
+        id: v.id,
+        img: v.backgroundImg,
+        title: v.originalName,
+        tag: v.buildingTag ? v.buildingTag.split(',').filter(v => v) : [],
+        news: v.renews ? { text: v.renews[0].content, link: `/building/${ v.id }/detail/dynamic` } : null,
+        referencePrice: v.amountArray,
+        owner: v.ownerNum,
+        hot: 70,
+        to: `/building/${ v.id }`
+      }))
+    })
+
+    return [null, res.object]
   }
 
   handleClick = (v, i, e) => {
@@ -34,14 +89,23 @@ export default class App extends Component {
 
   render () {
     return (
-      <List
-        data = { this.state.data }
+      <Fragment>
+        <Alert message = { this.state.msg } />
+        <List
+          data = { this.state.data }
 
-        renderHeader = { () => <div>共绑定{ this.state.data.length }个楼盘</div> }
-        renderFooter = { () => <BottomText>没有更多</BottomText> }
+          headerContent = { !this.state.loading && this.state.data.length ? <div>共绑定{ this.state.data.length }个楼盘</div> : null }
+          footerContent = {
+            this.state.loading ?
+              <BottomText><Spin /></BottomText> :
+              !this.state.data.length ?
+                <Empty text = '没有绑定的楼盘' /> :
+                <BottomText>没有更多</BottomText>
+          }
 
-        onClick = { this.handleClick }
-      />
+          onClick = { this.handleClick }
+        />
+      </Fragment>
     )
   }
 }
@@ -50,8 +114,8 @@ const List = props => {
   const {
     data = [],
 
-    renderHeader,
-    renderFooter,
+    headerContent,
+    footerContent,
 
     children,
 
@@ -63,8 +127,8 @@ const List = props => {
   return (
     <div className = { style['list-wrap'] }>
       {
-        renderHeader ?
-          <div className = { style['list-header'] }>{ renderHeader() }</div> :
+        headerContent ?
+          <div className = { style['list-header'] }>{ headerContent }</div> :
           null
       }
       <div className = { style['list-body'] }>
@@ -81,8 +145,8 @@ const List = props => {
         }
       </div>
       {
-        renderFooter ?
-          <div className = { style['list-footer'] }>{ renderFooter() }</div> :
+        footerContent ?
+          <div className = { style['list-footer'] }>{ footerContent }</div> :
           null
       }
     </div>
@@ -110,17 +174,13 @@ List.Item = props => {
       <div className = { style['item-inner'] }>
         <div className = { style['item-body'] }>
           <div className = { style['item-title'] }>{ title }</div>
-          {
-            tag.length ?
-              <div className = { style['item-tag'] }>
-                {
-                  tag.map((v, i) => (
-                    <div className = { style['item-tag-item'] } key = { i }>{ v }</div>
-                  ))
-                }
-              </div> :
-              null
-          }
+          <div className = { style['item-tag'] }>
+            {
+              tag.map((v, i) => (
+                <div className = { style['item-tag-item'] } key = { i }>{ v }</div>
+              ))
+            }
+          </div>
           {
             news ?
               <Link onClick = { e => e.stopPropagation() } to = { news.link } className = { style['item-news'] }>

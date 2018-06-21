@@ -16,7 +16,7 @@ export default class App extends Component {
     const urlParams = getHashParams()
 
     const calcType = urlParams.calcType ? parseFloat(urlParams.calcType) : 0
-    const yearRate = urlParams.yearRate ? parseFloat(urlParams.yearRate) : 0
+    const yearRate = urlParams.rate ? parseFloat(urlParams.rate) : 0
     const period = urlParams.period ? parseFloat(urlParams.period) : 0
     const total = urlParams.total ? parseFloat(urlParams.total) : 0
     const date = urlParams.date

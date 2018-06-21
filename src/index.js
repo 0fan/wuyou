@@ -9,8 +9,8 @@ import { LocaleProvider } from 'antd'
 import zh_CN from 'antd/lib/locale-provider/zh_CN'
 import 'moment/locale/zh-cn'
 import getUserData from 'config/store'
+import axiosConfig from 'config/axios'
 import 'config/method'
-import 'config/axios'
 
 import App from './app'
 
@@ -23,6 +23,7 @@ const store = createStore(reducer, compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
 
+axiosConfig(store)
 getUserData(store)
 
 render(

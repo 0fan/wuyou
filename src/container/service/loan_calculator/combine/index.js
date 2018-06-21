@@ -1,5 +1,6 @@
-
 import React, { Component, Fragment } from 'react'
+import _ from 'lodash'
+import qs from 'qs'
 
 import Context from 'context/config'
 
@@ -13,28 +14,63 @@ import { valid_money } from 'config/form-rule'
 
 import style from './index.less'
 
-const date = [
+const getDate = () => ([
   Array(31).fill(0).map((v, i) => ({
     label: i + 1 + '日',
     value: i + 1
   }))
-]
+])
 
 @Form.create()
-class App extends Component {
+export default class App extends Component {
   state = {
-    // 还款日
-    date: ''
+    date: '',
+    period: 20
   }
 
-  componentDidMount () {
-    const {
-      footerConfig,
-      changeFooter
-    } = this.props
+  handleChange = (e, type) => {
+    const { getFieldValue, setFieldsValue } = this.props.form
+    const value = Number(e.target.value)
 
-    if (footerConfig.length) {
-      changeFooter([])
+    const total = Number(getFieldValue('total'))
+    const business = Number(getFieldValue('business'))
+    const provident = Number(getFieldValue('provident'))
+
+    if (_.isNaN(value)) { return }
+
+    switch (type) {
+      case 'total':
+        if (!_.isNaN(business)) {
+          setFieldsValue({
+            provident: value - business
+          })
+        }
+
+        break
+      case 'business':
+        if (!_.isNaN(total)) {
+          setFieldsValue({
+            provident: total - value
+          })
+        } else if (!_.isNaN(provident)) {
+          setFieldsValue({
+            total: value - provident
+          })
+        }
+
+        break
+      case 'provident':
+        if (!_.isNaN(total)) {
+          setFieldsValue({
+            business: total - value
+          })
+        } else if (!_.isNaN(business)) {
+          setFieldsValue({
+            total: value - business
+          })
+        }
+
+        break
     }
   }
 
@@ -77,7 +113,8 @@ class App extends Component {
             {
               getFieldDecorator('total', {
                 validateFirst: true,
-                rules: valid_money('贷款总额')
+                rules: valid_money('贷款总额'),
+                onChange: e => this.handleChange(e, 'total')
               })(
                 <Input size = 'large' />
               )
@@ -89,7 +126,8 @@ class App extends Component {
             {
               getFieldDecorator('business', {
                 validateFirst: true,
-                rules: valid_money('商业贷款')
+                rules: valid_money('商业贷款'),
+                onChange: e => this.handleChange(e, 'business')
               })(
                 <Input size = 'large' />
               )
@@ -140,7 +178,8 @@ class App extends Component {
             {
               getFieldDecorator('provident', {
                 validateFirst: true,
-                rules: valid_money('公积金贷款')
+                rules: valid_money('公积金贷款'),
+                onChange: e => this.handleChange(e, 'provident')
               })(
                 <Input size = 'large' />
               )
@@ -189,9 +228,13 @@ class App extends Component {
             label = '贷款年限'
           >
             <Slider
+              value = { this.state.period }
+              onChange = { v => this.setState({ period: v }) }
+
               step = { 5 }
               min = { 5 }
               max = { 30 }
+              defaultValue = { 20 }
               suffix = '年'
             />
           </Form.Item>
@@ -199,7 +242,7 @@ class App extends Component {
             label = '每月还款日'
           >
             <Picker
-              data = { date }
+              data = { getDate() }
 
               value = { this.state.date }
               onChange = { v => this.setState({ date: v }) }
@@ -224,12 +267,4 @@ class App extends Component {
 
 const CustomPickerChildren = props => (
   <div onClick = { props.onClick }>{ props.children }</div>
-)
-
-export default props => (
-  <Context.Consumer>
-    {
-      arg => <App { ...props } { ...arg } />
-    }
-  </Context.Consumer>
 )

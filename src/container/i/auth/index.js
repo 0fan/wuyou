@@ -1,12 +1,22 @@
 import React, { Component, Fragment } from 'react'
 
+import { Spin } from 'antd'
 import { Modal } from 'antd-mobile'
+import Empty from 'component/empty'
+import Alert from 'component/alert'
+import BottomText from 'component/bottom-text'
 
 import style from './index.less'
 
 const { alert } = Modal
 
 export default class App extends Component {
+  state = {
+    loading: '',
+    msg: '',
+    data: []
+  }
+
   handleUnbind = e => {
     e.preventDefault()
 
@@ -18,12 +28,30 @@ export default class App extends Component {
   }
 
   render () {
-    const data = false
+    const { msg, loading, data } = this.state
+
+    let renderChildren = null
+
+    if (loading) {
+      renderChildren = <BottomText><Spin /></BottomText>
+    } else {
+      if (!data.length) {
+        renderChildren = <Empty text = '暂无授权' />
+      } else {
+        renderChildren = data.map((v, i) => (
+          <Box
+            onClick = { this.handleUnbind }
+
+            key = { i }
+          />
+        ))
+      }
+    }
 
     return (
       <Fragment>
-        <Box onClick = { this.handleUnbind } />
-        <Box onClick = { this.handleUnbind } />
+        <Alert message = { this.state.msg } />
+        { renderChildren }
       </Fragment>
     )
   }

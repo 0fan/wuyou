@@ -1,0 +1,56 @@
+@import '~less/mixin.less';
+
+.empty {
+  position: relative;
+  /* 正方形 */
+  padding-bottom: 100%;
+
+  &-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &-legend {
+    width: 119px;
+    height: 119px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    margin-bottom: 10px;
+  }
+
+  &-content {
+    min-width: 0;
+    max-width: 300px;
+  }
+
+  &-text{
+    color: #C2C2C2;
+    font-size: 15px;
+  }
+
+  &-404 {
+    .empty-legend {
+      background-image: ~"url('./img/404.png')";
+    }
+  }
+
+  &-empty {
+    .empty-legend {
+      background-image: ~"url('./img/empty.png')";
+    }
+  }
+
+  &-network {
+    .empty-legend {
+      background-image: ~"url('./img/network.png')";
+    }
+  }
+}

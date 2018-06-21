@@ -1,0 +1,36 @@
+.tabs {
+  :global {
+    .am-tabs-tab-bar-wrap {
+      margin-bottom: 10px;
+    }
+    .am-tabs-default-bar-tab {
+      height: 50px;
+      line-height: 50px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #b4b4b4;
+
+      &:after {
+        display: none !important;
+      }
+    }
+    .am-tabs-default-bar-tab-active {
+      color: #222;
+    }
+    .am-tabs-default-bar-underline {
+      border: none;
+
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        height: 3px;
+        background: #293677;
+        border-radius: 2px 2px 0 0;
+        min-width: 74px;
+      }
+    }
+  }
+}

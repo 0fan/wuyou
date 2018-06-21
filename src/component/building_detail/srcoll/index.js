@@ -49,7 +49,9 @@ const Box =  props => {
               }
             </div>
           </div> :
-          <BottomText>没有数据</BottomText>
+          !headerContent && !footerContent ?
+            <BottomText>没有数据</BottomText> :
+            null
       }
       {
         footerContent ?

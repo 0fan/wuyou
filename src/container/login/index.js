@@ -41,7 +41,7 @@ export default class App extends Component {
   }
 
   componentWillUnmount () {
-    Toast.hide()
+    // Toast.hide()
   }
 
   // 跳转微信授权页面
@@ -101,7 +101,7 @@ export default class App extends Component {
     // 保存数据在缓存里 刷新不用重新登录
     store.set('user', data)
 
-    Toast.success('登录成功', 2, () => {
+    Toast.success('登录成功', 1, () => {
       this.props.history.push('/')
     }, false)
   }

@@ -11,8 +11,6 @@ import { getRoutes } from 'util/getRoutes'
 
 import { getBuilding  } from 'model/building'
 
-import Context from 'context/config'
-
 import style from './index.less'
 
 @connect(state => ({
@@ -21,7 +19,7 @@ import style from './index.less'
 }), {
   getBuilding
 })
-class App extends Component {
+export default class App extends Component {
   isMount = true
 
   state = {
@@ -33,15 +31,6 @@ class App extends Component {
 
   componentDidMount () {
     const { id } = this.props.match.params
-
-    const {
-      footerConfig,
-      changeFooter
-    } = this.props
-
-    if (footerConfig.length) {
-      changeFooter([])
-    }
 
     this.props.getBuilding(id)
   }
@@ -175,11 +164,3 @@ const Panel = props => {
     </div>
   )
 }
-
-export default props => (
-  <Context.Consumer>
-    {
-      arg => <App { ...props } { ...arg } />
-    }
-  </Context.Consumer>
-)

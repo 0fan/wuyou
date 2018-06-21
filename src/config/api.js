@@ -22,11 +22,16 @@ const api = {
 
   // 楼盘相关接口
   building: {
-    getDetail: 'app/building/getBuldingDetail'
+    getDetail: 'app/building/getBuldingDetail',
+    // 登录后才可以调用
+    // 获取存款证明和开盘信息
+    getTrack: 'app/building/getPhoneIdentityInfo'
   },
 
   // 个人中心
   i: {
+    // 获取我的房屋信息
+    getHouseList: 'app/building/myBuilding',
     // 关于
     about: 'app/my/aboutUs',
     getMessageList: 'app/sysMessage/sysMessageInfo',
@@ -36,7 +41,9 @@ const api = {
 
   // 字典
   dict: {
-    building_filter: 'app/index/getSerch'
+    building_filter: 'app/index/getSerch',
+    // 热门搜索标签
+    hot_search: 'app/common/getHotCode'
   }
 }
 

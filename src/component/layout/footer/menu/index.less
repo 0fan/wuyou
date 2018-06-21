@@ -20,6 +20,18 @@
     &.footer-menu-i .footer-menu-text:before {
       background-image: ~"url('./img/i_active.png')";
     }
+
+    &.footer-menu-house .footer-menu-text:before {
+      background-image: ~"url('./img/house_active.png')";
+    }
+
+    &.footer-menu-i_house .footer-menu-text:before {
+      background-image: ~"url('./img/i_house_active.png')";
+    }
+
+    &.footer-menu-certificate .footer-menu-text:before {
+      background-image: ~"url('./img/certificate_active.png')";
+    }
   }
 
   .hairline(top, #eee);
@@ -28,6 +40,7 @@
     font-size: 16px;
     color: #9B9B9B;
     font-weight: 500;
+    position: relative;
 
     &:before {
       content: '';
@@ -40,6 +53,20 @@
       margin-right: 6px;
       vertical-align: -3px;
     }
+
+    :global {
+      .am-badge {
+        position: absolute;
+        top: -8px;
+        left: 15px;
+      }
+      .am-badge-text {
+        background: #F21E1E;
+        height: 16px;
+        line-height: 16px;
+        border-radius: 8px;
+      }
+    }
   }
 
   &-building {
@@ -50,7 +77,19 @@
 
   &-house {
     .footer-menu-text:before {
-      background-image: ~"url('./img/building.png')";
+      background-image: ~"url('./img/house.png')";
+    }
+  }
+
+  &-i_house {
+    .footer-menu-text:before {
+      background-image: ~"url('./img/i_house.png')";
+    }
+  }
+
+  &-certificate {
+    .footer-menu-text:before {
+      background-image: ~"url('./img/certificate.png')";
     }
   }
 

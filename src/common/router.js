@@ -74,11 +74,13 @@ const routerConfig = {
   },
   '/building/:id/track/protocol': {
     name: '追踪',
-    component: dynamicWrapper(() => import('container/building/track/protocol'))
+    component: dynamicWrapper(() => import('container/building/track/protocol')),
+    hideMenu: true
   },
   '/building/:id/track/progress': {
     name: '追踪',
-    component: dynamicWrapper(() => import('container/building/track/progress'))
+    component: dynamicWrapper(() => import('container/building/track/progress')),
+    hideMenu: true
   },
   '/building/:id/detail': {
     name: '详情',
@@ -86,15 +88,18 @@ const routerConfig = {
   },
   '/building/:id/detail/home': {
     name: '详情',
-    component: dynamicWrapper(() => import('container/building/detail/home'))
+    component: dynamicWrapper(() => import('container/building/detail/home')),
+    hideMenu: true
   },
   '/building/:id/detail/dynamic': {
     name: '动态',
-    component: dynamicWrapper(() => import('container/building/detail/dynamic'))
+    component: dynamicWrapper(() => import('container/building/detail/dynamic')),
+    hideMenu: true
   },
   '/building/:id/service': {
     name: '服务',
-    component: dynamicWrapper(() => import('container/building/service'))
+    component: dynamicWrapper(() => import('container/building/service')),
+    hideMenu: true
   },
 
   '/service/appointment': {
@@ -116,7 +121,8 @@ const routerConfig = {
   },
   '/service/loan_calculator/combine': {
     name: '贷款计算器',
-    component: dynamicWrapper(() => import('container/service/loan_calculator/combine'))
+    component: dynamicWrapper(() => import('container/service/loan_calculator/combine')),
+    hideMenu: true,
   },
   '/service/loan_calculator/result': {
     name: '贷款计算器',
@@ -195,7 +201,8 @@ const routerConfig = {
   '/i/auth': {
     name: '授权管理',
     component: dynamicWrapper(() => import('container/i/auth')),
-    auth: true
+    auth: true,
+    hideMenu: true
   },
   '/i/feedback': {
     name: '反馈建议',
