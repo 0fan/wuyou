@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import _ from 'lodash'
 import axios from 'axios'
 import store from 'store'
@@ -7,8 +8,15 @@ import { Icon } from 'antd'
 import Search from 'component/search'
 import BottomText from 'component/bottom-text'
 
+import { getSearchHot } from 'model/search_hot'
+
 import style from './index.less'
 
+@connect(state => ({
+  search_hot: state.search_hot
+}), {
+  getSearchHot
+})
 export default class App extends Component {
   state = {
     value: '',
@@ -21,6 +29,8 @@ export default class App extends Component {
   componentDidMount () {
     const historyList = store.get('history-search') || []
     this.setState({ historyList })
+
+    this.props.getSearchHot()
   }
 
   // 在这里时保存历史搜索记录
@@ -62,15 +72,22 @@ export default class App extends Component {
   }
 
   render () {
+    const {
+      loading,
+      data
+    } = this.props.search_hot
+
     return (
       <Fragment>
         <SearchBox
           value = { this.state.value }
-          hot = { this.state.hotList }
 
           onChange = { this.handleChange }
           onSubmit = { this.handleSearch }
           onClick = { this.handleSearch }
+
+          loading = { loading }
+          hot = { data }
         />
         <HistoryList
           data = { this.state.historyList }
@@ -85,6 +102,7 @@ export default class App extends Component {
 const SearchBox = props => {
   const {
     onClick,
+    loading,
     hot,
 
     ...rest

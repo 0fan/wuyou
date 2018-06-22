@@ -2,6 +2,7 @@ import React from 'react'
 
 import Image from 'component/image'
 import BottomText from 'component/bottom-text'
+import Empty from 'component/empty'
 
 import style from './index.less'
 
@@ -50,7 +51,7 @@ const Box =  props => {
             </div>
           </div> :
           !headerContent && !footerContent ?
-            <BottomText>没有数据</BottomText> :
+            <Empty text = '没有数据' ratio = { .5 } /> :
             null
       }
       {

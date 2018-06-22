@@ -8,6 +8,9 @@ import { url, api } from 'config/api'
 const { server } = url
 const { getDetail, getTrack: getTrackApi } = api.building
 
+const building_authorization = 'building_authorization'
+const building_dis_authorization = 'building_dis_authorization'
+
 export const {
   reducer,
 
@@ -48,10 +51,35 @@ export const {
     buildingType: [],
 
     // 登录后才有的信息
+    // 为什么放在楼盘里而不放在user里呢,因为每个楼盘都是单独的一个进度
+    // 存款证明信息
     certificate: [],
     // 开盘信息
-    openmap: null
-  }
+    open: {},
+    // 网签信息
+    sign: {},
+    // 购房备案
+    record: {},
+    // 房产证
+    property: {},
+
+    // 是否已签约
+    authorization: false
+  },
+
+  reduxArr: [{
+    action: building_authorization,
+    result: (state, payload) => ({
+      ...state,
+      authorization: true
+    })
+  }, {
+    action: building_dis_authorization,
+    result: (state, payload) => ({
+      ...state,
+      authorization: false
+    })
+  }]
 
 })
 
@@ -79,7 +107,9 @@ export function getBuilding (buildingId) {
     dispatch(loading())
 
     const [err, res] = await axios.post(server + getDetail, { id: buildingId })
-    let trackErr, trackRes
+
+    let trackErr,
+        trackRes = {}
 
     // 如果用户已登录,还需要请求其他信息
     if (auth) {
@@ -101,6 +131,10 @@ export function getBuilding (buildingId) {
     }
 
     const {
+      // 是否已授权
+      // '0' 没有
+      // '1' 已授权
+      authorization,
       id,
       // 纬度
       latitude,
@@ -124,15 +158,11 @@ export function getBuilding (buildingId) {
       buildingType = []
     } = res.object
 
-    const {
-      // 存款证明列表
-      identitys: certificate = [],
-      // 开盘信息
-      openmap,
-    } = trackRes.object
-
     dispatch(success({
       id: id.toString(),
+
+      authorization: authorization === '1',
+
       latitude,
       longitude,
       type,
@@ -146,15 +176,16 @@ export function getBuilding (buildingId) {
       atlas: jcvImgArrayMobie.split(',').filter(v => v),
       buildingType,
 
-      certificate,
-      openmap
+      ...trackRes
     }))
 
     return [null, res]
   }
 }
 
-// 获取存款证明和开盘信息,只有在登录后才能调用
+// 获取追踪信息
+// 比如存款证明和开盘信息
+// 只有在登录后才能调用
 async function getTrack (buildingId) {
   const [err, res] = await axios.post(server + getTrackApi, { id: buildingId })
 
@@ -162,5 +193,27 @@ async function getTrack (buildingId) {
     return [err]
   }
 
-  return [null, res]
+  const {
+    identitys: certificate = [],
+    openmap: open
+  } = res.object
+
+  return [null, {
+    certificate,
+    open
+  }]
+}
+
+export function buildingAuthorization (payload) {
+  return {
+    payload,
+    type: building_authorization
+  }
+}
+
+export function buildingDisAuthorization (payload) {
+  return {
+    payload,
+    type: building_dis_authorization
+  }
 }

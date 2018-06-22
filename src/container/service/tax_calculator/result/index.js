@@ -28,9 +28,12 @@ class App extends Component {
   render () {
     return (
       <Wrap>
-        <Box title = '房款总额' value = '90万' />
-        <Box title = '契税' value = '6.3万' />
-        <Box title = '合计' value = '96.3万' reverse />
+        <Box title = '房款总额' value = '10000元' />
+        <Box title = '工本费' value = '5元' />
+        <Box title = '契税' value = '15000元' />
+        <Box title = '权属登记费' value = '80元' />
+        <Box title = '维修基金' value = '30000元' />
+        <Box title = '合计' value = '45585元' reverse />
         <BottomText>计算结果仅供参考</BottomText>
       </Wrap>
     )

@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 
-import Context from 'context/config'
 import { Form, Input } from 'antd'
 import { Modal } from 'antd-mobile'
 import SegmentedControl from 'component/segmentedControl'
@@ -13,24 +12,7 @@ const { Content, Footer } = Layout
 const { alert } = Modal
 
 @Form.create()
-class App extends Component {
-  componentDidMount () {
-    const {
-      contentConfig,
-      changeContent,
-      footerConfig,
-      changeFooter
-    } = this.props
-
-    if (footerConfig.length) {
-      changeFooter([])
-    }
-
-    if (!contentConfig.flex) {
-      changeContent({ flex: true })
-    }
-  }
-
+export default class App extends Component {
   handleRest = () => {
     this.props.form.resetFields()
   }
@@ -122,11 +104,3 @@ class App extends Component {
     )
   }
 }
-
-export default props => (
-  <Context.Consumer>
-    {
-      arg => <App { ...props } { ...arg } />
-    }
-  </Context.Consumer>
-)

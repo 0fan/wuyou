@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { Toast } from 'antd-mobile'
 import LinkTabs from 'component/link_tabs'
 import Image from 'component/image'
+import Alert from 'component/alert'
 
 import { AuthRouter } from 'component/auth'
 import { getRoutes } from 'util/getRoutes'
@@ -49,6 +50,7 @@ export default class App extends Component {
     } = this.props
 
     const {
+      msg,
       buildingName,
       buildingTag,
       amount,
@@ -57,10 +59,11 @@ export default class App extends Component {
 
     return (
       <Fragment>
+        <Alert message = { msg } />
         <Focus src = { backgroundImg } />
         <Panel
           title = { buildingName }
-          tag = { buildingTag.split(',').filter(v => v) }
+          tag = { buildingTag ? buildingTag.split(',').filter(v => v) : [] }
           price = { amount }
         />
         <LinkTabs

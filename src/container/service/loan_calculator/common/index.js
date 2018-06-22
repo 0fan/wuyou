@@ -29,8 +29,6 @@ export default class App extends Component {
   handleSubmit (data, type) {
     const { history } = this.props
 
-    console.log(data, type)
-
     const {
       total,
 

@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Switch, Route, Link, Redirect } from 'react-router-dom'
 
 import { AuthRouter } from 'component/auth'
 import { getRoutes } from 'util/getRoutes'
 
+@connect(state => ({
+  user: state.user,
+  building: state.building
+}))
 export default class App extends Component {
   render () {
+    const { id } = this.props.match.params
     const {
       routerData,
       match: {
@@ -32,7 +38,7 @@ export default class App extends Component {
             />
           ))
         }
-        <Redirect exact from = { url } to = { `${ url }/progress` }></Redirect>
+        <Redirect exact from = { url } to = { `/building/${ id }/track/progress` }></Redirect>
       </Switch>
     )
   }

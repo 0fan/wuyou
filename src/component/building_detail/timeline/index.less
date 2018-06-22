@@ -59,6 +59,12 @@
     }
   }
 
+  &:last-child {
+    .item-line:after {
+      display: none;
+    }
+  }
+
   &:first-child {
     .date-box {
       &-md {
@@ -72,23 +78,19 @@
     }
   }
 
-  &:last-child {
-    .item-line:after {
-      display: none;
-    }
-  }
-
   &-content {
     flex-grow: 1;
     min-width: 0;
   }
 
+  &-current,
   &-blue {
     .item-line:before {
       background: #3096F4;
     }
   }
 
+  &-complete,
   &-darkblue {
     .item-line:before {
       background: #28357A;

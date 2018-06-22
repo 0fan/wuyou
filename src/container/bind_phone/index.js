@@ -97,8 +97,11 @@ export default class App extends Component {
       return [err]
     }
 
-    Toast.success('绑定手机号发送成功', 3, null, false)
     this.props.updatePhone(this.state.phone)
+
+    Toast.success('绑定手机号发送成功', 3, () => {
+      this.props.history.push('/')
+    }, false)
 
     return [null, res]
   }

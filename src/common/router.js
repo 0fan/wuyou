@@ -51,11 +51,13 @@ const routerConfig = {
   },
   '/new_building/search/home': {
     name: '搜索',
-    component: dynamicWrapper(() => import('container/new_building/search/home'))
+    component: dynamicWrapper(() => import('container/new_building/search/home')),
+    hideMenu: true
   },
   '/new_building/search/:word': {
     name: '搜索结果',
-    component: dynamicWrapper(() => import('container/new_building/search/result'))
+    component: dynamicWrapper(() => import('container/new_building/search/result')),
+    hideMenu: true
   },
 
   '/house': {
@@ -104,7 +106,8 @@ const routerConfig = {
 
   '/service/appointment': {
     name: '预约看房',
-    component: dynamicWrapper(() => import('container/service/appointment'))
+    component: dynamicWrapper(() => import('container/service/appointment')),
+    hideMenu: true
   },
   '/service/loan_calculator': {
     name: '贷款计算器',
@@ -132,15 +135,19 @@ const routerConfig = {
   },
   '/service/tax_calculator': {
     name: '税务计算器',
-    component: dynamicWrapper(() => import('container/service/tax_calculator'))
+    component: dynamicWrapper(() => import('container/service/tax_calculator')),
   },
   '/service/tax_calculator/home': {
     name: '税务计算器',
-    component: dynamicWrapper(() => import('container/service/tax_calculator/home'))
+    component: dynamicWrapper(() => import('container/service/tax_calculator/home')),
+    hideMenu: true,
+    flex: true
   },
   '/service/tax_calculator/result': {
     name: '税务计算器',
-    component: dynamicWrapper(() => import('container/service/tax_calculator/result'))
+    component: dynamicWrapper(() => import('container/service/tax_calculator/result')),
+    hideMenu: true,
+    flex: true
   },
 
   '/service/choice_house': {
@@ -183,7 +190,8 @@ const routerConfig = {
   '/i/message': {
     name: '消息记录',
     component: dynamicWrapper(() => import('container/i/message')),
-    auth: true
+    auth: true,
+    hideMenu: true
   },
   '/i/setting': {
     name: '帐号设置',
@@ -192,11 +200,13 @@ const routerConfig = {
   },
   '/i/setting/home': {
     name: '帐号设置',
-    component: dynamicWrapper(() => import('container/i/setting/home'))
+    component: dynamicWrapper(() => import('container/i/setting/home')),
+    hideMenu: true
   },
   '/i/setting/change_phome_bind': {
     name: '换绑手机号',
-    component: dynamicWrapper(() => import('container/i/setting/change_phome_bind'))
+    component: dynamicWrapper(() => import('container/i/setting/change_phome_bind')),
+    hideMenu: true
   },
   '/i/auth': {
     name: '授权管理',
@@ -206,11 +216,13 @@ const routerConfig = {
   },
   '/i/feedback': {
     name: '反馈建议',
-    component: dynamicWrapper(() => import('container/i/feedback'))
+    component: dynamicWrapper(() => import('container/i/feedback')),
+    hideMenu: true
   },
   '/i/about': {
     name: '关于我们',
-    component: dynamicWrapper(() => import('container/i/about'))
+    component: dynamicWrapper(() => import('container/i/about')),
+    hideMenu: true
   },
 
   // '/exception/403': {

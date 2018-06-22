@@ -15,18 +15,41 @@ export default class App extends Component {
 
     const urlParams = getHashParams()
 
-    const calcType = urlParams.calcType ? parseFloat(urlParams.calcType) : 0
+    const { type = 'common' } = urlParams
+
     const yearRate = urlParams.rate ? parseFloat(urlParams.rate) : 0
     const period = urlParams.period ? parseFloat(urlParams.period) : 0
     const total = urlParams.total ? parseFloat(urlParams.total) : 0
+
+    const business = urlParams.business ? parseFloat(urlParams.business) : 0
+    const businessRate = urlParams.businessRate ? parseFloat(urlParams.businessRate) : 0
+    const provident = urlParams.provident ? parseFloat(urlParams.provident) : 0
+    const providentRate = urlParams.providentRate ? parseFloat(urlParams.providentRate) : 0
+
+    const calcType = urlParams.calcType ? parseFloat(urlParams.calcType) : 0
     const date = urlParams.date
 
-    const result = this.calc({
-      calcType,
-      yearRate,
-      period,
-      total
-    })
+    let result = {}
+
+    if (type === 'combine') {
+      result = this.calcCombine({
+        business,
+        businessRate,
+        provident,
+        providentRate,
+
+        period,
+        calcType,
+      })
+    } else {
+      result = this.calc({
+        yearRate,
+        total,
+
+        period,
+        calcType,
+      })
+    }
 
     this.state = {
       // 计算需要的变量
@@ -37,6 +60,11 @@ export default class App extends Component {
       // 贷款的总金额
       total,
 
+      business,
+      businessRate,
+      provident,
+      providentRate,
+
       // 结果数据
       // 每月还款金额
       monthRefund: 0,
@@ -46,6 +74,8 @@ export default class App extends Component {
       totalInterest: 0,
       // 如果是等额本金每月递减的金额
       reduce: 0,
+
+      type,
 
       // 计算方式
       // 0 等额本息
@@ -73,6 +103,44 @@ export default class App extends Component {
     if (calcType === 1) {
       return this.calcAC({ yearRate, period, total })
     }
+  }
+
+  calcCombine = ({
+    calcType,
+
+    business,
+    businessRate,
+    provident,
+    providentRate,
+
+    period,
+  }) => {
+    if (!period || !business || !businessRate || !provident || !providentRate) {
+      return {}
+    }
+
+    let businessResult = {}
+    let providentResult = {}
+
+    if (calcType === 0) {
+      businessResult = this.calcACPI({ yearRate: businessRate, period, total: business })
+      providentResult = this.calcACPI({ yearRate: providentRate, period, total: provident })
+    }
+
+    if (calcType === 1) {
+      businessResult = this.calcAC({ yearRate: businessRate, period, total: business })
+      providentResult = this.calcAC({ yearRate: providentRate, period, total: provident })
+    }
+
+    let result = {
+      total: business + provident
+    }
+
+    Object.keys(businessResult).map(key => {
+      result[key] = businessResult[key] + providentResult[key]
+    })
+
+    return result
   }
 
   // 计算等额本息 Average Capital Plus Interest
@@ -131,16 +199,38 @@ export default class App extends Component {
 
   // 切换计算方式
   switchCalaType = () => {
-    this.setState(prevState => ({
-      calcType: prevState.calcType === 0 ? 1 : 0,
+    const {
+      type,
+      calcType,
 
-      ...this.calc({
-        calcType: prevState.calcType === 0 ? 1 : 0,
-        yearRate: prevState.yearRate,
-        period: prevState.period,
-        total: prevState.total,
+      period
+    } = this.state
+
+    if (type === 'combine') {
+      this.setState({
+        calcType: calcType === 0 ? 1 : 0,
+        ...this.calcCombine({
+          calcType: calcType === 0 ? 1 : 0,
+          period: period,
+
+          business: this.state.business,
+          businessRate: this.state.businessRate,
+          provident: this.state.provident,
+          providentRate: this.state.providentRate,
+        })
       })
-    }))
+    } else {
+      this.setState({
+        calcType: calcType === 0 ? 1 : 0,
+        ...this.calc({
+          calcType: calcType === 0 ? 1 : 0,
+          yearRate: this.state.yearRate,
+
+          period: period,
+          total: this.state.total,
+        })
+      })
+    }
   }
 
   // 添加至还款提醒

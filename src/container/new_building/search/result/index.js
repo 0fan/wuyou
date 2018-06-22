@@ -6,6 +6,7 @@ import { Spin } from 'antd'
 import Sort from 'component/sort'
 import Search from 'component/search'
 import HouseList from 'component/house-list'
+import Empty from 'component/empty'
 import BottomText from 'component/bottom-text'
 
 import { url, api } from 'config/api'
@@ -219,12 +220,12 @@ export default class App extends Component {
     } = this.state
 
     if (loading) {
-      bottomText = <Spin />
+      bottomText = <BottomText><Spin /></BottomText>
     } else {
       if (data.length <= 0) {
-        bottomText = '没有数据'
+        bottomText = <Empty text = '暂无结果' />
       } else if (isEnd) {
-        bottomText = '到底啦'
+        bottomText = <BottomText>到底啦</BottomText>
       }
     }
 
@@ -257,7 +258,7 @@ export default class App extends Component {
             ))
           }
         </HouseList>
-        <BottomText>{ bottomText }</BottomText>
+        { bottomText }
       </Fragment>
     )
   }

@@ -7,16 +7,26 @@ export default props => {
   const {
     type = 'empty',
     text,
+    ratio = 1,
     children,
+    style: _style = {},
 
     ...rest
   } = props
+
+  let styleString = _style
+
+  if (ratio) {
+    styleString.paddingBottom = `${ ratio * 100 }%`
+  }
 
   return (
     <div
       className = {
         cs(style.empty, style[`empty-${ type }`])
       }
+
+      style = { styleString }
 
       { ...rest }
     >

@@ -20,6 +20,8 @@ const { getHouseList } = api.i
   user: state.user
 }), {})
 export default class App extends Component {
+  isMount = true
+
   constructor (props) {
     super(props)
 
@@ -48,10 +50,18 @@ export default class App extends Component {
     this.getHouse()
   }
 
+  componentWillUnmount () {
+    this.isMount = false
+  }
+
   getHouse = async () => {
     this.setState({ loading: true })
 
     const [err, res] = await axios.post(server + getHouseList)
+
+    if (!this.isMount) {
+      return
+    }
 
     this.setState({ loading: false })
 
@@ -72,7 +82,7 @@ export default class App extends Component {
         img: v.backgroundImg,
         title: v.originalName,
         tag: v.buildingTag ? v.buildingTag.split(',').filter(v => v) : [],
-        news: v.renews ? { text: v.renews[0].content, link: `/building/${ v.id }/detail/dynamic` } : null,
+        news: v.renews && v.renews.length ? { text: v.renews[0].content, link: `/building/${ v.id }/detail/dynamic` } : null,
         referencePrice: v.amountArray,
         owner: v.ownerNum,
         hot: 70,

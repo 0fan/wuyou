@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import cs from 'classnames'
 
 import { Link } from 'react-router-dom'
@@ -6,30 +7,53 @@ import { Row, Col } from 'antd'
 
 import style from './index.less'
 
-export default () => {
-  return (
-    <Tool
-      data = {
-        [{
-          title: '在线选房',
-          type: 'choice_house',
-          to: '/service/choice_house'
-        }, {
-          title: '房贷计算器',
-          type: 'loan_calculator',
-          to: '/service/loan_calculator'
-        }, {
-          title: '税务计算器',
-          type: 'tax_calculator',
-          to: '/service/tax_calculator'
-        }, {
-          title: '预约看房',
-          type: 'appointment',
-          to: '/service/appointment'
-        }]
-      }
-    />
-  )
+@connect(state => ({
+  user: state.user
+}))
+export default class App extends Component {
+  constructor (props) {
+    super(props)
+
+    const { auth } = props.user
+
+    let data = [{
+      title: '房贷计算器',
+      type: 'loan_calculator',
+      to: '/service/loan_calculator'
+    }, {
+      title: '税务计算器',
+      type: 'tax_calculator',
+      to: '/service/tax_calculator'
+    }]
+
+    if (auth) {
+      // 有权限就可以在线选房
+      data.unshift({
+        title: '在线选房',
+        type: 'choice_house',
+        to: '/service/choice_house'
+      })
+    } else {
+      // 没有权限就预约看房
+      data.push({
+        title: '预约看房',
+        type: 'appointment',
+        to: '/service/appointment'
+      })
+    }
+
+    this.state = { data }
+  }
+
+  render () {
+    const { auth } = this.props.user
+
+    return (
+      <Tool
+        data = { this.state.data }
+      />
+    )
+  }
 }
 
 const Tool = props => {

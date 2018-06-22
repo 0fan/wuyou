@@ -44,8 +44,11 @@ export default class App extends Component {
       // 加载失败也算加载完成了
       load: true,
       error: true,
-      src: require('./img/404.png')
+      // src: require('./img/404.png')
     })
+
+    e.target.style.opacity = 0
+
 
     this.props.onError(e)
   }

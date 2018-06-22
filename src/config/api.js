@@ -25,7 +25,9 @@ const api = {
     getDetail: 'app/building/getBuldingDetail',
     // 登录后才可以调用
     // 获取存款证明和开盘信息
-    getTrack: 'app/building/getPhoneIdentityInfo'
+    getTrack: 'app/building/getPhoneIdentityInfo',
+    // 授权/取消授权
+    auth: 'app/my/authorization'
   },
 
   // 个人中心

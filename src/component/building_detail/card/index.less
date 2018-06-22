@@ -9,6 +9,7 @@
     align-items: center;
     padding: 0 20px;
     color: #fff;
+    background: #E3E3E3;
 
     &-left,
     &-right {
@@ -31,14 +32,28 @@
     background: #F8F8F8;
   }
 
+  &-current,
   &-blue {
     .card-header {
       background: #3096F4;
     }
   }
+  &-complete,
   &-darkblue {
     .card-header {
       background: #28357A;
+    }
+  }
+
+  &-current,
+  &-blue,
+  &-complete,
+  &-darkblue {
+    .card-info-item-title {
+      color: #9B9B9B;
+    }
+    .card-info-item-value {
+      color: #1B160C;
     }
   }
 
@@ -54,10 +69,10 @@
       }
 
       &-title {
-        color: #9B9B9B;
+        color: #C2C2C2;
       }
       &-value {
-        color: #1B160C;
+        color: #C2C2C2;
 
         a {
           color: #3096F4;

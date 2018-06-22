@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { Icon } from 'antd'
 import { Box, Timeline, Info } from 'component/building_detail'
+import Empty from 'component/empty'
 
 const { Item } = Timeline
 
@@ -21,22 +22,24 @@ export default class App extends Component {
     return (
       <Box
         title = '动态跟踪'
-        rightContent = { <Link to = { `/building/${ id }/detail` }><Icon type = 'close-circle-o' /></Link> }
+        rightContent = { <Link style = { { fontSize: 0 } } to = { `/building/${ id }/detail` }><Icon type = 'close-circle-o' /></Link> }
       >
         <Timeline date>
           {
-            renews.map((v, i) => (
-              <Item
-                date = { new Date(parseInt(v.rawAddTime)) }
+            renews.length ?
+              renews.map((v, i) => (
+                <Item
+                  date = { new Date(parseInt(v.rawAddTime)) }
 
-                key = { i }
-              >
-                <Info
-                  title = { v.content }
-                  imgs = { v.dynamicImg ? v.dynamicImg.split(',').filter(v => v).map(v => ({ src: v })) : [] }
-                />
-              </Item>
-            ))
+                  key = { i }
+                >
+                  <Info
+                    title = { v.content }
+                    imgs = { v.dynamicImg ? v.dynamicImg.split(',').filter(v => v).map(v => ({ src: v })) : [] }
+                  />
+                </Item>
+              )) :
+              <Empty text = '暂无动态' ratio = { .6 } />
           }
         </Timeline>
       </Box>

@@ -79,7 +79,34 @@ export default class App extends Component {
 
     this.props.form.validateFields((err, val) => {
       if (!err) {
-        console.log(val)
+        const { history } = this.props
+
+        const {
+          date,
+          period
+        } = this.state
+
+        const {
+          business,
+          business_rate_default,
+          business_rate,
+          provident,
+          provident_rate_default,
+          provident_rate,
+        } = val
+
+        let query = {
+          type: 'combine',
+
+          date: date ? date.join('') : '',
+          period,
+          business: parseFloat(business) * 10000,
+          businessRate: business_rate_default.value !== '' ? business_rate_default.value : business_rate,
+          provident: parseFloat(provident) * 10000,
+          providentRate: provident_rate_default.value !== '' ? provident_rate_default.value : provident_rate,
+        }
+
+        history.push(`/service/loan_calculator/result?${ qs.stringify(query) }`)
       }
     })
   }
