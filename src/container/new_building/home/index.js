@@ -8,6 +8,7 @@ import cs from 'classnames'
 import { Icon, Spin } from 'antd'
 import { Carousel as AntCarousel, Toast } from 'antd-mobile'
 import Image from 'component/image'
+import Alert from 'component/alert'
 import BottomText from 'component/bottom-text'
 import Sort from 'component/sort'
 import HouseList from 'component/house-list'
@@ -43,6 +44,8 @@ const getData = count => (
 }), {})
 export default class App extends Component {
   state = {
+    msg: '',
+
     flash: [],
 
     newBuilding: {},
@@ -74,16 +77,30 @@ export default class App extends Component {
   componentDidMount () {
     this.$content = document.getElementById('content')
 
-    this.getFlash()
-    this.getNewBuilding()
-    this.getBuilding()
-    this.getFilter()
+    this.initData()
 
     this.$content.addEventListener('scroll', this.handleSrcoll)
   }
 
   componentWillUnmount () {
     this.$content.removeEventListener('srcoll', this.handleSrcoll)
+  }
+
+  initData = async () => {
+    this.setState({ msg: '' })
+
+    const res = await Promise.all([
+      this.getFlash(),
+      this.getNewBuilding(),
+      this.getBuilding(),
+      this.getFilter()
+    ])
+
+    if (res.every(v => v[0])) {
+      this.setState({
+        msg: <span>加载失败啦 <a href = 'javascript:;' onClick = { this.initData }>点击重试</a></span>
+      })
+    }
   }
 
   // 滚动到底部拉去数据
@@ -297,6 +314,7 @@ export default class App extends Component {
 
     return (
       <Fragment>
+        <Alert message = { this.state.msg } />
         <Carousel
           data = { this.state.flash }
         />

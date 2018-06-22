@@ -14,10 +14,21 @@ export default props => {
     ...rest
   } = props
 
+  let visible = false
+
+  if (
+    typeof message === 'string' &&
+    message.length
+  ) {
+    visible = true
+  } else if (message) {
+    visible  = true
+  }
+
   return (
     <Animate transitionName = 'slide-up'>
       {
-        message && message.length ?
+        visible ?
           <div
             className = {
               cs(style.alert, {
