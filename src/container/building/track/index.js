@@ -12,7 +12,10 @@ import { getRoutes } from 'util/getRoutes'
 export default class App extends Component {
   render () {
     const { id } = this.props.match.params
+
     const {
+      user: { auth },
+      building: { loading, authorization },
       routerData,
       match: {
         url,
@@ -20,25 +23,50 @@ export default class App extends Component {
       }
     } = this.props
 
+    if (loading) {
+      return null
+    }
+
+    const progress = routerData['/building/:id/track/progress']
+    const protocol = routerData['/building/:id/track/protocol']
+
+    let redirectPath = `/building/${ id }/track/progress`
+
+    if (auth && !authorization) {
+      redirectPath = `/building/${ id }/track/protocol`
+    }
+
     return (
       <Switch>
-        {
-          getRoutes(path, routerData).map((v, i) => (
-            <AuthRouter
-              auth = { v.auth }
+        <Route
+          path = '/building/:id/track/progress'
 
-              component = { v.component }
+          render = {
+            props => {
+              if (auth && !authorization) {
+                return <Redirect to = { `/building/${ id }/track/protocol` } />
+              }
 
-              path = { v.path }
-              exact = { v.exact }
+              return progress.component()
+            }
+          }
+        />
+        <Route
+          path = '/building/:id/track/protocol'
 
-              redirectPath = '/login'
+          render = {
+            props => {
+              if (!auth || (auth && authorization)) {
+                return <Redirect to = { `/building/${ id }/track/progress` } />
+              }
 
-              key = { v.key }
-            />
-          ))
-        }
-        <Redirect exact from = { url } to = { `/building/${ id }/track/progress` }></Redirect>
+              return protocol.component()
+            }
+          }
+
+          exact = { true }
+        />
+        <Redirect exact from = { url } to = { redirectPath }></Redirect>
       </Switch>
     )
   }

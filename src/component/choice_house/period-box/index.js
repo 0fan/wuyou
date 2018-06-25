@@ -90,7 +90,7 @@ class App extends Component {
         </div>
         <div className = { style['box-body'] }>
           <div className = { style['box-body-content'] }>
-            <div className = { style['box-title'] }>{ building }</div>
+            <div className = { style['box-title'] }>{ `${ building } ${ period }` }</div>
             <div className = { style['box-extra'] }>
               状态：{ status }
             </div>

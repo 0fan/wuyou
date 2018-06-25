@@ -215,7 +215,7 @@ export default class App extends Component {
     return (
       <Layout fixed>
         <Content>
-          <Logo />
+          <Logo src = { require('asset/img/logo.png') } />
           <List>
             <Input
               value = { this.state.phone }
@@ -237,7 +237,7 @@ export default class App extends Component {
               }
             />
             <Button htmlType = 'submit' type = 'primary' onClick = { this.handleSubmit } style = { { marginBottom: 20 } }>绑定手机号</Button>
-            <Button onClick = { this.handleLogout }>退出登录</Button>
+            <Button onClick = { this.handleLogout }>退出绑定</Button>
           </List>
           <Alert
             message = { this.state.msg }

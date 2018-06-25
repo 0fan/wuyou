@@ -44,11 +44,11 @@ export default class App extends Component {
         }))
       },
 
-      footerConfig: this.getFooter(props.user.auth),
+      footerConfig: this.getFooter(props.user.auth, props.user.userType),
       changeFooter: v => {
         this.setState({
           footerConfig: v,
-          hideMenu: v && v.length ? true : false
+          hideMenu: v && v.length ? false : true
         })
       }
     }
@@ -57,13 +57,13 @@ export default class App extends Component {
   componentWillReceiveProps (nextProps) {
     if (this.props.user.auth !== nextProps.user.auth) {
       this.setState({
-        footerConfig: this.getFooter(nextProps.user.auth)
+        footerConfig: this.getFooter(nextProps.user.auth, nextProps.user.userType)
       })
     }
   }
 
-  getFooter = (auth) => {
-    if (auth) {
+  getFooter = (auth, userType) => {
+    if (auth && userType === '1') {
       return [{
         type: 'house',
         to: '/house',
@@ -116,9 +116,9 @@ export default class App extends Component {
   }
 
   getRedirect = () => {
-    const { auth } = this.props.user
+    const { auth, userType } = this.props.user
 
-    return auth ? '/house' : '/new_building'
+    return auth && userType === '1' ? '/house' : '/new_building'
   }
 
   // 如果已登录且未绑定手机号码则必须绑定手机号码才能进行操作
@@ -154,7 +154,7 @@ export default class App extends Component {
   getTitle = () => {
     const data = this.getConfig()
 
-    let title = '筑房无忧'
+    let title = ''
 
     if (data && data.name) {
       title = `${ data.name } ${ title }`

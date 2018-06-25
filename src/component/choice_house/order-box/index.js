@@ -59,6 +59,11 @@ class Box extends Component {
       innerPrice,
       innerArea,
       total,
+      onClick,
+      status,
+
+      onLock = f => f,
+      onPay = f => f,
 
       building,
       type,
@@ -79,7 +84,15 @@ class Box extends Component {
     // 已开盘
     if (moment(openTime).isBefore(moment())) {
       qrcode = <div className = { style['box-qrcode'] } onClick = { () => this.setState({ visibleQrcode: true }) }></div>
-      renderAction = <Button className = { style['box-action'] } type = 'primary'>立即锁定</Button>
+
+      if (status === 0) {
+        renderAction = <Button className = { style['box-action'] } type = 'primary' onClick = { onLock }>立即锁定</Button>
+      }
+
+      if (status === 1) {
+        renderAction = <Button className = { style['box-action'] } type = 'primary' onClick = { onPay }>待支付</Button>
+      }
+
     } else {
       // 是否在某个时间范围内（开盘倒计时）
       if (moment(openTime).isBetween(moment(this.state.time), moment(this.state.time).add(24, 'h'))) {

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import _ from 'lodash'
 import moment from 'moment'
 import cs from 'classnames'
@@ -12,6 +12,7 @@ import Modal from 'component/modal'
 
 import style from './index.less'
 
+@withRouter
 @connect(state => ({
   user: state.user,
   building: state.building
@@ -21,98 +22,24 @@ export default class App extends Component {
     super(props)
 
     const {
-      loading,
-      authorization,
-
       certificate = [],
       open = {}
     } = props.building
 
-    const {
-      auth
-    } = props.user
-
-    if (auth && !loading && !authorization) {
-      props.history.push(`/building/${ props.match.params.id }/track/protocol`)
-    }
-
     let stepIndex = -1
 
+    // 如果有存款证明则表示第一步完成啦
     if (certificate && certificate.length) {
-      stepIndex = 1
+      stepIndex = 0
     }
 
-    if (open) {
-      stepIndex = 2
+    // 如果有开盘信息则表示第二步完成啦
+    if (Object.keys(open).length) {
+      stepIndex = 1
     }
 
     this.state = {
       stepIndex,
-
-      // step: [{
-      //   name: '存款证明',
-      //   rightContent: <div className = { style['card-btn'] } onClick = { e => { this.handleModal('exchangeVisible', e) } }>切换</div>,
-      //   data: [{
-      //     title: '物业类型',
-      //     value: '高层'
-      //   }, {
-      //     title: '办理时间',
-      //     value: '2018-05-28'
-      //   }, {
-      //     title: '办理状态',
-      //     value: '成功办理'
-      //   }, {
-      //     title: '存款金额',
-      //     value: '￥30000'
-      //   }]
-      // }, {
-      //   name: '在线开盘',
-      //   rightContent: <div onClick = { e => this.props.history.push('/service/choice_house/certificate/home') } className = { style['card-btn'] }>去选房</div>,
-      //   data: [{
-      //     title: '预计开盘时间',
-      //     value: '2018-05-31'
-      //   }, {
-      //     title: '开盘状态',
-      //     value: '已开盘'
-      //   }, {
-      //     title: '选房资格',
-      //     value: '已具备选房资格'
-      //   }, {
-      //     title: '房源信息',
-      //     value: '暂无'
-      //   }]
-      // }, {
-      //   name: '购房网签',
-      //   data: [{
-      //     title: '网签状态',
-      //     value: '未办理'
-      //   }, {
-      //     title: '网签时间',
-      //     value: '暂无'
-      //   }, {
-      //     title: '网签地址',
-      //     value: '暂无'
-      //   }, {
-      //     value: <a href = '#' onClick = { e => { this.handleModal('signVisible', e) } }>点击了解网签所需材料</a>
-      //   }]
-      // }, {
-      //   name: '购房备案',
-      //   data: [{
-      //     title: '备案状态',
-      //     value: '未办理'
-      //   }, {
-      //     title: '备案时间',
-      //     value: '暂无'
-      //   }, {
-      //     value: <a href = '#' onClick = { e => { this.handleModal('recordVisible', e) } }>点击了解备案可取回材料</a>
-      //   }]
-      // }, {
-      //   name: '房产证',
-      //   data: [{
-      //     title: '办理状态',
-      //     value: '未办理'
-      //   }]
-      // }],
 
       // 存款证明列表
       certificate,
@@ -139,15 +66,20 @@ export default class App extends Component {
   }
 
   renderSteps = () => {
+    const { auth, userType } = this.props.user
     const { stepIndex, step } = this.state
 
     return (
       <Box
         title = '购房节点'
-        titleExtra = { stepIndex < 0 ? '' : '房号：1-1-3-6' }
+        titleExtra = { '' }
       >
         <Steps
-          index = { this.state.stepIndex }
+          index = {
+            auth && userType === '1' ?
+              this.state.stepIndex :
+              -1
+          }
           data = { [{
             type: '1',
             text: '存款证明'
@@ -170,6 +102,9 @@ export default class App extends Component {
   }
 
   renderTimeline = () => {
+    const { id } = this.props.building
+    const { auth } = this.props.user
+
     const {
       stepIndex,
       // step,
@@ -180,8 +115,7 @@ export default class App extends Component {
       open
     } = this.state
 
-    const { auth } = this.props.user
-
+    // 没有登录则不显示节点追踪
     if (!auth) {
       return (
         <div className = { style['tip-box'] }>
@@ -211,6 +145,7 @@ export default class App extends Component {
           <TimelineBox
             title = '存款证明'
             complete = { certificate.length }
+            current = { stepIndex === 0 }
             leftContent = { () => <div className = { style['card-btn'] } onClick = { e => { this.handleModal('exchangeVisible', e) } }>切换</div> }
 
             data = { [{
@@ -232,7 +167,8 @@ export default class App extends Component {
           <TimelineBox
             title = '在线开盘'
             complete = { open.openTime }
-            leftContent = { open.status === '1' ? () => <div className = { style['card-btn'] } onClick = { e => { this.props.history.push(`/service/choice_house/certificate/${ certificateData.idtityId }/home`) } }>去选房</div> : null }
+            current = { stepIndex === 1 }
+            leftContent = { open.openTime && open.status === '1' ? () => <div className = { style['card-btn'] } onClick = { e => { this.props.history.push(`/service/choice_house/certificate/${ id }/home`) } }>去选房</div> : null }
 
             data = { [{
               title: '预计开盘时间',
@@ -253,6 +189,7 @@ export default class App extends Component {
           <TimelineBox
             title = '购房网签'
             complete = { false }
+            current = { open.openTime && stepIndex === 1 }
 
             data = { [{
               title: '预计开盘时间',
@@ -275,6 +212,7 @@ export default class App extends Component {
           <TimelineBox
             title = '购房备案'
             complete = { false }
+            current = { stepIndex === 3 }
 
             data = { [{
               title: '备案状态',
@@ -291,6 +229,7 @@ export default class App extends Component {
           <TimelineBox
             title = '房产证'
             complete = { false }
+            current = { stepIndex === 4 }
 
             data = { [{
               title: '办理状态',
@@ -319,9 +258,10 @@ export default class App extends Component {
 
         <Modal visible = { this.state.recordVisible } onClose = { () => { this.setState({ recordVisible: false }) } }>
           <h2>小贴士</h2>
-          <h3>备案提供材料</h3>
-          <p>个人购房——购房人身份证、商品房买卖合同、预售开户银行保证金账户进账单、购房收据；</p>
-          <p>企业购房——商品房买卖合同、预售开户银行保证金账户进账单、购房收据、购房企业营业执照；</p>
+          <h3>备案可取回材料</h3>
+          <p>涉税表</p>
+          <p>备案证明</p>
+          <p>个人住房信息查询表</p>
         </Modal>
 
         <CertificateModal

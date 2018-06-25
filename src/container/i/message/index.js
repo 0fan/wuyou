@@ -3,6 +3,7 @@ import axios from 'axios'
 import cs from 'classnames'
 
 import { Toast } from 'antd-mobile'
+import Empty from 'component/empty'
 
 import { url, api } from 'config/api'
 
@@ -13,12 +14,13 @@ const { getMessageList } = api.i
 
 export default class App extends Component {
   state = {
-    data: Array(10).fill('').map((v, i) => ({
-      title: '融创九樾府存款证明办理成功',
-      date: '2018-05-29',
-      id: i,
-      isNew: i <= 3,
-    }))
+    data: []
+    // data: Array(10).fill('').map((v, i) => ({
+    //   title: '融创九樾府存款证明办理成功',
+    //   date: '2018-05-29',
+    //   id: i,
+    //   isNew: i <= 3,
+    // }))
   }
 
   componentDidMount () {
@@ -33,30 +35,33 @@ export default class App extends Component {
     Toast.hide()
 
     if (err) {
-      Toast.fail(err, 3, null, false)
+      // Toast.fail(err, 3, null, false)
 
       return [err]
     }
+
     return [null, res]
   }
 
   render () {
     return (
-      <List
-        renderHeader = {
-          () => <div className = { style.tip }>共有 { this.state.data.length } 条消息记录</div>
-        }
-      >
-        {
-          this.state.data.map((v, i) => (
-            <List.Item
-              { ...v }
+      this.state.data.length ?
+        <List
+          renderHeader = {
+            () => <div className = { style.tip }>共有 { this.state.data.length } 条消息记录</div>
+          }
+        >
+          {
+            this.state.data.map((v, i) => (
+              <List.Item
+                { ...v }
 
-              key = { i }
-            />
-          ))
-        }
-      </List>
+                key = { i }
+              />
+            ))
+          }
+        </List> :
+        <Empty text = '暂无消息' />
     )
   }
 }

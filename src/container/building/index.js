@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import _ from 'lodash'
+import cs from 'classnames'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
@@ -50,6 +52,7 @@ export default class App extends Component {
     } = this.props
 
     const {
+      loading,
       msg,
       buildingName,
       buildingTag,
@@ -60,7 +63,7 @@ export default class App extends Component {
     return (
       <Fragment>
         <Alert message = { msg } />
-        <Focus src = { backgroundImg } />
+        <Focus src = { !loading && !backgroundImg ? require('component/empty/img/404.png') : backgroundImg  } noSrc = { !loading && !backgroundImg } />
         <Panel
           title = { buildingName }
           tag = { buildingTag ? buildingTag.split(',').filter(v => v) : [] }
@@ -107,16 +110,18 @@ export default class App extends Component {
 const Focus = props => {
   const {
     src,
+    noSrc,
 
     ...rest
   } = props
 
   return (
-    <div className = { style.focus } { ...rest }>
+    <div className = { cs(style.focus, { [style['focus-404']]: noSrc }) } { ...rest }>
       {
         src ?
           <Image
             src = { src }
+
             { ...rest }
           /> :
           null

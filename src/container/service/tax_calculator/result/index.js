@@ -1,39 +1,57 @@
 import React, { Component, Fragment } from 'react'
 import cs from 'classnames'
-
-import Context from 'context/config'
+import qs from 'qs'
+import _ from 'lodash'
 
 import BottomText from 'component/bottom-text'
 
 import style from './inde.less'
 
-class App extends Component {
-  componentDidMount () {
-    const {
-      contentConfig,
-      changeContent,
-      footerConfig,
-      changeFooter
-    } = this.props
+export default class App extends Component {
+  constructor (props) {
+    super(props)
 
-    if (footerConfig.length) {
-      changeFooter([])
+    const query = qs.parse(props.history.location.search.replace(/^\?/g, ''))
+
+    const area = !_.isNaN(parseFloat(query.area)) ? parseFloat(query.area) : 0
+    const first = !_.isNaN(parseFloat(query.first)) ? parseFloat(query.first) : 0
+    const price = !_.isNaN(parseFloat(query.price)) ? parseFloat(query.price) : 0
+    const type = !_.isNaN(parseFloat(query.type)) ? parseFloat(query.type) : 0
+
+    const total = area * price
+
+    let tax = 0
+
+    // 首套1%
+    if (first === 0) {
+      tax = total * 0.03
+    } else {
+      if (area <= 90) {
+        tax = total * 0.01
+      } else if (area > 90 && area <= 144) {
+        tax = total * 0.015
+      } else {
+        tax = total * 0.03
+      }
     }
 
-    if (!contentConfig.flex) {
-      changeContent({ flex: true })
+    this.state = {
+      area,
+      first,
+      price,
+      type,
+
+      total,
+      tax
     }
   }
 
   render () {
     return (
       <Wrap>
-        <Box title = '房款总额' value = '10000元' />
-        <Box title = '工本费' value = '5元' />
-        <Box title = '契税' value = '15000元' />
-        <Box title = '权属登记费' value = '80元' />
-        <Box title = '维修基金' value = '30000元' />
-        <Box title = '合计' value = '45585元' reverse />
+        <Box title = '房款总额' value = { `${ this.state.total }元` } />
+        <Box title = '契税' value = { `${ this.state.tax }元` } />
+        <Box title = '合计' value = { `${ this.state.total + this.state.tax }元` } reverse />
         <BottomText>计算结果仅供参考</BottomText>
       </Wrap>
     )
@@ -64,11 +82,3 @@ const Box = props => {
     </div>
   )
 }
-
-export default props => (
-  <Context.Consumer>
-    {
-      arg => <App { ...props } { ...arg } />
-    }
-  </Context.Consumer>
-)

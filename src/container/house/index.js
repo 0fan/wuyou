@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import _ from 'lodash'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -85,7 +86,7 @@ export default class App extends Component {
         news: v.renews && v.renews.length ? { text: v.renews[0].content, link: `/building/${ v.id }/detail/dynamic` } : null,
         referencePrice: v.amountArray,
         owner: v.ownerNum,
-        hot: 70,
+        hot: 100,
         to: `/building/${ v.id }`
       }))
     })
@@ -202,7 +203,7 @@ List.Item = props => {
         <div className = { style['item-footer'] }>
           <div className = { style['item-footer-item'] }>
             <div className = { style['item-footer-item-title'] }>参考价格</div>
-            <div className = { style['item-footer-item-value'] }>{ referencePrice }</div>
+            <div className = { style['item-footer-item-value'] }>{ _.isNil(referencePrice) ? '未知' : referencePrice }</div>
           </div>
           <div className = { style['item-footer-item'] }>
             <div className = { style['item-footer-item-title'] }>业主人数</div>
@@ -215,7 +216,13 @@ List.Item = props => {
         </div>
       </div>
       <div className = { style['item-bg'] }>
-        <Image src = { img } />
+        <Image
+          src = {
+            !img || _.isNil(img) ?
+              require('./img/placeholder.jpg') :
+              img
+          }
+        />
       </div>
     </div>
   )

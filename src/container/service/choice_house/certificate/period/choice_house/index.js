@@ -23,15 +23,15 @@ class App extends Component {
     activeFloor: 0,
     activeHouse: '',
 
-    data: Array(10).fill(0).map((v, i) => ({
+    data: Array(8).fill(0).map((v, i) => ({
       id: i,
-      name: `${ i + 1 }栋`,
-      children: Array(20).fill(0).map((_v, _i) => ({
+      name: `${ i + 1 }栋一单元`,
+      children: Array(8).fill(0).map((_v, _i) => ({
         id: _i,
         name: `${ _i + 1 }楼`,
-        children: Array(80).fill(0).map((__v, __i) => ({
+        children: Array(6).fill(0).map((__v, __i) => ({
           id: __i,
-          name: `${ i }${ _i }${ __i }`
+          name: `${ __i < 10 ? '0' + __i : __i }`
         }))
       }))
     }))

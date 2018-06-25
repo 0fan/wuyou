@@ -8,7 +8,8 @@ class App extends Component {
   componentDidMount () {
     const {
       match: {
-        url
+        url,
+        params: { id }
       },
       footerConfig,
       changeFooter

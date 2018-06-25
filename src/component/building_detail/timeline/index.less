@@ -8,6 +8,12 @@
   display: flex;
   flex-direction: column;
 
+  &:last-child {
+    .item-line:after {
+      display: none;
+    }
+  }
+
   &-date {
     .item {
       &-line {
@@ -56,12 +62,6 @@
       width: 1px;
       background: #D9D9D9;
       z-index: 9;
-    }
-  }
-
-  &:last-child {
-    .item-line:after {
-      display: none;
     }
   }
 

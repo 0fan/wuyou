@@ -111,11 +111,13 @@ const routerConfig = {
   },
   '/service/loan_calculator': {
     name: '贷款计算器',
-    component: dynamicWrapper(() => import('container/service/loan_calculator'))
+    component: dynamicWrapper(() => import('container/service/loan_calculator')),
+    hideMenu: true
   },
   '/service/loan_calculator/home': {
     name: '贷款计算器',
-    component: dynamicWrapper(() => import('container/service/loan_calculator/home'))
+    component: dynamicWrapper(() => import('container/service/loan_calculator/home')),
+    hideMenu: true
   },
   '/service/loan_calculator/common': {
     name: '贷款计算器',
@@ -152,31 +154,39 @@ const routerConfig = {
 
   '/service/choice_house': {
     name: '在线选房',
-    component: dynamicWrapper(() => import('container/service/choice_house'))
+    component: dynamicWrapper(() => import('container/service/choice_house')),
+    auth: true,
+    hideMenu: true
   },
   '/service/choice_house/certificate': {
     name: '存款证明',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate'))
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate')),
+    hideMenu: true
   },
   '/service/choice_house/certificate/home': {
     name: '存款证明',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate/home'))
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate/home')),
+    hideMenu: true
   },
-  '/service/choice_house/certificate/:period': {
+  '/service/choice_house/certificate/:id': {
     name: '选择期数',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period'))
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period')),
+    hideMenu: true
   },
-  '/service/choice_house/certificate/:period/home': {
+  '/service/choice_house/certificate/:id/home': {
     name: '选择期数',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/home'))
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/home')),
+    hideMenu: true
   },
-  '/service/choice_house/certificate/:period/choice_house': {
-    name: '选房',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/choice_house'))
+  '/service/choice_house/certificate/:id/choice_house': {
+    name: '选择房源',
+    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/choice_house')),
+    hideMenu: true
   },
   '/service/choice_house/i': {
     name: '我的房源',
-    component: dynamicWrapper(() => import('container/service/choice_house/i'))
+    component: dynamicWrapper(() => import('container/service/choice_house/i')),
+    hideMenu: true
   },
 
   '/i': {

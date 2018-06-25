@@ -86,7 +86,7 @@ export const {
 export function getBuilding (buildingId) {
   return async (dispatch, getState) => {
     const store = getState()
-    const { auth } = store.user
+    const { auth, userType } = store.user
 
     // 需要id
     if (!buildingId) {
@@ -111,8 +111,8 @@ export function getBuilding (buildingId) {
     let trackErr,
         trackRes = {}
 
-    // 如果用户已登录,还需要请求其他信息
-    if (auth) {
+    // 如果用户已登录且是B类用户,还需要请求其他信息
+    if (auth && userType === '1') {
       [trackErr, trackRes] = await getTrack(buildingId)
     }
 

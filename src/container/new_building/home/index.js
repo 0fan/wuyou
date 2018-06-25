@@ -43,6 +43,8 @@ const getData = count => (
   user: state.user
 }), {})
 export default class App extends Component {
+  isMount = true
+
   state = {
     msg: '',
 
@@ -83,6 +85,8 @@ export default class App extends Component {
   }
 
   componentWillUnmount () {
+    this.isMount = false
+
     this.$content.removeEventListener('srcoll', this.handleSrcoll)
   }
 
@@ -95,6 +99,10 @@ export default class App extends Component {
       this.getBuilding(),
       this.getFilter()
     ])
+
+    if (!this.isMount) {
+      return
+    }
 
     if (res.every(v => v[0])) {
       this.setState({
@@ -126,6 +134,10 @@ export default class App extends Component {
   getFlash = async () => {
     const [err, res] = await axios.get(server + getFlash)
 
+    if (!this.isMount) {
+      return
+    }
+
     if (err) {
       return [err]
     }
@@ -144,6 +156,10 @@ export default class App extends Component {
   // 获取新开楼盘
   getNewBuilding = async () => {
     const [err, res] = await axios.get(server + getNewBuildingList)
+
+    if (!this.isMount) {
+      return
+    }
 
     if (err) {
       return [err]
@@ -190,6 +206,10 @@ export default class App extends Component {
       maxPrice
     })
 
+    if (!this.isMount) {
+      return
+    }
+
     this.setState({ buildingLoding: false })
 
     if (err) {
@@ -215,6 +235,10 @@ export default class App extends Component {
   // 获取楼盘筛选数据
   getFilter = async () => {
     const [err, res] = await axios.get(server + building_filter)
+
+    if (!this.isMount) {
+      return
+    }
 
     if (err) {
       return [err]

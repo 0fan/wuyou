@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
@@ -17,6 +17,7 @@ import style from './index.less'
 const { server } = url
 const { auth } = api.building
 
+@withRouter
 @connect(state => ({
   building: state.building
 }), {

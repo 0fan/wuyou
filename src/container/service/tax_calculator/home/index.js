@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import qs from 'qs'
 
 import { Form, Input } from 'antd'
 import { Modal } from 'antd-mobile'
@@ -22,9 +23,9 @@ export default class App extends Component {
 
     this.props.form.validateFields((err, val) => {
       if (!err) {
-        console.log(err, val)
+        let query = qs.stringify(val)
 
-        this.props.history.push('/service/tax_calculator/result')
+        this.props.history.push(`/service/tax_calculator/result?${ query }`)
       }
     })
   }
@@ -98,7 +99,7 @@ export default class App extends Component {
         </Content>
         <Footer>
           <div className = { style['reset'] } onClick = { this.handleRest }>清空</div>
-          <div className = { style['submit'] } onClick = { this.handleSubmit }>添加至还款提醒</div>
+          <div className = { style['submit'] } onClick = { this.handleSubmit }>计算</div>
         </Footer>
       </Fragment>
     )

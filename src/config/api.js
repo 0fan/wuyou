@@ -27,7 +27,17 @@ const api = {
     // 获取存款证明和开盘信息
     getTrack: 'app/building/getPhoneIdentityInfo',
     // 授权/取消授权
-    auth: 'app/my/authorization'
+    auth: 'app/my/authorization',
+
+    // 选房
+    // 根据楼盘ID获取所有的期数信息
+    getPeriod: 'app/building/getBuldingStaging',
+    // 获取当前楼盘期数开盘的选房的所有信息
+    getHouseList: 'app/building/findBuildIDAndPeriodIdUnit',
+    // 锁定房源/预选房源
+    lockHouse: 'app/order/executeLock',
+    // 获取我锁定的房源
+    getMyLockList: 'app/building/getHousesByCustomerPhone'
   },
 
   // 个人中心
@@ -38,7 +48,9 @@ const api = {
     about: 'app/my/aboutUs',
     getMessageList: 'app/sysMessage/sysMessageInfo',
     // 反馈
-    feedback: 'app/my/feedbackInfo'
+    feedback: 'app/my/feedbackInfo',
+    // 获取授权列表
+    getAuthList: 'app/my/getAuthorization'
   },
 
   // 字典

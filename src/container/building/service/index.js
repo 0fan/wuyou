@@ -14,7 +14,7 @@ export default class App extends Component {
   constructor (props) {
     super(props)
 
-    const { auth } = props.user
+    const { auth, userType } = props.user
 
     let data = [{
       title: '房贷计算器',
@@ -26,7 +26,7 @@ export default class App extends Component {
       to: '/service/tax_calculator'
     }]
 
-    if (auth) {
+    if (auth && userType === '1') {
       // 有权限就可以在线选房
       data.unshift({
         title: '在线选房',

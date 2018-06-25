@@ -6,17 +6,13 @@ import Avatar from 'component/avatar'
 import List from 'component/list'
 import BottomText from 'component/bottom-text'
 
-import { logout } from 'model/user'
-
 import style from './index.less'
 
 const { Item } = List
 
 @connect(state => ({
   user: state.user
-}), {
-  logout
-})
+}), {})
 export default class App extends Component {
   render () {
     const {
@@ -42,7 +38,6 @@ export default class App extends Component {
           <Item title = '反馈建议' to = '/i/feedback' />
           <Item title = '关于我们' to = '/i/about' />
         </List>
-        <button onClick = { this.props.logout }>退出</button>
         <BottomText>
           <p>筑房无忧</p>
           <p>v1.0.0</p>

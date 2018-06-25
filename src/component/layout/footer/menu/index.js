@@ -10,6 +10,17 @@ import style from './index.less'
 
 @withRouter
 export default class App extends Component {
+  handleClick = (e, to) => {
+    e.preventDefault()
+
+    const { pathname } = this.props.location
+
+    // 不重复跳转
+    if (pathname !== to) {
+      this.props.history.push(to)
+    }
+  }
+
   render () {
     const {
       text,
@@ -36,6 +47,8 @@ export default class App extends Component {
             [style['footer-menu-active']]: active || regex.test(pathname),
           })
         }
+
+        onClick = { e => this.handleClick(e, to) }
 
         to = { to }
       >

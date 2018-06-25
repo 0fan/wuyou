@@ -22,10 +22,17 @@ export default class Mask extends Component {
     modalRoot.removeChild(this.el)
   }
 
+  handleClick = e => {
+    const {
+      onMaskClick = f => f
+    } = this.props
+
+    onMaskClick()
+  }
+
   render () {
     const {
       visible,
-      onMaskClick,
 
       top = 0,
       zIndex = 1000,
@@ -45,7 +52,7 @@ export default class Mask extends Component {
         <Animate transitionName = 'fade'>
           {
             visible ?
-              <div style = { styleString } className = { style.mask } onClick = { onMaskClick }></div> :
+              <div style = { styleString } className = { style.mask } onClick = { this.handleClick }></div> :
               null
           }
         </Animate>,
@@ -55,7 +62,7 @@ export default class Mask extends Component {
 
     return createPortal(
       visible ?
-        <div style = { styleString } className = { style.mask } onClick = { onMaskClick }></div> :
+        <div style = { styleString } className = { style.mask } onClick = { this.handleClick }></div> :
         null,
       this.el
     )
