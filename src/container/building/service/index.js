@@ -26,7 +26,7 @@ export default class App extends Component {
       to: '/service/tax_calculator'
     }]
 
-    if (auth && userType === '1') {
+    if (auth && userType === '0') {
       // 有权限就可以在线选房
       data.unshift({
         title: '在线选房',

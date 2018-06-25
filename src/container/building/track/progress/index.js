@@ -76,7 +76,7 @@ export default class App extends Component {
       >
         <Steps
           index = {
-            auth && userType === '1' ?
+            auth && userType === '0' ?
               this.state.stepIndex :
               -1
           }

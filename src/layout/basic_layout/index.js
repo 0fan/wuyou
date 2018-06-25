@@ -63,7 +63,7 @@ export default class App extends Component {
   }
 
   getFooter = (auth, userType) => {
-    if (auth && userType === '1') {
+    if (auth && userType === '0') {
       return [{
         type: 'house',
         to: '/house',
@@ -118,7 +118,7 @@ export default class App extends Component {
   getRedirect = () => {
     const { auth, userType } = this.props.user
 
-    return auth && userType === '1' ? '/house' : '/new_building'
+    return auth && userType === '0' ? '/house' : '/new_building'
   }
 
   // 如果已登录且未绑定手机号码则必须绑定手机号码才能进行操作

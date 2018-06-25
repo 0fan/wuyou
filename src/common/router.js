@@ -138,6 +138,7 @@ const routerConfig = {
   '/service/tax_calculator': {
     name: '税务计算器',
     component: dynamicWrapper(() => import('container/service/tax_calculator')),
+    hideMenu: true
   },
   '/service/tax_calculator/home': {
     name: '税务计算器',

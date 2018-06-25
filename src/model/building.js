@@ -112,7 +112,7 @@ export function getBuilding (buildingId) {
         trackRes = {}
 
     // 如果用户已登录且是B类用户,还需要请求其他信息
-    if (auth && userType === '1') {
+    if (auth && userType === '0') {
       [trackErr, trackRes] = await getTrack(buildingId)
     }
 

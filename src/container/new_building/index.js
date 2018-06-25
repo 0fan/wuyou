@@ -14,13 +14,14 @@ export default class App extends Component {
 
     const {
       user: {
-        auth
+        auth,
+        userType
       },
       history
     } = props
 
     // 如果是已登录的用户则无权限进入新盘页面
-    if (auth) {
+    if (auth && userType === '0') {
       history.push('/house')
     }
   }
