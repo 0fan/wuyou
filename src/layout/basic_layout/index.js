@@ -19,7 +19,8 @@ const {
 } = Layout
 
 @connect(state => ({
-  user: state.user
+  user: state.user,
+  building: state.building
 }), {})
 export default class App extends Component {
   constructor (props) {
@@ -152,12 +153,17 @@ export default class App extends Component {
   }
 
   getTitle = () => {
+    const { location: { pathname } } = this.props
     const data = this.getConfig()
 
     let title = ''
 
     if (data && data.name) {
       title = `${ data.name } ${ title }`
+
+      if (pathToRegexp(/^\/building\//g).test(pathname)) {
+        title = this.props.building.buildingName
+      }
     }
 
     return title

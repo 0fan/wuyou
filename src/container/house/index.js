@@ -58,7 +58,7 @@ export default class App extends Component {
   getHouse = async () => {
     this.setState({ loading: true })
 
-    const [err, res] = await axios.post(server + getHouseList)
+    const [err, res] = await axios.get('/getHouseList.json')
 
     if (!this.isMount) {
       return

@@ -162,9 +162,9 @@ const Panel = props => {
           <span className = { style['panel-price-title'] }>参考价</span>
           <span className = { style['panel-price-value'] }>
             {
-              price ?
+              price && parseFloat(price) > 0 ?
                 price + '元/平' :
-                '未知'
+                '待定'
             }
           </span>
         </div>

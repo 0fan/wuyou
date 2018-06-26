@@ -25,31 +25,16 @@ class App extends Component {
       openTime: '2018-06-17 22:20',
       discount: '9.8折/立减1万',
       discountTotal: 10880888.00,
-      status: 0
-    }, {
-      id: 2,
-      qrcode: 'dfsfdsf',
-      title: '1栋-1单元-1102',
-      deposit: 5000,
-      calcType: '套内面积',
-      innerPrice: 8400.00,
-      innerArea: 114.00,
-      total: 1188800.00,
-      building: '滨江壹号院',
-      period: '三期',
-      type: '高层',
-      room: '1101',
-      openTime: '2018-06-17 22:20',
-      discount: '9.8折/立减1万',
-      discountTotal: 10880888.00,
-      status: 0
+      status: 0,
+      visibleQrcode: false
     }]
   }
 
   componentDidMount () {
     const {
       match: {
-        url
+        url,
+        params: { id }
       },
       footerConfig,
       changeFooter
@@ -58,7 +43,7 @@ class App extends Component {
     if (!footerConfig.length || footerConfig[0] && footerConfig[0].text !== '在线选房') {
       changeFooter([{
         type: 'building',
-        to: '/service/choice_house/certificate/home',
+        to: `/service/choice_house/certificate/${ id }`,
         text: '在线选房'
       }, {
         type: 'i',
@@ -86,7 +71,9 @@ class App extends Component {
                   ..._v,
 
                   openTime: '2018-06-24 22:20',
-                  status: 1
+                  status: 1,
+                  // 锁定完成自动打开
+                  visibleQrcode: true
                 }
               }
 

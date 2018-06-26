@@ -166,13 +166,12 @@ export default class App extends Component {
         <Timeline>
           <TimelineBox
             title = '在线开盘'
-            complete = { open.openTime }
-            current = { stepIndex === 1 }
+            current = { true }
             leftContent = { open.openTime && open.status === '1' ? () => <div className = { style['card-btn'] } onClick = { e => { this.props.history.push(`/service/choice_house/certificate/${ id }/home`) } }>去选房</div> : null }
 
             data = { [{
               title: '预计开盘时间',
-              value: open.openTime
+              value: moment(open.openTime).format('YYYY-MM-DD')
             }, {
               title: '开盘状态',
               value: open.openTime ? moment(open.openTime).format('YYYY-MM-DD') : '未知'
@@ -189,12 +188,9 @@ export default class App extends Component {
           <TimelineBox
             title = '购房网签'
             complete = { false }
-            current = { open.openTime && stepIndex === 1 }
+            current = { false }
 
             data = { [{
-              title: '预计开盘时间',
-              value: open.openTime
-            }, {
               title: '网签状态',
               value: '未办理'
             }, {

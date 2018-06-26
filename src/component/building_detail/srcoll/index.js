@@ -14,6 +14,7 @@ const Box =  props => {
 
     headerContent,
     footerContent,
+    noData = '没有数据',
 
     onClick = f => f,
 
@@ -51,7 +52,7 @@ const Box =  props => {
             </div>
           </div> :
           !headerContent && !footerContent ?
-            <Empty text = '没有数据' ratio = { .5 } /> :
+            <Empty text = { noData } ratio = { .5 } /> :
             null
       }
       {

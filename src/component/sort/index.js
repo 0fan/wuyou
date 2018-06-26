@@ -166,7 +166,13 @@ export default class App extends Component {
           <div className = { style['sort-inner'] }>
             {
               _data.map((v, i) => {
-                const selectData = v.find(_v => _v.value === value[keys[i]])
+                let selectData = {}
+
+                v.forEach((_v, i) => {
+                  if (_v.value === value[keys[i]]) {
+                    selectData = _v
+                  }
+                })
 
                 if (!selectData) {
                   return null

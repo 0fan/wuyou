@@ -31,7 +31,7 @@ class App extends Component {
         name: `${ _i + 1 }楼`,
         children: Array(6).fill(0).map((__v, __i) => ({
           id: __i,
-          name: `${ __i < 10 ? '0' + __i : __i }`
+          name: `${ __i + 1 < 10 ? '0' + (__i + 1) : __i + 1 }`
         }))
       }))
     }))
@@ -42,7 +42,8 @@ class App extends Component {
 
     const {
       match: {
-        url
+        url,
+        params: { id }
       },
       footerConfig,
       changeFooter,
@@ -57,7 +58,7 @@ class App extends Component {
     if (!footerConfig.length || footerConfig[0] && footerConfig[0].text !== '在线选房') {
       changeFooter([{
         type: 'building',
-        to: '/service/choice_house/certificate',
+        to: `/service/choice_house/certificate/${ id }`,
         text: '在线选房'
       }, {
         type: 'i',
@@ -96,7 +97,7 @@ class App extends Component {
     const floor = building.children.find(v => v.id === this.state.activeFloor)
     const room = v
 
-    const alertInstance = alert('提示', `确定选择 ${ building.name }${ floor.name }${ v.name }房 吗?`, [
+    const alertInstance = alert('提示', `确定选择 ${ building.name }${ floor.name }${ v.name }房?`, [
       { text: '再考虑下', style: 'default' },
       { text: '我确定', onPress: () => {
         this.props.history.push('/service/choice_house/i')

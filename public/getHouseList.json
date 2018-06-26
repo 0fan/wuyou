@@ -1,0 +1,29 @@
+{
+  "code": 0,
+  "object": {
+    "returnBuildings": [{
+      "id": 1806252100499785,
+      "rawAddTime": 1529920991376,
+      "deleted": false,
+      "rawUpdateTime": 1529920991376,
+      "deleteTime": null,
+      "buildingName": "滨江壹号院",
+      "originalName": "滨江壹号院",
+      "amountArray": "¥12500",
+      "themeCount": null,
+      "subscriptionFlag": null,
+      "ownerNum": 257,
+      "newThemeCount": 0,
+      "province": "四川",
+      "city": "成都市",
+      "area": "清镇市",
+      "renews": [],
+      "buildingTag": "国际化社区,改善住宅",
+      "backgroundImg": "http://pingmi.oss-cn-beijing.aliyuncs.com/1806252130198190.png"
+    }],
+    "propertySize": "1"
+  },
+  "error": null,
+  "message": null,
+  "exception": null
+}

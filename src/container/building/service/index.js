@@ -28,11 +28,11 @@ export default class App extends Component {
 
     if (auth && userType === '0') {
       // 有权限就可以在线选房
-      data.unshift({
-        title: '在线选房',
-        type: 'choice_house',
-        to: '/service/choice_house'
-      })
+      // data.unshift({
+      //   title: '在线选房',
+      //   type: 'choice_house',
+      //   to: '/service/choice_house'
+      // })
     } else {
       // 没有权限就预约看房
       data.push({

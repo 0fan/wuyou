@@ -51,9 +51,9 @@ const Area = props => (
 )
 
 const Price = props => (
-  props.text ?
+  props.text && parseFloat(props.text) > 0 ?
     <div className = { style['item-price'] }>
-      { props.text }
+      均价{ props.text }/平
     </div> :
-    <div className = { style['item-price'] }>暂无价格</div>
+    <div className = { style['item-price'] }>待定</div>
 )

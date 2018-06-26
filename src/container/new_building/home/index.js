@@ -165,8 +165,15 @@ export default class App extends Component {
       return [err]
     }
 
+    const data = {}
+
+    data['高层'] = res.object['高层'] && res.object['高层'].length ? res.object['高层'] : []
+    data['洋房'] = res.object['洋房'] && res.object['洋房'].length ? res.object['洋房'] : []
+    data['大平层'] = res.object['大平层'] && res.object['大平层'].length ? res.object['大平层'] : []
+    data['别墅'] = res.object['别墅'] && res.object['别墅'].length ? res.object['别墅'] : []
+
     this.setState({
-      newBuilding: res.object
+      newBuilding: data
     })
 
     return [null, res]
@@ -354,7 +361,7 @@ export default class App extends Component {
                     <HouseInlineList.Item
                       title = { v.buildingName }
                       area = { v.area }
-                      price = { `均价${ v.amount }元/平` }
+                      price = { v.amount }
                       key = { _i }
                       to = { `/building/${ v.id }` }
                     />
@@ -379,7 +386,7 @@ export default class App extends Component {
                 title = { v.buildingName }
                 area = { v.area }
                 tag = { v.buildingTag ? v.buildingTag.split(',') : [] }
-                price = { `均价${ v.amount }元/平` }
+                price = { v.amount }
                 to = { `/building/${ v.id }` }
 
                 key = { i }

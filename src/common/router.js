@@ -38,11 +38,11 @@ const routerConfig = {
   },
 
   '/new_building': {
-    name: '新盘',
+    name: '筑房无忧',
     component: dynamicWrapper(() => import('container/new_building'))
   },
   '/new_building/home': {
-    name: '新盘',
+    name: '筑房无忧',
     component: dynamicWrapper(() => import('container/new_building/home'))
   },
   '/new_building/search': {
@@ -61,7 +61,7 @@ const routerConfig = {
   },
 
   '/house': {
-    name: '房屋',
+    name: '筑房无忧',
     component: dynamicWrapper(() => import('container/house')),
     auth: true
   },
@@ -228,6 +228,7 @@ const routerConfig = {
   '/i/feedback': {
     name: '反馈建议',
     component: dynamicWrapper(() => import('container/i/feedback')),
+    auth: true,
     hideMenu: true
   },
   '/i/about': {

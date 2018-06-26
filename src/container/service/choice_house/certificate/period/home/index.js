@@ -41,7 +41,7 @@ class App extends Component {
     if (!footerConfig.length || footerConfig[0] && footerConfig[0].text !== '在线选房') {
       changeFooter([{
         type: 'building',
-        to: '/service/choice_house/certificate',
+        to: `/service/choice_house/certificate/${ id }`,
         text: '在线选房'
       }, {
         type: 'i',
@@ -111,7 +111,9 @@ class App extends Component {
             deposit = { 5000 }
             status = '已开盘'
             type = { ['高层', '洋房'] }
-            time = ''
+            time = '2018-12-12 12:20'
+            primary = { true }
+            onClick = { this.handleClick }
           />
           <PeriodBox.Box
             surplus = { 11 }
@@ -120,9 +122,7 @@ class App extends Component {
             deposit = { 5000 }
             status = '已开盘'
             type = { ['高层', '洋房'] }
-            time = '2018-12-12 12:20'
-            primary = { true }
-            onClick = { this.handleClick }
+            time = ''
           />
         </PeriodBox>
       </Fragment>

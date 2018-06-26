@@ -62,6 +62,7 @@ export default class App extends Component {
           <Srcoll
             headerContent = { topNews.content }
             data = { topNews.imgs }
+            noData = '暂无动态'
           />
         </Box>
         <Box

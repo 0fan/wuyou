@@ -95,11 +95,17 @@ export default class App extends Component {
     }
 
     // 注册redux
-    this.props.success(data)
+    this.props.success({
+      ...data,
+      userType: '0'
+    })
     // 注册axios header
     axios.defaults.headers.common['token'] = data.token
     // 保存数据在缓存里 刷新不用重新登录
-    store.set('user', data)
+    store.set('user', {
+      ...data,
+      userType: '0'
+    })
 
     Toast.success('登录成功', 1, () => {
       this.props.history.push('/')

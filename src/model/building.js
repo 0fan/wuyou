@@ -106,7 +106,14 @@ export function getBuilding (buildingId) {
     // 重置之前的数据
     dispatch(loading())
 
-    const [err, res] = await axios.post(server + getDetail, { id: buildingId })
+    let err, res
+
+    [err, res] = await axios.post(server + getDetail, { id: buildingId })
+    // if (!auth) {
+    //   [err, res] = await axios.post(server + getDetail, { id: buildingId })
+    // } else {
+    //   [err, res] = await axios.get('/getBuldingDetail.json', { id: buildingId })
+    // }
 
     let trackErr,
         trackRes = {}
@@ -168,7 +175,7 @@ export function getBuilding (buildingId) {
       type,
       amount,
       area,
-      backgroundImg,
+      backgroundImg: backgroundImg.split(',').filter(v => v)[0],
       buildingName,
       buildingTag,
 
@@ -187,7 +194,7 @@ export function getBuilding (buildingId) {
 // 比如存款证明和开盘信息
 // 只有在登录后才能调用
 async function getTrack (buildingId) {
-  const [err, res] = await axios.post(server + getTrackApi, { id: buildingId })
+  const [err, res] = await axios.get('/getPhoneIdentityInfo.json', { id: buildingId })
 
   if (err) {
     return [err]

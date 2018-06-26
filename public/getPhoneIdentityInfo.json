@@ -1,0 +1,26 @@
+{
+  "code": 0,
+  "object": {
+    "identitys": [{
+      "idtityId": "180520124325520026",
+      "tradeAmount": "¥5000.00",
+      "name": "高层",
+      "tradeDate": "2018-05-20 12:43:25.0",
+      "identityCard": "500236199208188257"
+    }, {
+      "idtityId": "180520125033270044",
+      "tradeAmount": "¥10000.00",
+      "name": "高层",
+      "tradeDate": "2018-05-20 12:50:33.0",
+      "identityCard": "500236199208188257"
+    }],
+    "openmap": {
+      "isselect": "1",
+      "openTime": "2018-06-24 16:53:00.0",
+      "status": "1"
+    }
+  },
+  "error": null,
+  "message": null,
+  "exception": null
+}

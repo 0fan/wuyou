@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import Image from 'component/image'
 // import LazyLoad from 'react-lazyload'
@@ -86,9 +87,9 @@ const Tag = props => (
 )
 
 const Price = props => (
-  props.text ?
+  props.text && parseFloat(props.text) > 0 ?
     <div className = { style['item-info-price'] }>
-      { props.text }
+      均价{ props.text }元/平
     </div> :
-    <div className = { style['item-info-price'] }>暂无价格</div>
+    <div className = { style['item-info-price'] }>待定</div>
 )

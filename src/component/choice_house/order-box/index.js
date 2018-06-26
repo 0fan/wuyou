@@ -15,8 +15,10 @@ class Box extends Component {
 
     this.timer = null
 
+    const { visibleQrcode = false } = props
+
     this.state = {
-      visibleQrcode: false,
+      visibleQrcode,
       qrcodeImage: '',
 
       time: new Date().getTime()
@@ -41,6 +43,12 @@ class Box extends Component {
           })
         }
       })
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.visibleQrcode !== nextProps.visibleQrcode) {
+      this.setState({ visibleQrcode: nextProps.visibleQrcode })
     }
   }
 

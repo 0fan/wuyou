@@ -30,7 +30,15 @@ class App extends Component {
             { text }
           </div>
         </div>
-        <div className = { style['step-wrap-text'] }>{ text }</div>
+        <div className = { style['step-wrap-text'] }>
+          {
+            active ?
+              type.toString() === '2' ?
+                '已开盘' :
+                '已办理' :
+              '未完成'
+          }
+        </div>
       </div>
     )
   }
