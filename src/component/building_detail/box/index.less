@@ -5,6 +5,21 @@
   background: #fff;
   padding: 40px 15px 30px;
 
+  &.box-bottom-text {
+    position: relative;
+    &:after {
+      position: absolute;
+      display: block;
+      color: #4A4A4A;
+      content: attr(data-bottomtext) '';
+      width: 100%;
+      font-size: 13px;
+      text-align: center;
+      left: 0;
+      bottom: 10px;
+    }
+  }
+
   &-header {
     height: 30px;
     display: flex;
@@ -37,7 +52,7 @@
       color: #9B9B9B;
     }
 
-    :global　{
+    :global {
       .ant-divider {
         margin-right: 14px;
         margin-left: 0;

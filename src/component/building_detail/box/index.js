@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import cs from 'classnames'
 
 import style from './index.less'
 
@@ -10,12 +11,13 @@ export default class App extends Component {
       children,
       rightContent,
       leftContent,
+      bottomText,
 
       ...rest
     } = this.props
 
     return (
-      <div className = { style['box'] }>
+      <div data-bottomtext = { bottomText } className = { cs(style['box'], { [style['box-bottom-text']]: bottomText }) }>
         <div className = { style['box-header'] }>
           <div className = { style['box-header-left'] }>
             <div className = { style['box-header-title'] }>{ title }</div>

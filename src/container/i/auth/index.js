@@ -166,7 +166,7 @@ export default class App extends Component {
 const Box = props => (
   <div className = { style.box }>
     <div className = { style['box-body'] }>
-    您已同意授权筑房无忧通过<br />重庆壹平方米网络科技有限公司 [ <strong>存款证明</strong> ] 业务<br />获取您于<strong>{ props.data.buildingName }</strong>的个人业务信息为您提供购房跟踪服务
+    您已同意授权贵阳房产公众服务通过<br />重庆壹平方米网络科技有限公司 [ <strong>存款证明</strong> ] 业务<br />获取您于<strong>{ props.data.buildingName }</strong>的个人业务信息为您提供购房跟踪服务
     </div>
     <div className = { style['box-footer'] } onClick = { props.onClick }>解除授权</div>
   </div>

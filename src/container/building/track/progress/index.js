@@ -49,7 +49,9 @@ export default class App extends Component {
       open,
 
       // 切换存款证明模态框
-      exchangeVisible: false,
+      exchangeCVisible: false,
+      // 切换网签模态框
+      exchangeNVisible: false,
       // 网签提示模态框
       signVisible: false,
       // 备案提示模态框
@@ -140,13 +142,13 @@ export default class App extends Component {
     const certificateData = certificate[certificateActive] || {}
 
     return (
-      <Box title = '节点跟踪' titleExtra = { stepString }>
+      <Box bottomText = '由贵阳市房管局提供数据支持' title = '节点跟踪' titleExtra = { stepString }>
         <Timeline>
           <TimelineBox
             title = '存款证明'
             complete = { certificate.length }
             current = { stepIndex === 0 }
-            leftContent = { () => <div className = { style['card-btn'] } onClick = { e => { this.handleModal('exchangeVisible', e) } }>切换</div> }
+            leftContent = { () => <div className = { style['card-btn'] } onClick = { e => { this.handleModal('exchangeCVisible', e) } }>切换</div> }
 
             data = { [{
               title: '物业类型',
@@ -189,11 +191,12 @@ export default class App extends Component {
           <TimelineBox
             title = '购房网签'
             complete = { false }
-            current = { open.openTime && stepIndex === 1 }
+            current = { true }
+            leftContent = { () => <div className = { style['card-btn'] } onClick = { e => { this.handleModal('exchangeNVisible', e) } }>切换</div> }
 
             data = { [{
-              title: '预计开盘时间',
-              value: open.openTime
+              title: '房源编号',
+              value: '暂无'
             }, {
               title: '网签状态',
               value: '未办理'
@@ -215,6 +218,9 @@ export default class App extends Component {
             current = { stepIndex === 3 }
 
             data = { [{
+              title: '房源编号',
+              value: '暂无'
+            }, {
               title: '备案状态',
               value: '未办理'
             }, {
@@ -232,6 +238,9 @@ export default class App extends Component {
             current = { stepIndex === 4 }
 
             data = { [{
+              title: '房源编号',
+              value: '暂无'
+            }, {
               title: '办理状态',
               value: '未办理'
             }] }
@@ -248,7 +257,6 @@ export default class App extends Component {
         {/* <button onClick = { () => this.setState(prevState => ({ stepIndex: prevState.stepIndex + 1 })) }>加一个步骤</button> */}
         { this.renderSteps() }
         { this.renderTimeline() }
-
         <Modal visible = { this.state.signVisible } onClose = { () => { this.setState({ signVisible: false }) } }>
           <h2>小贴士</h2>
           <h3>网签提供材料</h3>
@@ -268,10 +276,20 @@ export default class App extends Component {
           data = { this.state.certificate }
           active = { this.state.certificateActive }
 
-          visible = { this.state.exchangeVisible }
+          visible = { this.state.exchangeCVisible }
 
-          onClose = { () => { this.setState({ exchangeVisible: false }) } }
-          onSubmit = { (i, v) => { this.setState({ exchangeVisible: false, certificateActive: i }) } }
+          onClose = { () => { this.setState({ exchangeCVisible: false }) } }
+          onSubmit = { (i, v) => { this.setState({ exchangeCVisible: false, certificateActive: i }) } }
+        />
+
+        <NetSignModal
+          data = { this.state.certificate }
+          active = { this.state.certificateActive }
+
+          visible = { this.state.exchangeNVisible }
+
+          onClose = { () => { this.setState({ exchangeNVisible: false }) } }
+          onSubmit = { (i, v) => { this.setState({ exchangeNVisible: false, certificateActive: i }) } }
         />
       </Fragment>
     )
@@ -347,6 +365,87 @@ class CertificateModal extends Component {
               办理成功
               <Divider type = 'vertical' />
               { v.tradeAmount }
+            </div>
+          ))
+        }
+        <div className = { style['modal-action'] }>
+          <Row gutter = { 16 }>
+            <Col span = { 12 }>
+              <Button onClick = { this.props.onClose }>取消</Button>
+            </Col>
+            <Col span = { 12 }>
+              <Button onClick = { this.handleSubmit } type = 'primary'>确定</Button>
+            </Col>
+          </Row>
+        </div>
+      </AntdModal>
+    )
+  }
+}
+
+class NetSignModal extends Component {
+  static defaultProps = {
+    onClose: f => f
+  }
+
+  constructor (props) {
+    super(props)
+
+    const {
+      data = [],
+      active = 0
+    } = props
+
+    this.state = {
+      active,
+      data
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.data && nextProps.data.length) {
+      this.setState({ data: nextProps.data })
+    }
+
+    if (!_.isNil(nextProps.active)) {
+      this.setState({ active: nextProps.active })
+    }
+  }
+
+  handleSubmit = () => {
+    const {
+      active = 0,
+      data
+    } = this.state
+
+    const {
+      onSubmit = f => f
+    } = this.props
+
+    onSubmit(active, data[active])
+  }
+
+  render () {
+    const {
+      ...rest
+    } = this.props
+
+    return (
+      <AntdModal
+        title = '房源切换'
+        transparent
+        className = { style.modal }
+
+        { ...rest }
+      >
+        {
+          this.state.data.map((v, i) => (
+            <div
+              className = { cs(style['exchange-box'], style['single-text'], { [style['exchange-box-active']]: i === this.state.active }) }
+              key = { i }
+              onClick = { e => this.setState({ active: i }) }
+            >
+              { v.name }
             </div>
           ))
         }

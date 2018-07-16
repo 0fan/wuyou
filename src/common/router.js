@@ -81,8 +81,7 @@ const routerConfig = {
   },
   '/building/:id/track/progress': {
     name: '追踪',
-    component: dynamicWrapper(() => import('container/building/track/progress')),
-    hideMenu: true
+    component: dynamicWrapper(() => import('container/building/track/progress'))
   },
   '/building/:id/detail': {
     name: '详情',
@@ -90,8 +89,7 @@ const routerConfig = {
   },
   '/building/:id/detail/home': {
     name: '详情',
-    component: dynamicWrapper(() => import('container/building/detail/home')),
-    hideMenu: true
+    component: dynamicWrapper(() => import('container/building/detail/home'))
   },
   '/building/:id/detail/dynamic': {
     name: '动态',
@@ -100,8 +98,7 @@ const routerConfig = {
   },
   '/building/:id/service': {
     name: '服务',
-    component: dynamicWrapper(() => import('container/building/service')),
-    hideMenu: true
+    component: dynamicWrapper(() => import('container/building/service'))
   },
 
   '/service/appointment': {

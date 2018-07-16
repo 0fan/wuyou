@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import cs from 'classnames'
 import LazyLoad from 'react-lazyload'
+import ImageZoom from 'react-medium-image-zoom'
 
 import { Spin } from 'antd'
 import style from './index.less'
@@ -60,6 +61,8 @@ export default class App extends Component {
       ...rest
     } = this.props
 
+    const originUrl = src.slice(0, src.indexOf('?') || src.length)
+
     return (
       <LazyLoad
         once
@@ -69,14 +72,28 @@ export default class App extends Component {
 
         { ...rest }
       >
-        <img
-          className = { cs(style.img, {
-            [style['img-load']]: this.state.load,
-            [style['img-error']]: this.state.error
-          }) }
-          src = { this.state.src }
-          onLoad = { this.handleLoad }
-          onError = { this.handleError }
+        <ImageZoom
+          zoomMargin = { 10 }
+          shouldReplaceImage = { false }
+          defaultStyles = { { backgroundColor: '#000' } }
+          image = { {
+            src: this.state.src,
+
+            className: cs(style.img, {
+              [style['img-load']]: this.state.load,
+              [style['img-error']]: this.state.error
+            }),
+
+            onLoad: this.handleLoad,
+
+            onError: this.handleError
+          } }
+
+          zoomImage = { {
+            src: originUrl,
+
+            className: style['img-zoom']
+          } }
         />
       </LazyLoad>
     )

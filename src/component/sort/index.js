@@ -166,9 +166,9 @@ export default class App extends Component {
           <div className = { style['sort-inner'] }>
             {
               _data.map((v, i) => {
-                const selectData = v.find(_v => _v.value === value[keys[i]])
+                const selectData = v.filter(_v => _v.value === value[keys[i]])
 
-                if (!selectData) {
+                if (!selectData[1]) {
                   return null
                 }
 

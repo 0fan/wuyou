@@ -93,6 +93,10 @@
   justify-content: space-between;
   padding: 0 10px;
 
+  &.single-text {
+    justify-content: center;
+  }
+
   &:first-child {
     margin-top: 0;
   }
@@ -108,5 +112,20 @@
       height: 5px;
       margin-top: 4px;
     }
+  }
+}
+
+.data-source {
+  position: relative;
+  &:after {
+    position: absolute;
+    display: block;
+    color: #4A4A4A;
+    content: '由贵阳市房管局提供数据支持';
+    width: 100%;
+    font-size: 13px;
+    text-align: center;
+    left: 0;
+    bottom: 10px;
   }
 }

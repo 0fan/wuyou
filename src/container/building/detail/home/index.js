@@ -122,9 +122,6 @@ const Map = props => {
                 </Marker>
               </AMap>
             </div>
-            <div className = { style['map-navigation'] }>
-              <Button type = 'primary'>导航到该地址</Button>
-            </div>
           </Fragment> :
           <BottomText>没有该楼盘坐标信息</BottomText>
       }

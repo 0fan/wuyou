@@ -3,8 +3,8 @@ import _ from 'lodash'
 import cs from 'classnames'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
+import { Modal as AntdModal, Toast } from 'antd-mobile'
 
-import { Toast } from 'antd-mobile'
 import LinkTabs from 'component/link_tabs'
 import Image from 'component/image'
 import Alert from 'component/alert'
@@ -29,7 +29,8 @@ export default class App extends Component {
     focus: '',
     building: '',
     price: '',
-    tag: []
+    tag: [],
+    preSalePermit: false
   }
 
   componentDidMount () {
@@ -119,13 +120,14 @@ const Focus = props => {
     <div className = { cs(style.focus, { [style['focus-404']]: noSrc }) } { ...rest }>
       {
         src ?
-          <Image
+          <img
             src = { src }
 
             { ...rest }
           /> :
           null
       }
+      <span className = { style['pre-sale-permit'] }>预售证&nbsp;&nbsp;<img src = { require('./img/pre_sale_permit.png') } /></span>
     </div>
   )
 }

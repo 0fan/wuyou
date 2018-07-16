@@ -50,14 +50,14 @@ class App extends Component {
       }])
     }
 
-    // this.getPeriod(id)
+    // this.getPeriodData(id)
   }
 
   componentWillUnmount () {
     this.isMount = false
   }
 
-  getPeriod = async (id) => {
+  getPeriodData = async (id) => {
     this.setState({ loading: true, msg: '' })
 
     const [err, res] = await axios.post(server + getPeriod, { id })
