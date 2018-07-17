@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 import Context from 'context/config'
 
@@ -25,23 +26,28 @@ class App extends Component {
   state = {
     loading: false,
     data: [],
-    msg: ''
+    msg: '',
+    buildName: '',
+    propertyType: ''
   }
 
   componentDidMount () {
     const {
       match: {
         url,
-        params: { id }
       },
       footerConfig,
-      changeFooter
+      changeFooter,
+      building: {
+        id
+      }
+
     } = this.props
 
     if (!footerConfig.length || footerConfig[0] && footerConfig[0].text !== '在线选房') {
       changeFooter([{
         type: 'building',
-        to: '/service/choice_house/certificate',
+        to: `/service/choice_house/certificate/${ id }/home`,
         text: '在线选房'
       }, {
         type: 'i',
@@ -50,7 +56,7 @@ class App extends Component {
       }])
     }
 
-    // this.getPeriodData(id)
+    this.getPeriodData(id)
   }
 
   componentWillUnmount () {
@@ -69,10 +75,38 @@ class App extends Component {
     this.setState({ loading: false })
 
     if (err) {
-      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { this.getPeriod }>重试</a></span> })
+      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getPeriodData(id) } }>重试</a></span> })
 
       return [err]
     }
+
+    const {
+      code,
+      message,
+      object: {
+        statings,
+        propertyType,
+        buildName,
+      } = {
+        statings: [],
+        propertyType: '',
+        buildName: '',
+      }
+    } = res
+
+    if (code !== 0) {
+      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getPeriodData(id) } }>重试</a></span> })
+
+      return [message || '']
+    }
+
+    this.setState({
+      propertyType: propertyType,
+      buildName: buildName,
+      data: statings
+    })
+
+    console.log(statings)
 
     return [null, res]
   }
@@ -84,13 +118,19 @@ class App extends Component {
   }
 
   render () {
-    const { buildingName, backgroundImg } = this.props.building
+    const { backgroundImg } = this.props.building
+    const {
+      msg,
+      buildName,
+      propertyType,
+      data
+    } = this.state
 
     return (
       <Fragment>
-        <Alert message = { this.state.msg } fixed />
+        <Alert message = { msg } fixed />
         <Banner
-          title = { buildingName }
+          title = { buildName }
           src = { backgroundImg }
         />
         <PeriodBox>
@@ -104,26 +144,21 @@ class App extends Component {
             time = { '2018-06-18 19:30:00' }
             onClick = { this.handleClick }
           />
-          <PeriodBox.Box
-            surplus = { 11 }
-            building = '滨江壹号院'
-            period = '二期'
-            deposit = { 5000 }
-            status = '已开盘'
-            type = { ['高层', '洋房'] }
-            time = ''
-          />
-          <PeriodBox.Box
-            surplus = { 11 }
-            building = '滨江壹号院'
-            period = '三期'
-            deposit = { 5000 }
-            status = '已开盘'
-            type = { ['高层', '洋房'] }
-            time = '2018-12-12 12:20'
-            primary = { true }
-            onClick = { this.handleClick }
-          />
+          {
+            data.map((v, i) => (
+              <PeriodBox.Box
+                key = { i }
+                surplus = { v.surpluscount }
+                building = { buildName }
+                period = { v.name }
+                deposit = { 5000 }
+                status = { v.status === '0' ? '已开盘' : '未开盘' }
+                type = { [ propertyType ] }
+                time = { v.hobSpecificTime ? moment(parseInt(v.hobSpecificTime)).format('YYYY-MM-DD') : null }
+                onClick = { this.handleClick }
+              />
+            ))
+          }
         </PeriodBox>
       </Fragment>
     )

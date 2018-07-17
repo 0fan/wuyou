@@ -11,15 +11,12 @@ import 'moment/locale/zh-cn'
 import getUserData from 'config/store'
 import axiosConfig from 'config/axios'
 import 'config/method'
-import vConsole from 'vconsole'
 
 import App from './app'
 
 import reducer from 'model/index'
 
 import 'less/index.less'
-
-let vconsole = new vConsole()
 
 const store = createStore(reducer, compose(
   applyMiddleware(thunk),

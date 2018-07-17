@@ -69,7 +69,11 @@ export default class App extends Component {
 
   renderSteps = () => {
     const { auth, userType } = this.props.user
-    const { stepIndex, step } = this.state
+    const {
+      stepIndex,
+      certificate,
+      open
+    } = this.state
 
     return (
       <Box
@@ -79,24 +83,29 @@ export default class App extends Component {
         <Steps
           index = {
             auth && userType === '0' ?
-              this.state.stepIndex :
+              stepIndex :
               -1
           }
           data = { [{
             type: '1',
-            text: '存款证明'
+            text: '存款证明',
+            statusText: certificate.length ? '已办理' : '未办理'
           }, {
             type: '2',
-            text: '在线开盘'
+            text: '在线开盘',
+            statusText: open.status === '0' ? '已开盘' : '未开盘'
           }, {
             type: '3',
-            text: '购房网签'
+            text: '购房网签',
+            statusText: '未办理'
           }, {
             type: '4',
-            text: '购房备案'
+            text: '购房备案',
+            statusText: '未办理'
           }, {
             type: '5',
-            text: '房产证'
+            text: '房产证',
+            statusText: '未办理'
           }] }
         />
       </Box>
@@ -123,7 +132,7 @@ export default class App extends Component {
         <div className = { style['tip-box'] }>
           <div className = { style['tip-content'] }>请挑选楼盘并至售楼处办理存款证明后使用该服务</div>
           <div className = { style['tip-action'] }>
-            <Button onClick = { e => this.props.history.push('/new_building') }>查看楼盘</Button>
+            <Button onClick = { e => this.props.history.push('/new_building') }>挑选楼盘</Button>
           </div>
         </div>
       )
@@ -155,7 +164,7 @@ export default class App extends Component {
               value: certificateData.name
             }, {
               title: '办理时间',
-              value: moment(certificateData.tradeDate).format('YYYY-MM-DD')
+              value: moment(parseInt(certificateData.tradeDate)).format('YYYY-MM-DD')
             }, {
               title: '办理状态',
               value: '成功办理'
@@ -170,17 +179,17 @@ export default class App extends Component {
             title = '在线开盘'
             complete = { open.openTime }
             current = { stepIndex === 1 }
-            leftContent = { open.openTime && open.status === '1' ? () => <div className = { style['card-btn'] } onClick = { e => { this.props.history.push(`/service/choice_house/certificate/${ id }/home`) } }>去选房</div> : null }
+            leftContent = { open.isselect === '0' ? () => <div className = { style['card-btn'] } onClick = { e => { this.props.history.push(`/service/choice_house/certificate/${ id }/home`) } }>去选房</div> : null }
 
             data = { [{
-              title: '预计开盘时间',
-              value: open.openTime
+              title: '开盘时间',
+              value: open.openTime ? moment(parseInt(open.openTime)).format('YYYY-MM-DD HH:mm:ss') : '未知'
             }, {
               title: '开盘状态',
-              value: open.openTime ? moment(open.openTime).format('YYYY-MM-DD') : '未知'
+              value: open.status === '0' ? '已开盘' : '未开盘'
             }, {
               title: '选房资格',
-              value: open.isselect === '1' ? '已具备选房资格' : '无'
+              value: open.isselect === '0' ? '已具备选房资格' : '无'
             }, {
               title: '房源信息',
               value: '暂无'
@@ -191,7 +200,7 @@ export default class App extends Component {
           <TimelineBox
             title = '购房网签'
             complete = { false }
-            current = { true }
+            current = { stepIndex === 2 }
             leftContent = { () => <div className = { style['card-btn'] } onClick = { e => { this.handleModal('exchangeNVisible', e) } }>切换</div> }
 
             data = { [{

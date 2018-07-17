@@ -9,7 +9,8 @@ import style from './index.less'
 export default class App extends Component {
   static defaultProps = {
     onLoad: f => f,
-    onError: f => f
+    onError: f => f,
+    isZoom: true
   }
 
   constructor (props) {
@@ -57,6 +58,7 @@ export default class App extends Component {
   render () {
     const {
       src,
+      isZoom,
 
       ...rest
     } = this.props
@@ -72,29 +74,42 @@ export default class App extends Component {
 
         { ...rest }
       >
-        <ImageZoom
-          zoomMargin = { 10 }
-          shouldReplaceImage = { false }
-          defaultStyles = { { backgroundColor: '#000' } }
-          image = { {
-            src: this.state.src,
+        {
+          isZoom ?
+            <ImageZoom
+              zoomMargin = { 10 }
+              shouldReplaceImage = { false }
+              defaultStyles = { { backgroundColor: '#000' } }
+              image = { {
+                src: this.state.src,
 
-            className: cs(style.img, {
-              [style['img-load']]: this.state.load,
-              [style['img-error']]: this.state.error
-            }),
+                className: cs(style.img, {
+                  [style['img-load']]: this.state.load,
+                  [style['img-error']]: this.state.error
+                }),
 
-            onLoad: this.handleLoad,
+                onLoad: this.handleLoad,
 
-            onError: this.handleError
-          } }
+                onError: this.handleError
+              } }
 
-          zoomImage = { {
-            src: originUrl,
+              zoomImage = { {
+                src: originUrl,
 
-            className: style['img-zoom']
-          } }
-        />
+                className: style['img-zoom']
+              } }
+            /> :
+            <img
+              className = { cs(style.img, {
+                [style['img-load']]: this.state.load,
+                [style['img-error']]: this.state.error
+              }) }
+              src = { this.state.src }
+              onLoad = { this.handleLoad }
+              onError = { this.handleError }
+            />
+        }
+
       </LazyLoad>
     )
   }

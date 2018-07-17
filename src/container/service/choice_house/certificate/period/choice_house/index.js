@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import _ from 'lodash'
 import cs from 'classnames'
+import { connect } from 'react-redux'
 
 import { Modal as AntdModal } from 'antd-mobile'
 import Modal from 'component/modal'
@@ -11,6 +12,9 @@ import style from './index.less'
 
 const { alert } = AntdModal
 
+@connect(state => ({
+  building: state.building
+}))
 class App extends Component {
   $building = null
   $floor = null
@@ -47,7 +51,10 @@ class App extends Component {
       footerConfig,
       changeFooter,
       contentConfig,
-      changeContent
+      changeContent,
+      building: {
+        id
+      }
     } = this.props
 
     if (!contentConfig.flex) {
@@ -57,7 +64,7 @@ class App extends Component {
     if (!footerConfig.length || footerConfig[0] && footerConfig[0].text !== '在线选房') {
       changeFooter([{
         type: 'building',
-        to: '/service/choice_house/certificate',
+        to: `/service/choice_house/certificate/${ id }/home`,
         text: '在线选房'
       }, {
         type: 'i',

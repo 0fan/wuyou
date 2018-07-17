@@ -120,8 +120,9 @@ const Focus = props => {
     <div className = { cs(style.focus, { [style['focus-404']]: noSrc }) } { ...rest }>
       {
         src ?
-          <img
+          <Image
             src = { src }
+            isZoom = { false }
 
             { ...rest }
           /> :

@@ -11,6 +11,7 @@ class App extends Component {
       current,
       active,
       children,
+      statusText,
 
       ...rest
     } = this.props
@@ -30,7 +31,7 @@ class App extends Component {
             { text }
           </div>
         </div>
-        <div className = { style['step-wrap-text'] }>{ text }</div>
+        <div className = { style['step-wrap-text'] }>{ statusText }</div>
       </div>
     )
   }

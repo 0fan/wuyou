@@ -26,22 +26,20 @@ export default class App extends Component {
       to: '/service/tax_calculator'
     }]
 
-    if (auth && userType === '0') {
-      // 有权限就可以在线选房
-      data.unshift({
-        title: '在线选房',
-        type: 'choice_house',
-        to: '/service/choice_house'
-      })
-    } else {
-      // 没有权限就预约看房
+    if (auth && userType !== '0') {
+      // // 有权限就可以在线选房
+      // data.unshift({
+      //   title: '在线选房',
+      //   type: 'choice_house',
+      //   to: '/service/choice_house'
+      // })
+
       data.push({
         title: '预约看房',
         type: 'appointment',
         to: '/service/appointment'
       })
     }
-
     this.state = { data }
   }
 

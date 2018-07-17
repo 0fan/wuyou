@@ -411,7 +411,7 @@ const Carousel = props => {
         {
           data.map((v, i) => (
             <div className = { style['carousel-item'] } key = { i }>
-              <Image height = { 160 } src = { v.src } />
+              <Image isZoom = { false } height = { 160 } src = { v.src } />
             </div>
           ))
         }

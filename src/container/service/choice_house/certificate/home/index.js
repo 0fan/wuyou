@@ -1,24 +1,30 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 
 import { CertificateBox } from 'component/choice_house'
 
 import Context from 'context/config'
 
+@connect(state => ({
+  building: state.building
+}))
 class App extends Component {
   componentDidMount () {
     const {
       match: {
-        url,
-        params: { id }
+        url
       },
       footerConfig,
-      changeFooter
+      changeFooter,
+      building: {
+        id
+      }
     } = this.props
 
     if (!footerConfig.length || footerConfig[0] && footerConfig[0].text !== '在线选房') {
       changeFooter([{
         type: 'building',
-        to: '/service/choice_house/certificate/home',
+        to: `/service/choice_house/certificate/${ id }/home`,
         text: '在线选房'
       }, {
         type: 'i',

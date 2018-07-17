@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 
 import { OrderBox } from 'component/choice_house'
 import { Modal, Toast } from 'antd-mobile'
@@ -7,6 +8,9 @@ import Context from 'context/config'
 
 const { alert } = Modal
 
+@connect(state => ({
+  building: state.building
+}))
 class App extends Component {
   state = {
     data: [{
@@ -52,13 +56,16 @@ class App extends Component {
         url
       },
       footerConfig,
-      changeFooter
+      changeFooter,
+      building: {
+        id
+      }
     } = this.props
 
     if (!footerConfig.length || footerConfig[0] && footerConfig[0].text !== '在线选房') {
       changeFooter([{
         type: 'building',
-        to: '/service/choice_house/certificate/home',
+        to: `/service/choice_house/certificate/${ id }/home`,
         text: '在线选房'
       }, {
         type: 'i',
