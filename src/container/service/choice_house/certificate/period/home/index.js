@@ -12,6 +12,8 @@ import { PeriodBox } from 'component/choice_house'
 
 import { url, api } from 'config/api'
 
+import { changeChoiceHouseType } from 'model/building'
+
 import style from './index.less'
 
 const { server } = url
@@ -19,7 +21,9 @@ const { getPeriod } = api.building
 
 @connect(state => ({
   building: state.building
-}))
+}), {
+  changeChoiceHouseType
+})
 class App extends Component {
   isMount = true
 
@@ -97,7 +101,7 @@ class App extends Component {
     if (code !== 0) {
       this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getPeriodData(id) } }>重试</a></span> })
 
-      return [message || '']
+      return [message || '获取期数信息失败']
     }
 
     this.setState({
@@ -111,10 +115,9 @@ class App extends Component {
     return [null, res]
   }
 
-  handleClick = (priamry) => {
-    const { period } = this.props.match.params
-
-    this.props.history.push(`/service/choice_house/certificate/${ period }/choice_house`)
+  handleClick = (periodId, choiceType) => {
+    this.props.changeChoiceHouseType(choiceType)
+    this.props.history.push(`/service/choice_house/certificate/${ periodId }/choice_house`)
   }
 
   render () {
@@ -134,30 +137,24 @@ class App extends Component {
           src = { backgroundImg }
         />
         <PeriodBox>
-          <PeriodBox.Box
-            surplus = { 200 }
-            building = '滨江壹号院'
-            period = '一期'
-            deposit = { 5000 }
-            status = '已开盘'
-            type = { ['高层', '洋房'] }
-            time = { '2018-06-18 19:30:00' }
-            onClick = { this.handleClick }
-          />
           {
-            data.map((v, i) => (
-              <PeriodBox.Box
-                key = { i }
-                surplus = { v.surpluscount }
-                building = { buildName }
-                period = { v.name }
-                deposit = { 5000 }
-                status = { v.status === '0' ? '已开盘' : '未开盘' }
-                type = { [ propertyType ] }
-                time = { v.hobSpecificTime ? moment(parseInt(v.hobSpecificTime)).format('YYYY-MM-DD') : null }
-                onClick = { this.handleClick }
-              />
-            ))
+            data.length ?
+              data.map((v, i) => (
+                <PeriodBox.Box
+                  key = { i }
+                  id = { v.housePeriodId }
+                  surplus = { v.surpluscount }
+                  building = { buildName }
+                  primary = { parseInt(v.appPre) }
+                  choice = { parseInt(v.hobWay) }
+                  period = { v.name }
+                  deposit = { 5000 }
+                  status = { parseInt(v.status) }
+                  type = { [ propertyType ] }
+                  time = { v.hobSpecificTime ? moment(parseInt(v.hobSpecificTime)).format('YYYY-MM-DD') : null }
+                  onClick = { this.handleClick }
+                /> )) :
+              <Empty text = '没有分期数据' />
           }
         </PeriodBox>
       </Fragment>

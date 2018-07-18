@@ -1,53 +1,29 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
+import Alert from 'component/alert'
+import Empty from 'component/empty'
 import { OrderBox } from 'component/choice_house'
 import { Modal, Toast } from 'antd-mobile'
+
+import { url, api } from 'config/api'
 
 import Context from 'context/config'
 
 const { alert } = Modal
+const { server } = url
+const { getMyLockList } = api.building
 
 @connect(state => ({
   building: state.building
 }))
 class App extends Component {
+  isMount = true
+
   state = {
-    data: [{
-      id: 1,
-      qrcode: 'dfsfdsf',
-      title: '1栋-1单元-1101',
-      deposit: 5000,
-      calcType: '套内面积',
-      innerPrice: 8400.00,
-      innerArea: 114.00,
-      total: 1188800.00,
-      building: '滨江壹号院',
-      period: '三期',
-      type: '高层',
-      room: '1101',
-      openTime: '2018-06-17 22:20',
-      discount: '9.8折/立减1万',
-      discountTotal: 10880888.00,
-      status: 0
-    }, {
-      id: 2,
-      qrcode: 'dfsfdsf',
-      title: '1栋-1单元-1102',
-      deposit: 5000,
-      calcType: '套内面积',
-      innerPrice: 8400.00,
-      innerArea: 114.00,
-      total: 1188800.00,
-      building: '滨江壹号院',
-      period: '三期',
-      type: '高层',
-      room: '1101',
-      openTime: '2018-06-17 22:20',
-      discount: '9.8折/立减1万',
-      discountTotal: 10880888.00,
-      status: 0
-    }]
+    msg: '',
+    data: []
   }
 
   componentDidMount () {
@@ -73,6 +49,50 @@ class App extends Component {
         text: '我的房源'
       }])
     }
+
+    this.getList()
+  }
+
+  componentWillUnmount () {
+    this.isMount = false
+  }
+
+  getList = async () => {
+    this.setState({ loading: true, msg: '' })
+
+    const [err, res] = await axios.post(server + getMyLockList)
+
+    if (!this.isMount) {
+      return
+    }
+
+    this.setState({ loading: false })
+
+    if (err) {
+      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getList() } }>重试</a></span> })
+
+      return [err]
+    }
+
+    const {
+      code,
+      message,
+      object
+    } = res
+
+    if (code !== 0) {
+      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getList() } }>重试</a></span> })
+
+      return [message || '获取我的房源列表失败']
+    }
+
+    this.setState({
+      data: object
+    })
+
+    console.log(this.state.data)
+
+    return [null, res]
   }
 
   handleClick = (v, i, e) => {
@@ -108,19 +128,39 @@ class App extends Component {
   }
 
   render () {
+    const { msg, data } = this.state
+
     return (
       <Fragment>
+        <Alert message = { msg } fixed />
         <OrderBox>
           {
-            this.state.data.map((v, i) => (
-              <OrderBox.Box
-                { ...v }
+            data.length ?
+              data.map((v, i) => (
+                <OrderBox.Box
+                  id = { v.houseOrderId }
+                  qrcode = ''
+                  title = { v.excelRoomStr }
+                  deposit = { v.tradeAmount }
+                  calcType = { v.priceWay }
+                  innerPrice = { v.setInPrice }
+                  innerArea = { v.setInArea }
+                  total = { v.hTotalPrice }
+                  // building = {}
+                  // period = {}
+                  type = { v.name }
+                  // room = {}
+                  openTime = { v.hobSpecificTime }
+                  // discount = {}
+                  // discountTotal = {}
+                  status = { v.status }
 
-                onLock = { e => this.handleClick(v, i, e) }
+                  onLock = { e => this.handleClick(v, i, e) }
 
-                key = { i }
-              />
-            ))
+                  key = { i }
+                />
+              )) :
+              <Empty text = '没有分期数据' />
           }
         </OrderBox>
       </Fragment>

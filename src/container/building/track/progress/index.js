@@ -9,6 +9,7 @@ import { Divider, Button, Row, Col } from 'antd'
 import { Modal as AntdModal, Toast } from 'antd-mobile'
 import { Timeline, Box, Steps, Card } from 'component/building_detail'
 import Modal from 'component/modal'
+import { changeCertificateId } from 'model/building'
 
 import style from './index.less'
 
@@ -16,7 +17,9 @@ import style from './index.less'
 @connect(state => ({
   user: state.user,
   building: state.building
-}), {})
+}), {
+  changeCertificateId
+})
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -142,7 +145,7 @@ export default class App extends Component {
 
     if (stepIndex > -1) {
       if (5 - stepIndex > 0) {
-        stepString = <span><Divider type = 'vertical' />还差<span style = { { color: '#F41906' } }> { 5 - stepIndex } </span>步完成所有节点</span>
+        stepString = <span><Divider type = 'vertical' />还差<span style = { { color: '#F41906' } }> { 5 - (stepIndex + 1) } </span>步完成所有节点</span>
       } else {
         stepString = <span>已完成购房</span>
       }
@@ -259,6 +262,15 @@ export default class App extends Component {
     )
   }
 
+  handleExchangeCertificate = (i, v) => {
+    this.setState({
+      exchangeCVisible: false,
+      certificateActive: i
+    })
+
+    this.props.changeCertificateId(v.idtityId)
+  }
+
   render () {
 
     return (
@@ -288,7 +300,7 @@ export default class App extends Component {
           visible = { this.state.exchangeCVisible }
 
           onClose = { () => { this.setState({ exchangeCVisible: false }) } }
-          onSubmit = { (i, v) => { this.setState({ exchangeCVisible: false, certificateActive: i }) } }
+          onSubmit = { (i, v) => { this.handleExchangeCertificate(i, v) } }
         />
 
         <NetSignModal

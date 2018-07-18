@@ -1,16 +1,22 @@
 import React, { Component, Fragment } from 'react'
-import _ from 'lodash'
+import axios from 'axios'
 import cs from 'classnames'
 import { connect } from 'react-redux'
 
 import { Modal as AntdModal } from 'antd-mobile'
 import Modal from 'component/modal'
+import Alert from 'component/alert'
 
 import Context from 'context/config'
+
+import { url, api } from 'config/api'
 
 import style from './index.less'
 
 const { alert } = AntdModal
+
+const { server } = url
+const { getHouseList, lockHouse } = api.building
 
 @connect(state => ({
   building: state.building
@@ -20,25 +26,20 @@ class App extends Component {
   $floor = null
   $house = null
 
+  isMount = true
+
   state = {
     visibleTip: false,
 
-    activeBuilding: 0,
-    activeFloor: 0,
+    activeBuilding: '',
+    activeFloor: '',
     activeHouse: '',
+    currentFloor: [],
+    currentHouse: [],
 
-    data: Array(8).fill(0).map((v, i) => ({
-      id: i,
-      name: `${ i + 1 }栋一单元`,
-      children: Array(8).fill(0).map((_v, _i) => ({
-        id: _i,
-        name: `${ _i + 1 }楼`,
-        children: Array(6).fill(0).map((__v, __i) => ({
-          id: __i,
-          name: `${ __i < 10 ? '0' + __i : __i }`
-        }))
-      }))
-    }))
+    msg: '',
+
+    data: []
   }
 
   componentDidMount () {
@@ -46,7 +47,10 @@ class App extends Component {
 
     const {
       match: {
-        url
+        url,
+        params: {
+          id: housePreiodId
+        }
       },
       footerConfig,
       changeFooter,
@@ -56,6 +60,8 @@ class App extends Component {
         id
       }
     } = this.props
+
+    console.log(id)
 
     if (!contentConfig.flex) {
       changeContent({ flex: true })
@@ -72,13 +78,70 @@ class App extends Component {
         text: '我的房源'
       }])
     }
+
+    this.getList(id, housePreiodId)
+  }
+
+  componentWillUnmount () {
+    this.isMount = false
+  }
+
+  getList = async (id, housePreiodId) => {
+    this.setState({ loading: true, msg: '' })
+
+    const [err, res] = await axios.post(server + getHouseList, { id, housePreiodId })
+
+    if (!this.isMount) {
+      return
+    }
+
+    this.setState({ loading: false })
+
+    if (err) {
+      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getHouseList(id, housePreiodId) } }>重试</a></span> })
+
+      return [err]
+    }
+
+    const {
+      code,
+      message,
+      object = {}
+    } = res
+
+    if (code !== 0) {
+      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getHouseList(id, housePreiodId) } }>重试</a></span> })
+
+      return [message || '']
+    }
+
+    let firstFloor   = object[0].buildNumId,
+        firstHouse   = object[0].floorMessage[0].floor,
+        currentFloor = object.find(v => v.buildNumId === firstFloor),
+        currentHouse = currentFloor.floorMessage.find(v => v.floor === firstHouse)
+
+    this.setState({
+      data: object,
+      currentFloor,
+      currentHouse,
+      activeBuilding: currentFloor.buildNumId,
+      activeFloor: currentHouse.floor,
+    })
+
+    console.log(object)
+
+    return [null, res]
   }
 
   handleBuildingClick = (v, i, e) => {
+    const currentHouse = v.floorMessage[0]
+
     this.setState({
-      activeBuilding: v.id,
-      activeFloor: 0,
+      activeBuilding: v.buildNumId,
+      activeFloor: v.floorMessage[0].floor,
       activeHouse: '',
+      currentFloor: v,
+      currentHouse
     })
 
     this.$floor.scrollTop = 0
@@ -88,27 +151,75 @@ class App extends Component {
   handleFloorClick = (v, i, e) => {
     this.setState({
       activeHouse: '',
-      activeFloor: v.id,
+      activeFloor: v.floor,
+      currentHouse: v
     })
 
     this.$house.scrollTop = 0
   }
 
   handleHouseClick = (v, i, e) => {
+    const { houseNo, houseId } = v
+    const {
+      currentFloor: {
+        buildNum,
+        elementNum
+      }, currentHouse: {
+        floor
+      }
+    } = this.state
+
     this.setState({
-      activeHouse: v.id,
+      activeHouse: houseId
     })
 
-    const building = this.state.data.find(v => v.id === this.state.activeBuilding)
-    const floor = building.children.find(v => v.id === this.state.activeFloor)
-    const room = v
-
-    const alertInstance = alert('提示', `确定选择 ${ building.name }${ floor.name }${ v.name }房 吗?`, [
+    const alertInstance = alert('提示', `确定选择  ${ buildNum + '栋' + elementNum + '单元' } ${ floor + '楼' } ${ houseNo }房 吗?`, [
       { text: '再考虑下', style: 'default' },
       { text: '我确定', onPress: () => {
-        this.props.history.push('/service/choice_house/i')
+        this.handleLock(houseId)
       } },
     ])
+  }
+
+  handleLock = async (houseId) => {
+    this.setState({ loading: true, msg: '' })
+
+    const {
+      building: {
+        certificateId,
+        choiceHouseType
+      }
+    } = this.props
+
+    const [err, res] = await axios.post(server + lockHouse, {
+      identityOrderId: certificateId,
+      type: choiceHouseType,
+      houseId
+    })
+
+    if (!this.isMount) {
+      return
+    }
+
+    this.setState({ loading: false })
+
+    if (err) {
+
+      return [err]
+    }
+
+    const {
+      code,
+      message
+    } = res
+
+    if (code !== 0) {
+      return [message || '业务流程异常未锁定成功']
+    }
+
+    this.props.history.push('/service/choice_house/i')
+
+    return [null, res]
   }
 
   render () {
@@ -116,31 +227,32 @@ class App extends Component {
       activeBuilding,
       activeFloor,
       activeHouse,
-      data
+      currentFloor,
+      currentHouse,
+      data,
+      msg
     } = this.state
-
-    let currentFloor = data.find(v => v.id === activeBuilding)
-    let currentHouse = currentFloor.children.find(v => v.id === activeFloor).children
 
     return (
       <Fragment>
         <Layout>
+          <Alert message = { msg } fixed />
           <Header
             active = { activeBuilding }
-            data = { this.state.data }
+            data = { data }
             onClick = { this.handleBuildingClick }
             onLoad = { el => this.$building = el }
           />
           <Layout hasSider>
             <Sider
               active = { activeFloor }
-              data = { currentFloor.children }
+              data = { currentFloor.floorMessage ? currentFloor.floorMessage : [] }
               onClick = { this.handleFloorClick }
               onLoad = { el => this.$floor = el }
             />
             <Content
               active = { activeHouse }
-              data = { currentHouse }
+              data = { currentHouse.houseMessage ? currentHouse.houseMessage : [] }
               onClick = { this.handleHouseClick }
               onLoad = { el => this.$house = el }
             />
@@ -181,13 +293,13 @@ const Header = props => {
 
                 className = {
                   cs(style['building-item'], {
-                    [style['building-item-active']]: v.id === active
+                    [style['building-item-active']]: v.buildNumId === active
                   })
                 }
 
                 key = { i }
               >
-                { v.name }
+                { v.buildNum ? `${ v.buildNum }栋` : null } { v.elementNum ? `${ v.elementNum }单元` : null }
               </div>
             ))
           }
@@ -216,13 +328,13 @@ const Sider = props => {
 
                 className = {
                   cs(style['floor-item'], {
-                    [style['floor-item-active']]: v.id === active
+                    [style['floor-item-active']]: v.floor === active
                   })
                 }
 
                 key = { i }
               >
-                { v.name }
+                { v.floor ? `${ v.floor }楼` : null }
               </div>
             ))
           }
@@ -251,13 +363,13 @@ const Content = props => {
 
                 className = {
                   cs(style['house-item'], {
-                    [style['house-item-active']]: v.id === active
+                    [style['house-item-active']]: v.houseId === active
                   })
                 }
 
                 key = { i }
               >
-                { v.name }
+                { v.houseNo ? v.houseNo : null }
               </div>
             ))
           }

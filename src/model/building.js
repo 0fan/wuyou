@@ -10,6 +10,8 @@ const { getDetail, getTrack: getTrackApi } = api.building
 
 const building_authorization = 'building_authorization'
 const building_dis_authorization = 'building_dis_authorization'
+const change_certificateId = 'change_certificateId'
+const change_choiceHouseType = 'change_choiceHouseType'
 
 export const {
   reducer,
@@ -54,6 +56,10 @@ export const {
     // 为什么放在楼盘里而不放在user里呢,因为每个楼盘都是单独的一个进度
     // 存款证明信息
     certificate: [],
+    // 被选中的存款证明ID
+    certificateId: '',
+    // 选中房子的方式 0:立即选房/ 1:预选房源
+    choiceHouseType: 0,
     // 开盘信息
     open: {},
     // 网签信息
@@ -78,6 +84,18 @@ export const {
     result: (state, payload) => ({
       ...state,
       authorization: false
+    })
+  }, {
+    action: change_certificateId,
+    result: (state, payload) => ({
+      ...state,
+      certificateId: payload
+    })
+  }, {
+    action: change_choiceHouseType,
+    result: (state, payload) => ({
+      ...state,
+      choiceHouseType: payload
     })
   }]
 
@@ -200,6 +218,7 @@ async function getTrack (buildingId) {
 
   return [null, {
     certificate,
+    certificateId: certificate.length ? certificate[0].idtityId : '',
     open
   }]
 }
@@ -215,5 +234,19 @@ export function buildingDisAuthorization (payload) {
   return {
     payload,
     type: building_dis_authorization
+  }
+}
+
+export function changeCertificateId (payload) {
+  return {
+    payload,
+    type: change_certificateId
+  }
+}
+
+export function changeChoiceHouseType (payload) {
+  return {
+    payload,
+    type: change_choiceHouseType
   }
 }

@@ -12,7 +12,7 @@ import Alert from 'component/alert'
 import { AuthRouter } from 'component/auth'
 import { getRoutes } from 'util/getRoutes'
 
-import { getBuilding  } from 'model/building'
+import { getBuilding } from 'model/building'
 
 import style from './index.less'
 
