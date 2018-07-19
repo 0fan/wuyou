@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import moment from 'moment'
 
 import Alert from 'component/alert'
 import Empty from 'component/empty'
@@ -13,7 +14,7 @@ import Context from 'context/config'
 
 const { alert } = Modal
 const { server } = url
-const { getMyLockList } = api.building
+const { getMyLockList, lockPrimaryHouse, deleteHouseOrder } = api.building
 
 @connect(state => ({
   building: state.building
@@ -23,6 +24,7 @@ class App extends Component {
 
   state = {
     msg: '',
+    loading: false,
     data: []
   }
 
@@ -95,34 +97,94 @@ class App extends Component {
     return [null, res]
   }
 
-  handleClick = (v, i, e) => {
-    const a = alert(<span>锁定<span style = { { color: '#F41906' } }>{ v.title }</span></span>, <span>确定锁定{ v.building + v.period + v.title }吗?</span>, [{
+  handleLock = (v) => {
+    const { houseOrderId, excelRoomStr } = v
+
+    const a = alert(<span>锁定<span style = { { color: '#F41906' } }>{ v.title }</span></span>, <span>确定锁定{ excelRoomStr }吗?</span>, [{
       text: '再考虑下'
     }, {
       text: '我确定',
       onPress: async () => {
         Toast.loading('锁定中...', 0, null, true)
 
-        setTimeout(() => {
-          Toast.hide()
+        const [err, res] = await axios.post(server + lockPrimaryHouse, { houseOrderId })
 
-          this.setState(prevState => ({
-            data: prevState.data.map(_v => {
-              if (_v.id === v.id) {
-                return {
-                  ..._v,
+        Toast.hide()
 
-                  openTime: '2018-06-24 22:20',
-                  status: 1
-                }
-              }
+        if (!this.isMount) {
+          return
+        }
 
-              return { ..._v }
-            })
-          }))
+        this.setState({ loading: false })
 
-          Toast.success('锁定成功', 3, null, false)
-        }, 1000)
+        if (err) {
+          Toast.fail('锁定失败', 2, null, false)
+
+          return [err]
+        }
+
+        const {
+          code,
+          message
+        } = res
+
+        if (code !== 0) {
+          Toast.fail(message || '业务流程异常未锁定成功', 2, null, false)
+
+          return [message || '业务流程异常未锁定成功']
+        }
+
+        Toast.success('锁定成功', 1, () => {
+          this.getList()
+        }, false)
+
+        return [null, res]
+      }
+    }])
+  }
+
+  handleRemove = (v) => {
+    const { houseOrderId, excelRoomStr } = v
+
+    const a = alert(<span>移除<span style = { { color: '#F41906' } }>{ v.title }</span></span>, <span>确定移除{ excelRoomStr }吗?</span>, [{
+      text: '再考虑下'
+    }, {
+      text: '我确定',
+      onPress: async () => {
+        Toast.loading('移除中...', 0, null, true)
+
+        const [err, res] = await axios.post(server + lockPrimaryHouse, { houseOrderId })
+
+        Toast.hide()
+
+        if (!this.isMount) {
+          return
+        }
+
+        this.setState({ loading: false })
+
+        if (err) {
+          Toast.fail('移除失败', 2, null, false)
+
+          return [err]
+        }
+
+        const {
+          code,
+          message
+        } = res
+
+        if (code !== 0) {
+          Toast.fail(message || '业务流程异常未移除成功', 2, null, false)
+
+          return [message || '业务流程异常未移除成功']
+        }
+
+        Toast.success('移除成功', 1, () => {
+          this.getList()
+        }, false)
+
+        return [null, res]
       }
     }])
   }
@@ -139,28 +201,33 @@ class App extends Component {
               data.map((v, i) => (
                 <OrderBox.Box
                   id = { v.houseOrderId }
-                  qrcode = ''
+                  qrcode = { v.houseOrderId + '&ypf' }
                   title = { v.excelRoomStr }
                   deposit = { v.tradeAmount }
                   calcType = { v.priceWay }
                   innerPrice = { v.setInPrice }
                   innerArea = { v.setInArea }
                   total = { v.hTotalPrice }
-                  // building = {}
-                  // period = {}
+                  building = { v.buildingName }
                   type = { v.name }
                   // room = {}
-                  openTime = { v.hobSpecificTime }
-                  // discount = {}
-                  // discountTotal = {}
-                  status = { v.status }
+                  openTime = { v.hobSpecificTime ? moment(parseInt(v.hobSpecificTime)).format('YYYY-MM-DD HH:mm:ss') : '待定' }
+                  systemTime = { parseInt(v.systemTime) }
+                  deadTime = { parseInt(v.deadTime) }
+                  discount = { v.discountWay }
+                  discountTotal = { v.discountTotalPrice }
+                  // 按钮状态判断相关
+                  houseOrderType = { parseInt(v.houseOrderType) }
+                  openStatus = { parseInt(v.periodStatus) }
+                  payStatus = { parseInt(v.payStatus) }
 
-                  onLock = { e => this.handleClick(v, i, e) }
+                  onLock = { () => this.handleLock(v) }
+                  onRemove = { () => this.handleRemove(v) }
 
                   key = { i }
                 />
               )) :
-              <Empty text = '没有分期数据' />
+              <Empty text = '没有房源数据' />
           }
         </OrderBox>
       </Fragment>

@@ -3,7 +3,7 @@ import axios from 'axios'
 import cs from 'classnames'
 import { connect } from 'react-redux'
 
-import { Modal as AntdModal } from 'antd-mobile'
+import { Modal as AntdModal, Toast } from 'antd-mobile'
 import Modal from 'component/modal'
 import Alert from 'component/alert'
 
@@ -182,7 +182,7 @@ class App extends Component {
   }
 
   handleLock = async (houseId) => {
-    this.setState({ loading: true, msg: '' })
+    Toast.loading('锁定中...', 0, null, true)
 
     const {
       building: {
@@ -197,6 +197,8 @@ class App extends Component {
       houseId
     })
 
+    Toast.hide()
+
     if (!this.isMount) {
       return
     }
@@ -204,6 +206,7 @@ class App extends Component {
     this.setState({ loading: false })
 
     if (err) {
+      Toast.fail('锁定失败', 2, null, false)
 
       return [err]
     }
@@ -214,10 +217,14 @@ class App extends Component {
     } = res
 
     if (code !== 0) {
+      Toast.fail(message || '业务流程异常未锁定成功', 2, null, false)
+
       return [message || '业务流程异常未锁定成功']
     }
 
-    this.props.history.push('/service/choice_house/i')
+    Toast.success('锁定成功', 3, () => {
+      this.props.history.push('/service/choice_house/i')
+    }, false)
 
     return [null, res]
   }

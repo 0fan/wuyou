@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Image from 'component/image'
 import cs from 'classnames'
 import moment from 'moment'
@@ -19,19 +19,54 @@ class Box extends Component {
       visibleQrcode: false,
       qrcodeImage: '',
 
-      time: new Date().getTime()
+      dead: false,    // 判断倒计时是否结束  待支付 => 已失效
+      systemTime: new Date().getTime(),
+      deadTimeText: ''
     }
   }
 
   componentDidMount () {
-    this.timer = setInterval(() => {
-      this.setState({
-        time: new Date().getTime()
-      })
-    }, 1000)
+    const { openStatus, payStatus, systemTime, deadTime, qrcode } = this.props
 
-    if (this.props.qrcode) {
-      QRCode.toDataURL(this.props.qrcode, {
+    this.setState({
+      systemTime
+    })
+
+    if (openStatus === 0 && payStatus === 0) {
+      this.timer = setInterval(() => {
+        let { systemTime } = this.state,
+            diff = (deadTime - this.state.systemTime) / 1000
+
+        console.log('systemTime:' + moment(systemTime).format('YYYY-MM-DD HH:mm:ss'))
+        console.log('deadTime:' + moment(deadTime).format('YYYY-MM-DD HH:mm:ss'))
+
+        if (deadTime <= systemTime || !deadTime) {
+          this.setState({
+            dead: true
+          })
+          clearInterval(this.timer)
+          this.timer = null
+        }
+
+        this.setState({
+          systemTime: systemTime + 1000,
+          deadTimeText: `
+            ${ Math.floor(diff / (3600 * 24)) }天
+            ${ Math.floor(diff / 3600) }小时
+            ${ Math.floor(diff % 3600 / 60) }分
+            ${ Math.floor(diff % 60) }秒`
+        })
+      }, 1000)
+    }
+
+    if (openStatus === 0 && payStatus === 8) {
+      this.setState({
+        dead: true
+      })
+    }
+
+    if (qrcode) {
+      QRCode.toDataURL(qrcode, {
         margin: 0,
         width: 285
       }, (err, url) => {
@@ -53,63 +88,64 @@ class Box extends Component {
 
   render () {
     const {
+      id,
       title,
       deposit,
       calcType,
       innerPrice,
       innerArea,
       total,
+      houseOrderType,
       onClick,
-      status,
+      openStatus,
+      payStatus,
 
       onLock = f => f,
-      onPay = f => f,
+      onRemove = f => f,
 
       building,
       type,
       room,
 
       openTime,
+      deadTime,
+      systemTime,
 
       discount,
       discountTotal
     } = this.props
 
-    const formatTime = moment(openTime).format('YYYY-MM-DD')
+    let renderTime   = `开盘时间: ${ openTime }`,
+        renderAction = null,
+        qrcode       = null
 
-    let renderTime = `开盘时间:${ formatTime }`
-    let renderAction = null
-    let qrcode = null
+    if (openStatus === 0 && houseOrderType === 2) {
+      renderAction = <Button className = { style['box-action'] } type = 'primary' onClick = { onLock }>立即锁定</Button>
+    }
+
+    if (openStatus === 0 && payStatus === 0) {
+      renderAction = this.state.dead ?
+        <Button className = { style['box-action'] } type = 'primary' disabled>已失效</Button> :
+        <Button className = { style['box-action'] } type = 'primary' disabled>已支付</Button>
+      qrcode       = <div className = { style['box-qrcode'] } onClick = { () => this.setState({ visibleQrcode: true }) }> </div>
+    }
+
+    if (openStatus === 0 && payStatus === 1) {
+      renderAction = <Button className = { style['box-action'] } type = 'primary' disabled>已支付</Button>
+    }
+
+    if (openStatus === 0 && payStatus === 8) {
+      renderAction = <Button className = { style['box-action'] } type = 'primary' disabled>已失效</Button>
+      qrcode       = <div className = { style['box-qrcode'] } onClick = { () => this.setState({ visibleQrcode: true }) }> </div>
+    }
+
+    if (openStatus === 1 && houseOrderType === 2) {
+      renderAction = <Button className = { style['box-action'] } type = 'primary' onClick = { onRemove }>移除预选</Button>
+    }
 
     // 已开盘
-    if (moment(openTime).isBefore(moment())) {
-      qrcode = <div className = { style['box-qrcode'] } onClick = { () => this.setState({ visibleQrcode: true }) }></div>
-
-      if (status === 0) {
-        renderAction = <Button className = { style['box-action'] } type = 'primary' onClick = { onLock }>立即锁定</Button>
-      }
-
-      if (status === 1) {
-        renderAction = <Button className = { style['box-action'] } type = 'primary' onClick = { onPay }>待支付</Button>
-      }
-
-    } else {
-      // 是否在某个时间范围内（开盘倒计时）
-      if (moment(openTime).isBetween(moment(this.state.time), moment(this.state.time).add(24, 'h'))) {
-        const diff = Math.abs(new Date(this.state.time).getTime() - new Date(openTime).getTime()) / 1000
-
-        renderTime = (
-          <a href = 'javascript:;'>
-            还剩
-            { Math.floor(diff / 3600) }小时
-            { Math.floor(diff % 3600 / 60) }分
-            { Math.floor(diff % 60) }秒
-            开盘
-          </a>
-        )
-
-        renderAction = <Button className = { style['box-action'] }>移出预选</Button>
-      }
+    if (openStatus === 0) {
+      renderTime = `${ openTime } 已开盘`
     }
 
     return (
@@ -123,7 +159,11 @@ class Box extends Component {
         <div className = { style['box-body'] }>
           { qrcode }
           <div className = { style['box-title'] }>{ title }</div>
-          <div className = { style['box-deposit'] }>定金:￥{ deposit }</div>
+          <div className = { style['box-deposit'] }>
+            {
+              houseOrderType === 1 ? `定金: ￥ ${ deposit }` : null
+            }
+          </div>
           <div className = { style['box-extra'] }>
             <div className = { style['box-extra-item'] }>计价方式：{ calcType }</div>
             <div className = { style['box-extra-item'] }>套内价格：{ innerPrice }元/㎡</div>
@@ -154,10 +194,16 @@ class Box extends Component {
             qrcode && this.state.visibleQrcode ?
               <div className = { style['box-mask'] }>
                 <div className = { style['box-mask-qrcode-img-wrap'] }>
-                  <Image src = { this.state.qrcodeImage } />
+                  <Image isZoom = { false } src = { this.state.qrcodeImage } />
                 </div>
-                <div className = { style['box-mask-title'] }>请向售楼处工作人员出示付款二维码</div>
-                <div className = { style['box-mask-title'] }><em>付款倒计时 1天15小时12分</em></div>
+                {
+                  this.state.dead ?
+                    <div className = { style['box-mask-title'] }>已失效</div> :
+                    <Fragment>
+                      <div className = { style['box-mask-title'] }>请向售楼处工作人员出示付款二维码</div>
+                      <div className = { style['box-mask-title'] }><em>付款倒计时 <a href = 'javascript:;'>{ this.state.deadTimeText }</a></em></div>
+                    </Fragment>
+                }
                 <div className = { style['box-mask-back'] } onClick = { () => this.setState({ visibleQrcode: false }) } />
               </div> :
               null

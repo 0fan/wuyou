@@ -37,7 +37,11 @@ const api = {
     // 锁定房源/预选房源
     lockHouse: 'app/order/executeLock',
     // 获取我锁定的房源
-    getMyLockList: 'app/building/getHousesByCustomerPhone'
+    getMyLockList: 'app/building/getHousesByCustomerPhone',
+    // 锁定我的房源里面的预选房源
+    lockPrimaryHouse: 'app/order/executeReserbeToLock',
+    // 移除订单
+    deleteHouseOrder: 'app/order/houseOrderDelete'
   },
 
   // 个人中心

@@ -74,7 +74,6 @@ class App extends Component {
 
     // 已开盘
     if (status === 0 && choice === 0) {
-
       renderTime = `${ formatTime } 已开盘`
       renderAction = <div onClick = { () => onClick(id, 0) } className = { style['box-action'] }>立即选房</div>
     }
@@ -101,7 +100,12 @@ class App extends Component {
             <div className = { style['box-time'] }>{ renderTime }</div>
           </div>
           <div className = { style['box-body-right'] }>
-            <div className = { style['box-deposit'] }>定金：￥{ deposit }</div>
+            {
+              deposit ?
+                <div className = { style['box-deposit'] }>定金：￥{ deposit }</div> :
+                null
+            }
+
             { renderAction }
           </div>
         </div>

@@ -31,8 +31,7 @@ class App extends Component {
     loading: false,
     data: [],
     msg: '',
-    buildName: '',
-    propertyType: ''
+    buildName: ''
   }
 
   componentDidMount () {
@@ -89,11 +88,9 @@ class App extends Component {
       message,
       object: {
         statings,
-        propertyType,
         buildName,
       } = {
         statings: [],
-        propertyType: '',
         buildName: '',
       }
     } = res
@@ -105,8 +102,7 @@ class App extends Component {
     }
 
     this.setState({
-      propertyType: propertyType,
-      buildName: buildName,
+      buildName,
       data: statings
     })
 
@@ -121,11 +117,10 @@ class App extends Component {
   }
 
   render () {
-    const { backgroundImg } = this.props.building
+    const { backgroundImg, type } = this.props.building
     const {
       msg,
       buildName,
-      propertyType,
       data
     } = this.state
 
@@ -148,9 +143,9 @@ class App extends Component {
                   primary = { parseInt(v.appPre) }
                   choice = { parseInt(v.hobWay) }
                   period = { v.name }
-                  deposit = { 5000 }
+                  // deposit = { 5000 }
                   status = { parseInt(v.status) }
-                  type = { [ propertyType ] }
+                  type = { [ type ] }
                   time = { v.hobSpecificTime ? moment(parseInt(v.hobSpecificTime)).format('YYYY-MM-DD') : null }
                   onClick = { this.handleClick }
                 /> )) :
