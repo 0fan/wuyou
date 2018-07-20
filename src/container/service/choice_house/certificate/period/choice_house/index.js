@@ -3,9 +3,12 @@ import axios from 'axios'
 import cs from 'classnames'
 import { connect } from 'react-redux'
 
+import { Spin } from 'antd'
 import { Modal as AntdModal, Toast } from 'antd-mobile'
 import Modal from 'component/modal'
 import Alert from 'component/alert'
+import BottomText from 'component/bottom-text'
+import Empty from 'component/empty'
 
 import Context from 'context/config'
 
@@ -37,6 +40,7 @@ class App extends Component {
     currentFloor: [],
     currentHouse: [],
 
+    loading: false,
     msg: '',
 
     data: []
@@ -98,22 +102,14 @@ class App extends Component {
     this.setState({ loading: false })
 
     if (err) {
-      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getHouseList(id, housePreiodId) } }>重试</a></span> })
+      this.setState({ msg: <span>{ err || '获取房源列表失败' } <a href = 'javascript:;' onClick = { () => { this.getHouseList(id, housePreiodId) } }>重试</a></span> })
 
       return [err]
     }
 
     const {
-      code,
-      message,
       object = {}
     } = res
-
-    if (code !== 0) {
-      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getHouseList(id, housePreiodId) } }>重试</a></span> })
-
-      return [message || '']
-    }
 
     let firstFloor   = object[0].buildNumId,
         firstHouse   = object[0].floorMessage[0].floor,
@@ -127,8 +123,6 @@ class App extends Component {
       activeBuilding: currentFloor.buildNumId,
       activeFloor: currentHouse.floor,
     })
-
-    console.log(object)
 
     return [null, res]
   }
@@ -206,20 +200,9 @@ class App extends Component {
     this.setState({ loading: false })
 
     if (err) {
-      Toast.fail('锁定失败', 2, null, false)
+      Toast.fail(err || '锁定失败', 2, null, false)
 
       return [err]
-    }
-
-    const {
-      code,
-      message
-    } = res
-
-    if (code !== 0) {
-      Toast.fail(message || '业务流程异常未锁定成功', 2, null, false)
-
-      return [message || '业务流程异常未锁定成功']
     }
 
     Toast.success('锁定成功', 3, () => {
@@ -237,34 +220,42 @@ class App extends Component {
       currentFloor,
       currentHouse,
       data,
+      loading,
       msg
     } = this.state
 
+    const { choiceHouseType } = this.props.building
+
     return (
       <Fragment>
-        <Layout>
-          <Alert message = { msg } fixed />
-          <Header
-            active = { activeBuilding }
-            data = { data }
-            onClick = { this.handleBuildingClick }
-            onLoad = { el => this.$building = el }
-          />
-          <Layout hasSider>
-            <Sider
-              active = { activeFloor }
-              data = { currentFloor.floorMessage ? currentFloor.floorMessage : [] }
-              onClick = { this.handleFloorClick }
-              onLoad = { el => this.$floor = el }
-            />
-            <Content
-              active = { activeHouse }
-              data = { currentHouse.houseMessage ? currentHouse.houseMessage : [] }
-              onClick = { this.handleHouseClick }
-              onLoad = { el => this.$house = el }
-            />
-          </Layout>
-        </Layout>
+        {
+          loading ?
+            <BottomText><Spin /></BottomText> :
+            <Layout>
+              <Alert message = { msg } fixed />
+              <Header
+                active = { activeBuilding }
+                data = { data }
+                onClick = { this.handleBuildingClick }
+                onLoad = { el => this.$building = el }
+              />
+              <Layout hasSider>
+                <Sider
+                  active = { activeFloor }
+                  data = { currentFloor.floorMessage ? currentFloor.floorMessage : [] }
+                  onClick = { this.handleFloorClick }
+                  onLoad = { el => this.$floor = el }
+                />
+                <Content
+                  active = { activeHouse }
+                  data = { currentHouse.houseMessage ? currentHouse.houseMessage : [] }
+                  onClick = { this.handleHouseClick }
+                  onLoad = { el => this.$house = el }
+                  choiceHouseType = { choiceHouseType }
+                />
+              </Layout>
+            </Layout>
+        }
         <Modal
           visible = { this.state.visibleTip }
           onClose = { () => this.setState({ visibleTip: false }) }
@@ -356,7 +347,8 @@ const Content = props => {
     active,
     onClick,
     data,
-    onLoad
+    onLoad,
+    choiceHouseType
   } = props
 
   return (
@@ -364,21 +356,57 @@ const Content = props => {
       <div className = { style['house'] }>
         <div className = { style['house-list'] }>
           {
-            data.map((v, i) => (
-              <div
-                onClick = { e => { onClick(v, i, e) } }
+            choiceHouseType === 0 ?
+              data.map((v, i) => (
+                parseInt(v.status) === 1 ?
+                  <div
+                    onClick = { e => { onClick(v, i, e) } }
 
-                className = {
-                  cs(style['house-item'], {
-                    [style['house-item-active']]: v.houseId === active
-                  })
-                }
+                    className = {
+                      cs(style['house-item'], {
+                        [style['house-item-active']]: v.houseId === active
+                      })
+                    }
 
-                key = { i }
-              >
-                { v.houseNo ? v.houseNo : null }
-              </div>
-            ))
+                    key = { i }
+                  >
+                    { v.houseNo ? v.houseNo : null }
+                  </div> :
+                  <div
+                    className = {
+                      cs(style['house-item'], style['house-item-disabled'])
+                    }
+
+                    key = { i }
+                  >
+                    { v.houseNo ? v.houseNo : null }
+                  </div>
+              )) :
+              data.map((v, i) => (
+                parseInt(v.statusSelect) === 1 ?
+                  <div
+                    onClick = { e => { onClick(v, i, e) } }
+
+                    className = {
+                      cs(style['house-item'], {
+                        [style['house-item-active']]: v.houseId === active
+                      })
+                    }
+
+                    key = { i }
+                  >
+                    { v.houseNo ? v.houseNo : null }
+                  </div> :
+                  <div
+                    className = {
+                      cs(style['house-item'], [style['house-item-active']])
+                    }
+
+                    key = { i }
+                  >
+                    { v.houseNo ? v.houseNo : null }
+                  </div>
+              ))
           }
         </div>
       </div>

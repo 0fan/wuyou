@@ -32,7 +32,7 @@ const api = {
     // 选房
     // 根据楼盘ID获取所有的期数信息
     getPeriod: 'app/building/getBuldingStaging',
-    // 获取当前楼盘期数开盘的选房的所有信息
+    // 根据楼盘ID和期数获取所有房源
     getHouseList: 'app/building/findBuildIDAndPeriodIdUnit',
     // 锁定房源/预选房源
     lockHouse: 'app/order/executeLock',

@@ -94,6 +94,8 @@ class Box extends Component {
       calcType,
       innerPrice,
       innerArea,
+      coverPrice,
+      coverArea,
       total,
       houseOrderType,
       onClick,
@@ -126,7 +128,7 @@ class Box extends Component {
     if (openStatus === 0 && payStatus === 0) {
       renderAction = this.state.dead ?
         <Button className = { style['box-action'] } type = 'primary' disabled>已失效</Button> :
-        <Button className = { style['box-action'] } type = 'primary' disabled>已支付</Button>
+        <Button className = { style['box-action'] } type = 'primary' disabled>待支付</Button>
       qrcode       = <div className = { style['box-qrcode'] } onClick = { () => this.setState({ visibleQrcode: true }) }> </div>
     }
 
@@ -154,7 +156,7 @@ class Box extends Component {
           <div className = { style['box-header-left'] }>
             { building } { type }
           </div>
-          <div className = { style['box-header-right'] }>房号：{ room }</div>
+          <div className = { style['box-header-right'] }>房号: { room }</div>
         </div>
         <div className = { style['box-body'] }>
           { qrcode }
@@ -165,18 +167,29 @@ class Box extends Component {
             }
           </div>
           <div className = { style['box-extra'] }>
-            <div className = { style['box-extra-item'] }>计价方式：{ calcType }</div>
-            <div className = { style['box-extra-item'] }>套内价格：{ innerPrice }元/㎡</div>
-            <div className = { style['box-extra-item'] }>房屋总价：{ total }元</div>
-            <div className = { style['box-extra-item'] }>套内面积：{ innerArea }㎡</div>
+            {
+              calcType === '套内面积' ?
+                <Fragment>
+                  <div className = { style['box-extra-item'] }>计价方式: { calcType }</div>
+                  <div className = { style['box-extra-item'] }>套内价格: { innerPrice }元/㎡</div>
+                  <div className = { style['box-extra-item'] }>房屋总价: { total }元</div>
+                  <div className = { style['box-extra-item'] }>套内面积: { innerArea }㎡</div>
+                </Fragment> :
+                <Fragment>
+                  <div className = { style['box-extra-item'] }>计价方式: { calcType }</div>
+                  <div className = { style['box-extra-item'] }>套内价格: { coverPrice }元/㎡</div>
+                  <div className = { style['box-extra-item'] }>房屋总价: { total }元</div>
+                  <div className = { style['box-extra-item'] }>套内面积: { coverArea }㎡</div>
+                </Fragment>
+            }
             {
               discount ?
-                <div className = { style['box-extra-item'] }>优惠：{ discount }</div> :
+                <div className = { style['box-extra-item'] }>优惠: { discount }</div> :
                 null
             }
             {
               discountTotal ?
-                <div className = { style['box-extra-item'] }>优惠后总价：{ discountTotal }元</div> :
+                <div className = { style['box-extra-item'] }>优惠后总价: { discountTotal }元</div> :
                 null
             }
           </div>

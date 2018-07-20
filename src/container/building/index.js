@@ -26,11 +26,11 @@ export default class App extends Component {
   isMount = true
 
   state = {
+    visiblePermit: false,
     focus: '',
     building: '',
     price: '',
-    tag: [],
-    preSalePermit: false
+    tag: []
   }
 
   componentDidMount () {
@@ -41,6 +41,12 @@ export default class App extends Component {
 
   componentWillUnmount () {
     this.isMount = false
+  }
+
+  handleSeePermit = () => {
+    this.setState({
+      visiblePermit: true
+    })
   }
 
   render () {
@@ -64,7 +70,11 @@ export default class App extends Component {
     return (
       <Fragment>
         <Alert message = { msg } />
-        <Focus src = { !loading && !backgroundImg ? require('component/empty/img/404.png') : backgroundImg  } noSrc = { !loading && !backgroundImg } />
+        <Focus
+          src = { !loading && !backgroundImg ? require('component/empty/img/404.png') : backgroundImg  }
+          noSrc = { !loading && !backgroundImg }
+          onClick = { this.handleSeePermit }
+        />
         <Panel
           title = { buildingName }
           tag = { buildingTag ? buildingTag.split(',').filter(v => v) : [] }
@@ -103,6 +113,16 @@ export default class App extends Component {
           }
           <Redirect exact from = { url } to = { `${ url.removelastSlash() }/track` } />
         </Switch>
+        <AntdModal
+          visible = { this.state.visiblePermit }
+          transparent
+          maskClosable = { false }
+          onClose = { () => this.setState({ visiblePermit: false }) }
+          title = '预售许可证'
+          footer = { [{ text: '确定', onPress: () => { this.setState({ visiblePermit: false }) } }] }
+        >
+
+        </AntdModal>
       </Fragment>
     )
   }
@@ -112,6 +132,7 @@ const Focus = props => {
   const {
     src,
     noSrc,
+    onClick,
 
     ...rest
   } = props
@@ -128,7 +149,8 @@ const Focus = props => {
           /> :
           null
       }
-      <span className = { style['pre-sale-permit'] }>预售证&nbsp;&nbsp;<img src = { require('./img/pre_sale_permit.png') } /></span>
+      <span onClick = { onClick } className = { style['pre-sale-permit'] }>
+      </span>
     </div>
   )
 }

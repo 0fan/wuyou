@@ -30,20 +30,6 @@ export default class App extends Component {
       data: [],
       msg: '',
       loading: false
-      // data: Array(2).fill(0).map((v, i) => ({
-      //   id: i,
-      //   img: 'http://img5.imgtn.bdimg.com/it/u=1249777653,196599392&fm=27&gp=0.jpg',
-      //   title: '融创九樾府',
-      //   tag: ['观山湖区', '高层'],
-      //   news: {
-      //     text: '融创九樾府5月25日2栋大平层开盘',
-      //     link: '/i'
-      //   },
-      //   referencePrice: 14000,
-      //   owner: 342,
-      //   hot: 70,
-      //   to: `/building/${ i }`
-      // }))
     }
   }
 
@@ -73,7 +59,6 @@ export default class App extends Component {
     }
 
     const {
-      propertySize,
       returnBuildings = []
     } = res.object
 
@@ -99,17 +84,22 @@ export default class App extends Component {
   }
 
   render () {
+    const {
+      data,
+      msg,
+      loading
+    } = this.state
+
     return (
       <Fragment>
-        <Alert message = { this.state.msg } />
+        <Alert message = { msg } />
         <List
-          data = { this.state.data }
-
-          headerContent = { !this.state.loading && this.state.data.length ? <div>共绑定{ this.state.data.length }个楼盘</div> : null }
+          data = { data }
+          headerContent = { !loading && data.length ? <div>共绑定{ data.length }个楼盘</div> : null }
           footerContent = {
-            this.state.loading ?
+            loading ?
               <BottomText><Spin /></BottomText> :
-              !this.state.data.length ?
+              !data.length ?
                 <Empty text = '没有绑定的楼盘' /> :
                 <BottomText>没有更多</BottomText>
           }

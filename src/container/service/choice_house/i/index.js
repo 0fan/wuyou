@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import moment from 'moment'
 
+import { Spin } from 'antd'
+import { Modal, Toast } from 'antd-mobile'
 import Alert from 'component/alert'
 import Empty from 'component/empty'
 import { OrderBox } from 'component/choice_house'
-import { Modal, Toast } from 'antd-mobile'
+import BottomText from 'component/bottom-text'
 
 import { url, api } from 'config/api'
 
@@ -71,28 +73,18 @@ class App extends Component {
     this.setState({ loading: false })
 
     if (err) {
-      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getList() } }>重试</a></span> })
+      this.setState({ msg: <span>{ err || '获取我的房源列表失败' } <a href = 'javascript:;' onClick = { () => { this.getList() } }>重试</a></span> })
 
       return [err]
     }
 
     const {
-      code,
-      message,
       object
     } = res
-
-    if (code !== 0) {
-      this.setState({ msg: <span>{ err } <a href = 'javascript:;' onClick = { () => { this.getList() } }>重试</a></span> })
-
-      return [message || '获取我的房源列表失败']
-    }
 
     this.setState({
       data: object
     })
-
-    console.log(this.state.data)
 
     return [null, res]
   }
@@ -118,20 +110,9 @@ class App extends Component {
         this.setState({ loading: false })
 
         if (err) {
-          Toast.fail('锁定失败', 2, null, false)
+          Toast.fail(err || '锁定失败', 2, null, false)
 
           return [err]
-        }
-
-        const {
-          code,
-          message
-        } = res
-
-        if (code !== 0) {
-          Toast.fail(message || '业务流程异常未锁定成功', 2, null, false)
-
-          return [message || '业务流程异常未锁定成功']
         }
 
         Toast.success('锁定成功', 1, () => {
@@ -153,7 +134,7 @@ class App extends Component {
       onPress: async () => {
         Toast.loading('移除中...', 0, null, true)
 
-        const [err, res] = await axios.post(server + lockPrimaryHouse, { houseOrderId })
+        const [err, res] = await axios.post(server + deleteHouseOrder, { houseOrderId })
 
         Toast.hide()
 
@@ -164,20 +145,9 @@ class App extends Component {
         this.setState({ loading: false })
 
         if (err) {
-          Toast.fail('移除失败', 2, null, false)
+          Toast.fail(err || '移除失败', 2, null, false)
 
           return [err]
-        }
-
-        const {
-          code,
-          message
-        } = res
-
-        if (code !== 0) {
-          Toast.fail(message || '业务流程异常未移除成功', 2, null, false)
-
-          return [message || '业务流程异常未移除成功']
         }
 
         Toast.success('移除成功', 1, () => {
@@ -190,44 +160,48 @@ class App extends Component {
   }
 
   render () {
-    const { msg, data } = this.state
+    const { msg, data, loading } = this.state
 
     return (
       <Fragment>
         <Alert message = { msg } fixed />
         <OrderBox>
           {
-            data.length ?
-              data.map((v, i) => (
-                <OrderBox.Box
-                  id = { v.houseOrderId }
-                  qrcode = { v.houseOrderId + '&ypf' }
-                  title = { v.excelRoomStr }
-                  deposit = { v.tradeAmount }
-                  calcType = { v.priceWay }
-                  innerPrice = { v.setInPrice }
-                  innerArea = { v.setInArea }
-                  total = { v.hTotalPrice }
-                  building = { v.buildingName }
-                  type = { v.name }
-                  // room = {}
-                  openTime = { v.hobSpecificTime ? moment(parseInt(v.hobSpecificTime)).format('YYYY-MM-DD HH:mm:ss') : '待定' }
-                  systemTime = { parseInt(v.systemTime) }
-                  deadTime = { parseInt(v.deadTime) }
-                  discount = { v.discountWay }
-                  discountTotal = { v.discountTotalPrice }
-                  // 按钮状态判断相关
-                  houseOrderType = { parseInt(v.houseOrderType) }
-                  openStatus = { parseInt(v.periodStatus) }
-                  payStatus = { parseInt(v.payStatus) }
+            loading ?
+              <BottomText><Spin /></BottomText> :
+              data.length ?
+                data.map((v, i) => (
+                  <OrderBox.Box
+                    id = { v.houseOrderId }
+                    qrcode = { v.houseOrderId + '&ypf' }
+                    title = { v.excelRoomStr }
+                    deposit = { v.tradeAmount }
+                    calcType = { v.priceWay }
+                    innerPrice = { v.setInPrice }
+                    innerArea = { v.setInArea }
+                    coverPrice = { v.hosUnitPrice }
+                    coverArea = { v.hosUnitArea }
+                    total = { v.hTotalPrice }
+                    building = { v.buildingName }
+                    type = { v.name }
+                    room = { v.householdNo ? v.householdNo : '' }
+                    openTime = { v.hobSpecificTime ? moment(parseInt(v.hobSpecificTime)).format('YYYY-MM-DD HH:mm:ss') : '待定' }
+                    systemTime = { parseInt(v.systemTime) }
+                    deadTime = { parseInt(v.deadTime) }
+                    discount = { v.discountWay }
+                    discountTotal = { v.discountTotalPrice }
+                    // 按钮状态判断相关
+                    houseOrderType = { parseInt(v.houseOrderType) }
+                    openStatus = { parseInt(v.periodStatus) }
+                    payStatus = { parseInt(v.payStatus) }
 
-                  onLock = { () => this.handleLock(v) }
-                  onRemove = { () => this.handleRemove(v) }
+                    onLock = { () => this.handleLock(v) }
+                    onRemove = { () => this.handleRemove(v) }
 
-                  key = { i }
-                />
-              )) :
-              <Empty text = '没有房源数据' />
+                    key = { i }
+                  />
+                )) :
+                <Empty text = '没有房源数据' />
           }
         </OrderBox>
       </Fragment>

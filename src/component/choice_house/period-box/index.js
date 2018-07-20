@@ -49,12 +49,12 @@ class App extends Component {
 
     let formatTime = ''
 
-    let renderTime = '开盘时间:暂无'
+    let renderTime = '开盘时间: 暂无'
     let renderAction = <div className = { cs(style['box-action'], style['box-action-disabled']) }>暂不支持</div>
 
     if (time) {
       formatTime = moment(time).format('YYYY-MM-DD')
-      renderTime = `开盘时间:${ formatTime }`
+      renderTime = `开盘时间: ${ formatTime }`
 
       // 是否在某个时间范围内（开盘倒计时）
       // if (moment(time).isBetween(moment(this.state.time), moment(this.state.time).add(24, 'h'))) {
@@ -92,17 +92,17 @@ class App extends Component {
           <div className = { style['box-body-content'] }>
             <div className = { style['box-title'] }>{ `${ building } ${ period }` }</div>
             <div className = { style['box-extra'] }>
-              状态：{ status === 0 ? '已开盘' : '未开盘' }
+              状态: { status === 0 ? '已开盘' : '未开盘' }
             </div>
             <div className = { style['box-extra'] }>
-              类型：{ type.join(' | ') }
+              类型: { type.join(' | ') }
             </div>
             <div className = { style['box-time'] }>{ renderTime }</div>
           </div>
           <div className = { style['box-body-right'] }>
             {
               deposit ?
-                <div className = { style['box-deposit'] }>定金：￥{ deposit }</div> :
+                <div className = { style['box-deposit'] }>定金: ￥{ deposit }</div> :
                 null
             }
 
