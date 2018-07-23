@@ -250,7 +250,7 @@ export default class App extends Component {
                 title = { v.buildingName }
                 area = { v.area }
                 tag = { v.buildingTag ? v.buildingTag.split(',') : [] }
-                price = { `均价${ v.amount }元/平` }
+                price = { `参考价${ v.amount }元/平` }
                 to = { `/building/${ v.id }` }
 
                 key = { i }

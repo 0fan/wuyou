@@ -5,22 +5,10 @@ import { Link } from 'react-router-dom'
 
 import { Icon } from 'antd'
 import { Box, Srcoll } from 'component/building_detail'
-import Button from 'component/button'
 import BottomText from 'component/bottom-text'
 import { Map as AMap, Marker } from 'react-amap'
 
 import style from './index.less'
-
-// 临时数据
-const data = Array(10).fill({
-  src: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=360869140,1895507837&fm=27&gp=0.jpg'
-})
-
-// 临时数据
-const data2 = Array(10).fill({
-  title: 'A户型 两室 套内68m²',
-  src: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=360869140,1895507837&fm=27&gp=0.jpg'
-})
 
 @connect(state => ({
   building: state.building
@@ -80,7 +68,7 @@ export default class App extends Component {
             data = { buildingType.map(v => ({
               ...v,
               src: v.imgUrlMobie,
-              title: v.typeName
+              title: v.typeName + ' ' + v.remark + ' ' + (v.withinArea  ? '套内' + v.withinArea + '㎡' : '建面' + v.buildArea + '㎡')
             })) }
           />
         </Box>
