@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect, withRouter } from 'react-router-dom'
-import _ from 'lodash'
+import { withRouter } from 'react-router-dom'
 import moment from 'moment'
-import cs from 'classnames'
 import { connect } from 'react-redux'
 
-import { Divider, Button, Row, Col } from 'antd'
-import { Modal as AntdModal, Toast } from 'antd-mobile'
+import { Divider, Button } from 'antd'
 import { Timeline, Box, Steps, Card } from 'component/building_detail'
 import Modal from 'component/modal'
+import { CertificateModal, NetSignModal } from 'component/exchangeModal'
 import { changeCertificateId } from 'model/building'
 
 import style from './index.less'
@@ -24,10 +22,29 @@ export default class App extends Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      stepIndex: -1,
+      open: {},
+      // 存款证明列表
+      certificate: [],
+      // 当前选择的存款证明id
+      certificateActive: 0,
+      // 切换存款证明模态框
+      exchangeCVisible: false,
+      // 切换网签模态框
+      exchangeNVisible: false,
+      // 网签提示模态框
+      signVisible: false,
+      // 备案提示模态框
+      recordVisible: false
+    }
+  }
+
+  componentDidMount () {
     const {
       certificate = [],
       open = {}
-    } = props.building
+    } = this.props.building
 
     let stepIndex = -1
 
@@ -41,25 +58,11 @@ export default class App extends Component {
       stepIndex = 1
     }
 
-    this.state = {
-      stepIndex,
-
-      // 存款证明列表
-      certificate,
-      // 当前选择的存款证明id
-      certificateActive: 0,
-
+    this.setState({
       open,
-
-      // 切换存款证明模态框
-      exchangeCVisible: false,
-      // 切换网签模态框
-      exchangeNVisible: false,
-      // 网签提示模态框
-      signVisible: false,
-      // 备案提示模态框
-      recordVisible: false
-    }
+      stepIndex,
+      certificate
+    })
   }
 
   handleModal = (type, e) => {
@@ -68,6 +71,15 @@ export default class App extends Component {
     this.setState({
       [type]: true
     })
+  }
+
+  handleExchangeCertificate = (i, v) => {
+    this.setState({
+      exchangeCVisible: false,
+      certificateActive: i
+    })
+
+    this.props.changeCertificateId(v.idtityId)
   }
 
   renderSteps = () => {
@@ -128,6 +140,8 @@ export default class App extends Component {
 
       open
     } = this.state
+
+    console.log(certificateActive)
 
     // 没有登录则不显示节点追踪
     if (!auth) {
@@ -262,15 +276,6 @@ export default class App extends Component {
     )
   }
 
-  handleExchangeCertificate = (i, v) => {
-    this.setState({
-      exchangeCVisible: false,
-      certificateActive: i
-    })
-
-    this.props.changeCertificateId(v.idtityId)
-  }
-
   render () {
 
     return (
@@ -296,19 +301,15 @@ export default class App extends Component {
         <CertificateModal
           data = { this.state.certificate }
           active = { this.state.certificateActive }
-
           visible = { this.state.exchangeCVisible }
-
           onClose = { () => { this.setState({ exchangeCVisible: false }) } }
-          onSubmit = { (i, v) => { this.handleExchangeCertificate(i, v) } }
+          onSubmit = { this.handleExchangeCertificate }
         />
 
         <NetSignModal
           data = { this.state.certificate }
           active = { this.state.certificateActive }
-
           visible = { this.state.exchangeNVisible }
-
           onClose = { () => { this.setState({ exchangeNVisible: false }) } }
           onSubmit = { (i, v) => { this.setState({ exchangeNVisible: false, certificateActive: i }) } }
         />
@@ -316,176 +317,6 @@ export default class App extends Component {
     )
   }
 }
-
-class CertificateModal extends Component {
-  static defaultProps = {
-    onClose: f => f
-  }
-
-  constructor (props) {
-    super(props)
-
-    const {
-      data = [],
-      active = 0
-    } = props
-
-    this.state = {
-      active,
-      data
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.data && nextProps.data.length) {
-      this.setState({ data: nextProps.data })
-    }
-
-    if (!_.isNil(nextProps.active)) {
-      this.setState({ active: nextProps.active })
-    }
-  }
-
-  handleSubmit = () => {
-    const {
-      active = 0,
-      data
-    } = this.state
-
-    const {
-      onSubmit = f => f
-    } = this.props
-
-    onSubmit(active, data[active])
-  }
-
-  render () {
-    const {
-      ...rest
-    } = this.props
-
-    return (
-      <AntdModal
-        title = '存款证明切换'
-        transparent
-        className = { style.modal }
-
-        { ...rest }
-      >
-        {
-          this.state.data.map((v, i) => (
-            <div
-              className = { cs(style['exchange-box'], { [style['exchange-box-active']]: i === this.state.active }) }
-              key = { i }
-              onClick = { e => this.setState({ active: i }) }
-            >
-              { v.name }
-              <Divider type = 'vertical' />
-              { moment(v.tradeDate).format('YYYY-MM-DD') }
-              <Divider type = 'vertical' />
-              办理成功
-              <Divider type = 'vertical' />
-              { v.tradeAmount }
-            </div>
-          ))
-        }
-        <div className = { style['modal-action'] }>
-          <Row gutter = { 16 }>
-            <Col span = { 12 }>
-              <Button onClick = { this.props.onClose }>取消</Button>
-            </Col>
-            <Col span = { 12 }>
-              <Button onClick = { this.handleSubmit } type = 'primary'>确定</Button>
-            </Col>
-          </Row>
-        </div>
-      </AntdModal>
-    )
-  }
-}
-
-class NetSignModal extends Component {
-  static defaultProps = {
-    onClose: f => f
-  }
-
-  constructor (props) {
-    super(props)
-
-    const {
-      data = [],
-      active = 0
-    } = props
-
-    this.state = {
-      active,
-      data
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.data && nextProps.data.length) {
-      this.setState({ data: nextProps.data })
-    }
-
-    if (!_.isNil(nextProps.active)) {
-      this.setState({ active: nextProps.active })
-    }
-  }
-
-  handleSubmit = () => {
-    const {
-      active = 0,
-      data
-    } = this.state
-
-    const {
-      onSubmit = f => f
-    } = this.props
-
-    onSubmit(active, data[active])
-  }
-
-  render () {
-    const {
-      ...rest
-    } = this.props
-
-    return (
-      <AntdModal
-        title = '房源切换'
-        transparent
-        className = { style.modal }
-
-        { ...rest }
-      >
-        {
-          this.state.data.map((v, i) => (
-            <div
-              className = { cs(style['exchange-box'], style['single-text'], { [style['exchange-box-active']]: i === this.state.active }) }
-              key = { i }
-              onClick = { e => this.setState({ active: i }) }
-            >
-              { v.name }
-            </div>
-          ))
-        }
-        <div className = { style['modal-action'] }>
-          <Row gutter = { 16 }>
-            <Col span = { 12 }>
-              <Button onClick = { this.props.onClose }>取消</Button>
-            </Col>
-            <Col span = { 12 }>
-              <Button onClick = { this.handleSubmit } type = 'primary'>确定</Button>
-            </Col>
-          </Row>
-        </div>
-      </AntdModal>
-    )
-  }
-}
-
-// { this.renderTimeline() }
 
 const TimelineBox = props => {
   const {

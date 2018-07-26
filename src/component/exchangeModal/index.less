@@ -1,0 +1,131 @@
+@import '~less/mixin.less';
+
+.card-btn {
+  line-height: 24px;
+  font-size: 12px;
+  color: #fff;
+  padding: 0 11px;
+  display: inline-block;
+
+  .hairline(around, #fff);
+}
+
+.card-complete {
+  font-size: 15px;
+  color: #fff;
+  opacity: .5;
+}
+
+.tip-box {
+  background: #fff;
+  margin-top: 10px;
+  padding: 40px 15px;
+}
+.tip-content {
+  font-size: 16px;
+  color: #1B160C;
+  line-height: 1.5;
+  padding-left: 34px;
+  position: relative;
+  min-height: 24px;
+
+  &:before {
+    content: "\E6AB";
+    font-family: 'anticon';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    font-size: 22px;
+    color: #2F2C2F;
+  }
+}
+.tip-action {
+  text-align: center;
+  margin-top: 20px;
+
+  :global {
+    .ant-btn {
+      width: 200px;
+      height: 44px;
+      line-height: 44px;
+      border-radius: 5px;
+      color: #14256E;
+      font-size: 17px;
+    }
+  }
+}
+
+.modal {
+  width: 328px;
+
+  :global {
+    .am-modal-title {
+      font-size: 16px;
+      color: #000;
+      font-weight: 500;
+    }
+  }
+
+  &-action {
+    margin-top: 20px;
+
+    :global {
+      .ant-btn {
+        display: block;
+        width: 100%;
+        height: 44px;
+        line-height: 44px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+.exchange-box {
+  height: 44px;
+  display: flex;
+  border-radius: 5px;
+  background: #fff;
+  border: 1px solid #D7D7D7;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #4A4A4A;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+
+  &.single-text {
+    justify-content: center;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &-active {
+    color: #fff;
+    border-color: #293677;
+    background: #293677;
+  }
+
+  :global {
+    .ant-divider, .ant-divider-vertical {
+      height: 5px;
+      margin-top: 4px;
+    }
+  }
+}
+
+.data-source {
+  position: relative;
+  &:after {
+    position: absolute;
+    display: block;
+    color: #4A4A4A;
+    content: '由贵阳市房管局提供数据支持';
+    width: 100%;
+    font-size: 13px;
+    text-align: center;
+    left: 0;
+    bottom: 10px;
+  }
+}
