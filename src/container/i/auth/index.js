@@ -103,7 +103,7 @@ export default class App extends Component {
   handleUnbind = (v, i, e) => {
     e.preventDefault()
 
-    const a = alert(<span>解绑<span style = { { color: '#F41906' } }>{ v.buildingName }</span></span>, '解除授权后，无法为您提供楼盘跟踪服务 确定要解除吗？', [{
+    const a = alert(<span>解绑<span style = { { color: '#FF4F32' } }>{ v.buildingName }</span></span>, '解除授权后，无法为您提供楼盘跟踪服务 确定要解除吗？', [{
       text: '再考虑下'
     }, {
       text: '我确定',

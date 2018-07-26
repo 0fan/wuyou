@@ -140,8 +140,6 @@ export default class App extends Component {
       open
     } = this.state
 
-    console.log(certificateActive)
-
     // 没有登录则不显示节点追踪
     if (!auth) {
       return (
@@ -158,7 +156,7 @@ export default class App extends Component {
 
     if (stepIndex > -1) {
       if (5 - stepIndex > 0) {
-        stepString = <span><Divider type = 'vertical' />还差<span style = { { color: '#F41906' } }> { 5 - (stepIndex + 1) } </span>步完成所有节点</span>
+        stepString = <span><Divider type = 'vertical' />还差<span style = { { color: '#FF4F32' } }> { 5 - (stepIndex + 1) } </span>步完成所有节点</span>
       } else {
         stepString = <span>已完成购房</span>
       }
@@ -198,7 +196,7 @@ export default class App extends Component {
             leftContent = { open.isselect === '0' ? () => <div className = { style['card-btn'] } onClick = { this.handleChoiceHouse }>去选房</div> : null }
 
             data = { [{
-              title: '开盘时间',
+              title: '预计开盘时间',
               value: open.openTime ? moment(parseInt(open.openTime)).format('YYYY-MM-DD HH:mm:ss') : '未知'
             }, {
               title: '开盘状态',

@@ -258,7 +258,7 @@ export default class App extends Component {
             <Item title = '贷款总额' value = { this.state.total } />
             <Item title = '支付利息' value = { this.state.totalInterest } />
             <Item title = '还款总额' value = { this.state.totalRefund } />
-            <Item title = '还款月数' value = { this.state.period * 12 } />
+            <Item title = '还款月数' value = { <span>{ this.state.period * 12 }</span> } />
           </Panel>
         </Content>
         {
@@ -322,7 +322,9 @@ const Item = props => {
   return (
     <div className = { style['panel-item'] }>
       <div className = { style['panel-item-title'] }>{ title }</div>
-      <div className = { style['panel-item-value'] }>{ _.isNumber(value) ? value.toFixed(2) : value }</div>
+      <div className = { style['panel-item-value'] }>
+        { _.isNumber(value) ? value.toFixed(2) : value }
+      </div>
     </div>
   )
 }

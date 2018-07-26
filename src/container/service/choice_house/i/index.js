@@ -92,7 +92,7 @@ class App extends Component {
   handleLock = (v) => {
     const { houseOrderId, excelRoomStr } = v
 
-    const a = alert(<span>锁定<span style = { { color: '#F41906' } }>{ v.title }</span></span>, <span>确定锁定{ excelRoomStr }吗?</span>, [{
+    const a = alert(<span>锁定<span style = { { color: '#FF4F32' } }>{ v.title }</span></span>, <span>确定锁定{ excelRoomStr }吗?</span>, [{
       text: '再考虑下'
     }, {
       text: '我确定',
@@ -127,7 +127,7 @@ class App extends Component {
   handleRemove = (v) => {
     const { houseOrderId, excelRoomStr } = v
 
-    const a = alert(<span>移除<span style = { { color: '#F41906' } }>{ v.title }</span></span>, <span>确定移除{ excelRoomStr }吗?</span>, [{
+    const a = alert(<span>移除<span style = { { color: '#FF4F32' } }>{ v.title }</span></span>, <span>确定移除{ excelRoomStr }吗?</span>, [{
       text: '再考虑下'
     }, {
       text: '我确定',

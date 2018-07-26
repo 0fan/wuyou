@@ -12,6 +12,8 @@ import getUserData from 'config/store'
 import axiosConfig from 'config/axios'
 import 'config/method'
 
+import vConsole from 'vconsole'
+
 import App from './app'
 
 import reducer from 'model/index'
@@ -25,6 +27,8 @@ const store = createStore(reducer, compose(
 
 axiosConfig(store)
 getUserData(store)
+
+// new vConsole()
 
 render(
   <Provider store = { store }>

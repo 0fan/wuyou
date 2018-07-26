@@ -44,11 +44,14 @@ const Item = props => (
 )
 
 const Preview = props => (
-  props.src ?
-    <div className = { style['item-preview'] }>
-      <Image height = { 84 } src = { props.src } />
-    </div> :
-    null
+  // props.src ?
+  //   <div className = { style['item-preview'] }>
+  //     <Image height = { 84 } src = { props.src } />
+  //   </div> :
+  //   null
+  <div className = { style['item-preview'] }>
+    <Image height = { 84 } src = { props.src } />
+  </div>
 )
 
 const Placeholder = () => <span>hello world</span>

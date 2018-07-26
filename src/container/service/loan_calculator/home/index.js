@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <Wrap>
         <Box to = '/service/loan_calculator/common' title = '通用计算' text = '商业贷款 / 公积金贷款独立计算' type = 'common' />
-        <Box to = '/service/loan_calculator/combine' title = '组合计算' text = '商业贷款商业贷款 / 公积金贷款组合计算' type = 'combine' />
+        <Box to = '/service/loan_calculator/combine' title = '组合计算' text = '商业贷款 / 公积金贷款组合计算' type = 'combine' />
       </Wrap>
     )
   }

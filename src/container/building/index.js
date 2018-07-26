@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Modal as AntdModal, Toast } from 'antd-mobile'
 
+import store from 'store'
+
 import LinkTabs from 'component/link_tabs'
 import Image from 'component/image'
 import Alert from 'component/alert'
@@ -119,9 +121,10 @@ export default class App extends Component {
           maskClosable = { false }
           onClose = { () => this.setState({ visiblePermit: false }) }
           title = '预售许可证'
+          style = { { width: 290 } }
           footer = { [{ text: '确定', onPress: () => { this.setState({ visiblePermit: false }) } }] }
         >
-
+          <div>正在办理中</div>
         </AntdModal>
       </Fragment>
     )

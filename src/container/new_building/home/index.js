@@ -28,17 +28,6 @@ const {
 } = api.new_building
 const { building_filter } = api.dict
 
-const getData = count => (
-  Array(count).fill({
-    id: 1,
-    imgUrl: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=360869140,1895507837&fm=27&gp=0.jpg',
-    buildingName: '融创九樾府融创九樾府融创九樾府融创九樾府',
-    buildingTag: '高层,品牌地产',
-    area: '南明区',
-    amount: 20300
-  })
-)
-
 @connect(state => ({
   user: state.user
 }), {})
@@ -379,7 +368,12 @@ export default class App extends Component {
                 title = { v.buildingName }
                 area = { v.area }
                 tag = { v.buildingTag ? v.buildingTag.split(',') : [] }
-                price = { `参考价${ v.amount }元/平` }
+                price = {
+                  !v.amount ||
+                  v.amount.toString() === '0' ?
+                    '暂无参考价' :
+                    `参考价${ v.amount }元/平`
+                }
                 to = { `/building/${ v.id }` }
 
                 key = { i }

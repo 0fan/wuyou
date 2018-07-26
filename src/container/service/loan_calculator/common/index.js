@@ -143,8 +143,8 @@ class Total extends Component {
             value = { this.state.period }
             onChange = { v => this.setState({ period: v }) }
 
-            step = { 5 }
-            min = { 5 }
+            step = { 1 }
+            min = { 1 }
             max = { 30 }
             defaultValue = { 20 }
             suffix = '年'
@@ -304,8 +304,8 @@ class Area extends Component {
             value = { this.state.period }
             onChange = { v => this.setState({ period: v }) }
 
-            step = { 5 }
-            min = { 5 }
+            step = { 1 }
+            min = { 1 }
             max = { 30 }
             defaultValue = { 20 }
             suffix = '年'

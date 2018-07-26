@@ -67,37 +67,37 @@ const routerConfig = {
   },
 
   '/building/:id': {
-    name: '楼盘详情',
+    name: '楼盘',
     component: dynamicWrapper(() => import('container/building'))
   },
   '/building/:id/track': {
-    name: '追踪',
+    name: '楼盘',
     component: dynamicWrapper(() => import('container/building/track'))
   },
   '/building/:id/track/protocol': {
-    name: '追踪',
+    name: '楼盘',
     component: dynamicWrapper(() => import('container/building/track/protocol')),
     hideMenu: true
   },
   '/building/:id/track/progress': {
-    name: '追踪',
+    name: '楼盘',
     component: dynamicWrapper(() => import('container/building/track/progress'))
   },
   '/building/:id/detail': {
-    name: '详情',
+    name: '楼盘',
     component: dynamicWrapper(() => import('container/building/detail'))
   },
   '/building/:id/detail/home': {
-    name: '详情',
+    name: '楼盘',
     component: dynamicWrapper(() => import('container/building/detail/home'))
   },
   '/building/:id/detail/dynamic': {
-    name: '动态',
+    name: '楼盘',
     component: dynamicWrapper(() => import('container/building/detail/dynamic')),
     hideMenu: true
   },
   '/building/:id/service': {
-    name: '服务',
+    name: '楼盘',
     component: dynamicWrapper(() => import('container/building/service'))
   },
 

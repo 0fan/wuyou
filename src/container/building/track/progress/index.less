@@ -1,5 +1,21 @@
 @import '~less/mixin.less';
 
+.card-btn {
+  line-height: 24px;
+  font-size: 12px;
+  color: #fff;
+  padding: 0 11px;
+  display: inline-block;
+
+  .hairline(around, #fff);
+}
+
+.card-complete {
+  font-size: 15px;
+  color: #fff;
+  opacity: .5;
+}
+
 .modal {
   width: 328px;
 
@@ -57,6 +73,46 @@
     .ant-divider, .ant-divider-vertical {
       height: 5px;
       margin-top: 4px;
+    }
+  }
+}
+
+.tip-box {
+  background: #fff;
+  margin-top: 10px;
+  padding: 40px 15px;
+}
+.tip-content {
+  font-size: 16px;
+  color: #1B160C;
+  line-height: 1.5;
+  padding-left: 34px;
+  position: relative;
+  min-height: 24px;
+
+  &:before {
+    content: "\E6AB";
+    font-family: 'anticon';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    font-size: 22px;
+    color: #2F2C2F;
+  }
+}
+.tip-action {
+  text-align: center;
+  margin-top: 20px;
+
+  :global {
+    .ant-btn {
+      border-color: #14256E;
+      width: 200px;
+      height: 44px;
+      line-height: 42px;
+      border-radius: 5px;
+      color: #14256E;
+      font-size: 17px;
     }
   }
 }
