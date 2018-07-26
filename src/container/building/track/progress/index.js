@@ -73,13 +73,12 @@ export default class App extends Component {
     })
   }
 
-  handleExchangeCertificate = (i, v) => {
-    this.setState({
-      exchangeCVisible: false,
-      certificateActive: i
-    })
+  handleChoiceHouse = () => {
+    const { certificate, certificateActive } = this.state
+    const { id } = this.props.building
 
-    this.props.changeCertificateId(v.idtityId)
+    this.props.changeCertificateId(certificate[certificateActive].idtityId)
+    this.props.history.push(`/service/choice_house/certificate/${ id }/home`)
   }
 
   renderSteps = () => {
@@ -196,7 +195,7 @@ export default class App extends Component {
             title = '在线开盘'
             complete = { open.openTime }
             current = { stepIndex === 1 }
-            leftContent = { open.isselect === '0' ? () => <div className = { style['card-btn'] } onClick = { e => { this.props.history.push(`/service/choice_house/certificate/${ id }/home`) } }>去选房</div> : null }
+            leftContent = { open.isselect === '0' ? () => <div className = { style['card-btn'] } onClick = { this.handleChoiceHouse }>去选房</div> : null }
 
             data = { [{
               title: '开盘时间',
@@ -303,16 +302,16 @@ export default class App extends Component {
           active = { this.state.certificateActive }
           visible = { this.state.exchangeCVisible }
           onClose = { () => { this.setState({ exchangeCVisible: false }) } }
-          onSubmit = { this.handleExchangeCertificate }
+          onSubmit = { (i, v) => this.setState({ exchangeCVisible: false, certificateActive: i }) }
         />
 
-        <NetSignModal
+        {/*  <NetSignModal
           data = { this.state.certificate }
           active = { this.state.certificateActive }
           visible = { this.state.exchangeNVisible }
           onClose = { () => { this.setState({ exchangeNVisible: false }) } }
           onSubmit = { (i, v) => { this.setState({ exchangeNVisible: false, certificateActive: i }) } }
-        />
+        /> */}
       </Fragment>
     )
   }
