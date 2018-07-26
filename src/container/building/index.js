@@ -190,9 +190,10 @@ const Panel = props => {
           <span className = { style['panel-price-title'] }>参考价</span>
           <span className = { style['panel-price-value'] }>
             {
-              price ?
-                price + '元/平' :
-                '未知'
+              !price || price.toString() === '0' ?
+                '暂无价格' :
+                price + '元/平'
+
             }
           </span>
         </div>

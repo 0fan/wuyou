@@ -75,12 +75,12 @@ class App extends Component {
     // 已开盘
     if (status === 0 && choice === 0) {
       renderTime = `${ formatTime } 已开盘`
-      renderAction = <div onClick = { () => onClick(id, 0) } className = { style['box-action'] }>立即选房</div>
+      renderAction = <div onClick = { () => onClick(0) } className = { style['box-action'] }>立即选房</div>
     }
 
     // 支持预选且有剩余套数
     if (status === 1 && primary === 0) {
-      renderAction = <div onClick = { () => onClick(id, 1) } className = { style['box-action'] }>优先预选</div>
+      renderAction = <div onClick = { () => onClick(1) } className = { style['box-action'] }>优先预选</div>
     }
 
     return (

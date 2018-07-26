@@ -6,7 +6,7 @@ import reduxGenerator from 'util/reduxGenerator'
 import { url, api } from 'config/api'
 
 const { server } = url
-const { getDetail, getTrack: getTrackApi } = api.building
+const { getDetail, getOtherInfo: getOtherInfoApi, getTrack: getTrackApi } = api.building
 
 const building_authorization = 'building_authorization'
 const building_dis_authorization = 'building_dis_authorization'
@@ -58,8 +58,10 @@ export const {
     certificate: [],
     // 被选中的存款证明ID
     certificateId: '',
-    // 选中房子的方式 0:立即选房/ 1:预选房源
+    // 选中房源的方式 0:立即选房/ 1:预选房源
     choiceHouseType: 0,
+    // 预选房源的套数
+    hobPreNum: 0,
     // 开盘信息
     open: {},
     // 网签信息
@@ -127,7 +129,9 @@ export function getBuilding (buildingId) {
     const [err, res] = await axios.post(server + getDetail, { id: buildingId })
 
     let trackErr,
-        trackRes = {}
+        trackRes = {},
+        otherErr,
+        otherRes = {}
 
     // 如果用户已登录且是B类用户,还需要请求其他信息
     if (auth && userType === '0') {
@@ -146,6 +150,16 @@ export function getBuilding (buildingId) {
       dispatch(error(trackErr))
 
       return [trackErr]
+    }
+
+    if (auth && userType === '0') {
+      [otherErr, otherRes] = await getOtherInfo(buildingId, trackRes.certificate[0].identityCard)
+    }
+
+    if (otherErr) {
+      dispatch(error(otherErr))
+
+      return [otherErr]
     }
 
     const {
@@ -194,7 +208,8 @@ export function getBuilding (buildingId) {
       atlas: jcvImgArrayMobie.split(',').filter(v => v),
       buildingType,
 
-      ...trackRes
+      ...trackRes,
+      ...otherRes
     }))
 
     return [null, res]
@@ -223,6 +238,29 @@ async function getTrack (buildingId) {
   }]
 }
 
+// 网签信息
+// 备案信息
+// 房产证信息
+async function getOtherInfo (buildingId, identifyId) {
+  const [err, res] = await axios.post(server + getOtherInfoApi, { projectId: buildingId, certificateNumber: identifyId })
+
+  if (err) {
+    return [err]
+  }
+
+  const {
+    record = [],
+    propertyHandle: property = [],
+    net: sign = []
+  } = res.object
+
+  return [null, {
+    record,
+    property,
+    sign
+  }]
+}
+
 export function buildingAuthorization (payload) {
   return {
     payload,
@@ -234,19 +272,5 @@ export function buildingDisAuthorization (payload) {
   return {
     payload,
     type: building_dis_authorization
-  }
-}
-
-export function changeCertificateId (payload) {
-  return {
-    payload,
-    type: change_certificateId
-  }
-}
-
-export function changeChoiceHouseType (payload) {
-  return {
-    payload,
-    type: change_choiceHouseType
   }
 }

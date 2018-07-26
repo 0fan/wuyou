@@ -14,7 +14,7 @@ import { PeriodBox } from 'component/choice_house'
 
 import { url, api } from 'config/api'
 
-import { changeChoiceHouseType } from 'model/building'
+import { success } from 'model/building'
 
 import style from './index.less'
 
@@ -24,7 +24,7 @@ const { getPeriod } = api.building
 @connect(state => ({
   building: state.building
 }), {
-  changeChoiceHouseType
+  success
 })
 class App extends Component {
   isMount = true
@@ -103,9 +103,15 @@ class App extends Component {
     return [null, res]
   }
 
-  handleClick = (periodId, choiceType) => {
-    this.props.changeChoiceHouseType(choiceType)
-    this.props.history.push(`/service/choice_house/certificate/${ periodId }/choice_house`)
+  handleClick = (choiceHouseType, v) => {
+    const { housePeriodId, hobPreNum } = v
+
+    this.props.success({
+      choiceHouseType,
+      hobPreNum
+    })
+
+    this.props.history.push(`/service/choice_house/certificate/${ housePeriodId }/choice_house`)
   }
 
   handleBack = () => {
@@ -148,7 +154,7 @@ class App extends Component {
                     status = { parseInt(v.status) }
                     type = { [ type ] }
                     time = { v.hobSpecificTime ? moment(parseInt(v.hobSpecificTime)).format('YYYY-MM-DD') : null }
-                    onClick = { this.handleClick }
+                    onClick = { (choiceHouseType) => { this.handleClick(choiceHouseType, v) } }
                   /> )) :
                 <Empty text = '没有分期数据' />
           }

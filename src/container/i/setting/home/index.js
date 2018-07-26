@@ -26,7 +26,7 @@ export default class App extends Component {
       <Fragment>
         <List>
           <Item title = '用户ID' rightContent = { this.props.user.id } />
-          <Item title = '手机换绑' to = '/i/setting/change_phome_bind' />
+          {/* <Item title = '手机换绑' to = '/i/setting/change_phome_bind' /> */}
         </List>
         <div className = { style['quit'] } onClick = { this.handleLogout }>退出</div>
       </Fragment>

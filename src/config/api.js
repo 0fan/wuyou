@@ -27,6 +27,8 @@ const api = {
     // 登录后才可以调用
     // 获取存款证明和开盘信息
     getTrack: 'app/building/getPhoneIdentityInfo',
+    // 获取其他信息（网签等）
+    getOtherInfo: 'app/gy/getAllMsg',
     // 授权/取消授权
     auth: 'app/my/authorization',
 

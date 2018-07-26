@@ -154,8 +154,17 @@ export default class App extends Component {
       return [err]
     }
 
+    let newObj = new Object(),
+        i      = 0,
+        data   = res.object,
+        len    = data.length
+
+    for (; i < len; i++) {
+      Object.assign(newObj, data[i])
+    }
+
     this.setState({
-      newBuilding: res.object
+      newBuilding: newObj
     })
 
     return [null, res]
@@ -343,7 +352,10 @@ export default class App extends Component {
                     <HouseInlineList.Item
                       title = { v.buildingName }
                       area = { v.area }
-                      price = { `参考价${ v.amount }元/平` }
+                      price = {
+                        !v.amount || v.amount.toString() === '0' ?
+                          '暂无价格' :
+                          `参考价${ v.amount }元/平` }
                       key = { _i }
                       to = { `/building/${ v.id }` }
                     />
@@ -371,7 +383,7 @@ export default class App extends Component {
                 price = {
                   !v.amount ||
                   v.amount.toString() === '0' ?
-                    '暂无参考价' :
+                    '暂无价格' :
                     `参考价${ v.amount }元/平`
                 }
                 to = { `/building/${ v.id }` }

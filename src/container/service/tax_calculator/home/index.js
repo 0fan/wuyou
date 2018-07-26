@@ -6,8 +6,10 @@ import { Modal } from 'antd-mobile'
 import SegmentedControl from 'component/segmentedControl'
 import Layout from 'component/layout'
 import BottomText from 'component/bottom-text'
+import { valid_money } from 'config/form-rule'
 
 import style from './index.less'
+
 
 const { Content, Footer } = Layout
 const { alert } = Modal
@@ -71,10 +73,7 @@ export default class App extends Component {
             >
               {
                 getFieldDecorator('area', {
-                  rules: [{
-                    required: true,
-                    message: '请输入房屋面积'
-                  }]
+                  rules: valid_money('房屋面积')
                 })(
                   <Input size = 'large' />
                 )
@@ -85,10 +84,8 @@ export default class App extends Component {
             >
               {
                 getFieldDecorator('price', {
-                  rules: [{
-                    required: true,
-                    message: '请输入房屋单价'
-                  }]
+                  validateFirst: true,
+                  rules: valid_money('房屋单价')
                 })(
                   <Input size = 'large' />
                 )

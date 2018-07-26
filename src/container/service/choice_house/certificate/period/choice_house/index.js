@@ -176,14 +176,16 @@ class App extends Component {
   }
 
   handleLock = async (houseId) => {
-    Toast.loading('锁定中...', 0, null, true)
-
     const {
       building: {
         certificateId,
         choiceHouseType
       }
     } = this.props
+
+    const operate = choiceHouseType === 0 ? '锁定' : '预选'
+
+    Toast.loading(`${ operate }中...`, 0, null, true)
 
     const [err, res] = await axios.post(server + lockHouse, {
       identityOrderId: certificateId,
@@ -200,12 +202,12 @@ class App extends Component {
     this.setState({ loading: false })
 
     if (err) {
-      Toast.fail(err || '锁定失败', 2, null, false)
+      Toast.fail(err || `${ operate }失败`, 2, null, false)
 
       return [err]
     }
 
-    Toast.success('锁定成功', 3, () => {
+    Toast.success(`${ operate }成功`, 3, () => {
       this.props.history.push('/service/choice_house/i')
     }, false)
 
@@ -224,7 +226,7 @@ class App extends Component {
       msg
     } = this.state
 
-    const { choiceHouseType } = this.props.building
+    const { choiceHouseType, hobPreNum } = this.props.building
 
     return (
       <Fragment>
@@ -260,8 +262,17 @@ class App extends Component {
           visible = { this.state.visibleTip }
           onClose = { () => this.setState({ visibleTip: false }) }
         >
-          <h2>选房说明</h2>
-          <p>1个存款证明只能锁定1套房源，锁定后无法更改，请谨慎选择</p>
+          {
+            choiceHouseType === 0 ?
+              <Fragment>
+                <h2>选房说明</h2>
+                <p>1个存款证明只能锁定1套房源，锁定后无法更改，请谨慎选择</p>
+              </Fragment> :
+              <Fragment>
+                <h2>预选说明</h2>
+                <p>1个存款证明最多预选{ hobPreNum }套房源，预选的房源可变更</p>
+              </Fragment>
+          }
         </Modal>
       </Fragment>
     )

@@ -7,7 +7,7 @@ import { Divider, Button } from 'antd'
 import { Timeline, Box, Steps, Card } from 'component/building_detail'
 import Modal from 'component/modal'
 import { CertificateModal, NetSignModal } from 'component/exchangeModal'
-import { changeCertificateId } from 'model/building'
+import { success } from 'model/building'
 
 import style from './index.less'
 
@@ -16,7 +16,7 @@ import style from './index.less'
   user: state.user,
   building: state.building
 }), {
-  changeCertificateId
+  success
 })
 export default class App extends Component {
   constructor (props) {
@@ -77,7 +77,9 @@ export default class App extends Component {
     const { certificate, certificateActive } = this.state
     const { id } = this.props.building
 
-    this.props.changeCertificateId(certificate[certificateActive].idtityId)
+    this.props.success({
+      certificateId: certificate[certificateActive].idtityId
+    })
     this.props.history.push(`/service/choice_house/certificate/${ id }/home`)
   }
 
@@ -196,8 +198,8 @@ export default class App extends Component {
             leftContent = { open.isselect === '0' ? () => <div className = { style['card-btn'] } onClick = { this.handleChoiceHouse }>去选房</div> : null }
 
             data = { [{
-              title: '预计开盘时间',
-              value: open.openTime ? moment(parseInt(open.openTime)).format('YYYY-MM-DD HH:mm:ss') : '未知'
+              title: '开盘时间',
+              value: open.openTime ? `预计${ moment(parseInt(open.openTime)).format('YYYY-MM-DD HH:mm:ss') }` : '未知'
             }, {
               title: '开盘状态',
               value: open.status === '0' ? '已开盘' : '未开盘'
