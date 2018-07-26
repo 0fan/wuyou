@@ -169,7 +169,7 @@ class App extends Component {
           {
             loading ?
               <BottomText><Spin /></BottomText> :
-              data.length ?
+              data && data.length ?
                 data.map((v, i) => (
                   <OrderBox.Box
                     id = { v.houseOrderId }

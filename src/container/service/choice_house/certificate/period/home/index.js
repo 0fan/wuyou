@@ -134,7 +134,7 @@ class App extends Component {
           {
             loading ?
               <BottomText><Spin /></BottomText> :
-              data.length ?
+              data && data.length ?
                 data.map((v, i) => (
                   <PeriodBox.Box
                     key = { i }
