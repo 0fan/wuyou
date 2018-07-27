@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Switch, Route, Link, Redirect } from 'react-router-dom'
 
 import { AuthRouter } from 'component/auth'
+import Empty from 'component/empty'
 import { getRoutes } from 'util/getRoutes'
 
 @connect(state => ({
@@ -15,7 +16,11 @@ export default class App extends Component {
 
     const {
       user: { auth },
-      building: { loading, authorization },
+      building: {
+        loading,
+        msg,
+        authorization
+      },
       routerData,
       match: {
         url,
@@ -25,6 +30,10 @@ export default class App extends Component {
 
     if (loading) {
       return null
+    }
+
+    if (msg) {
+      return <Empty text = { <span>{ msg }</span> } type = 'network' />
     }
 
     const progress = routerData['/building/:id/track/progress']
