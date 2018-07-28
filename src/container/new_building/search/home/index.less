@@ -1,10 +1,18 @@
-@import '~less/mixin.less';
+  @import '~less/mixin.less';
 
 @search-height: 34px;
 
 .search {
   background: #fff;
   margin-bottom: 10px;
+
+  :global {
+    .am-search-input {
+      .am-search-synthetic-ph-icon {
+        background-image: ~"url('./img/search.png')";
+      }
+    }
+  }
 
   &-hot {
     padding: 0 16px 20px;
@@ -85,7 +93,7 @@
         margin-top: -6px;
         width: 13px;
         height: 13px;
-        background: ~"url('./img/search.png')" no-repeat center center;
+        background: ~"url('./img/history.png')" no-repeat center center;
         background-size: contain;
       }
     }

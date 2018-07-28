@@ -152,7 +152,7 @@ export class NetSignModal extends Component {
               key = { i }
               onClick = { e => this.setState({ active: i }) }
             >
-              { v.name }
+              { v.HouseId }
             </div>
           ))
         }

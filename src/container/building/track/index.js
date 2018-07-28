@@ -15,7 +15,7 @@ export default class App extends Component {
     const { id } = this.props.match.params
 
     const {
-      user: { auth },
+      user: { auth, userType },
       building: {
         loading,
         msg,
@@ -41,7 +41,7 @@ export default class App extends Component {
 
     let redirectPath = `/building/${ id }/track/progress`
 
-    if (auth && !authorization) {
+    if (auth && !authorization && userType === '0') {
       redirectPath = `/building/${ id }/track/protocol`
     }
 
@@ -52,7 +52,7 @@ export default class App extends Component {
 
           render = {
             props => {
-              if (auth && !authorization) {
+              if (auth && !authorization && userType === '0') {
                 return <Redirect to = { `/building/${ id }/track/protocol` } />
               }
 

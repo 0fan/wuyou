@@ -484,9 +484,7 @@ const Search = props => {
 
   return (
     visible ?
-      <Link to = '/new_building/search' className = { style.search } { ...rest }>
-        <Icon type = 'search' />
-      </Link> :
+      <Link to = '/new_building/search' className = { style.search } { ...rest }> </Link> :
       null
   )
 }

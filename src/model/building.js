@@ -65,11 +65,11 @@ export const {
     // 开盘信息
     open: {},
     // 网签信息
-    sign: {},
+    sign: [],
     // 购房备案
-    record: {},
+    record: [],
     // 房产证
-    property: {},
+    property: [],
 
     // 是否已签约
     authorization: false

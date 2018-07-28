@@ -52,7 +52,7 @@ export function getSearchHot () {
       return [err]
     }
 
-    dispatch(success({ }))
+    dispatch(success({ data: res.object }))
 
     return [null, res]
   }

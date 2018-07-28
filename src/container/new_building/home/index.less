@@ -65,6 +65,18 @@
   justify-content: center;
   z-index: 600;
 
+  &:after {
+    display: block;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: ~"url('./img/search.png')" no-repeat;
+    background-size: contain;
+  }
+
   :global {
     .anticon {
       color: #F2F2F2;

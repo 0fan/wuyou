@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import moment from 'moment'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import { Divider, Button } from 'antd'
 import { Timeline, Box, Steps, Card } from 'component/building_detail'
@@ -24,11 +25,22 @@ export default class App extends Component {
 
     this.state = {
       stepIndex: -1,
+      // 开盘信息
       open: {},
       // 存款证明列表
       certificate: [],
-      // 当前选择的存款证明id
+      // 网签列表
+      sign: [],
+      // 备案列表
+      record: [],
+      // 房产证列表
+      property: [],
+      // 当前选择的存款证明
       certificateActive: 0,
+      // 当前选择的网签
+      signActive: 0,
+      // 网签、备案、房产证当前选择的房源编号
+      houseNoActive: '',
       // 切换存款证明模态框
       exchangeCVisible: false,
       // 切换网签模态框
@@ -43,25 +55,47 @@ export default class App extends Component {
   componentDidMount () {
     const {
       certificate = [],
-      open = {}
+      open = {},
+      sign = [],
+      record = [],
+      property = []
     } = this.props.building
 
     let stepIndex = -1
 
-    // 如果有存款证明则表示第一步完成啦
-    if (certificate && certificate.length) {
+    // 存款证明: 完成第一步
+    if (certificate.length) {
       stepIndex = 0
     }
 
-    // 如果有开盘信息则表示第二步完成啦
-    if (Object.keys(open).length) {
+    // 开盘信息: 完成第二步
+    if (open.status === '0') {
       stepIndex = 1
+    }
+
+    // 网签信息: 完成第三步
+    if (sign.length) {
+      stepIndex = 2
+    }
+
+    // 备案信息: 完成第四步
+    if (record.length) {
+      stepIndex = 3
+    }
+
+    // 房产证信息: 完成第五步
+    if (property.length) {
+      stepIndex = 4
     }
 
     this.setState({
       open,
       stepIndex,
-      certificate
+      certificate,
+      sign,
+      record,
+      property,
+      houseNoActive: sign.length ? sign[0].HouseId : ''
     })
   }
 
@@ -88,7 +122,10 @@ export default class App extends Component {
     const {
       stepIndex,
       certificate,
-      open
+      open,
+      sign,
+      record,
+      property,
     } = this.state
 
     return (
@@ -105,23 +142,24 @@ export default class App extends Component {
           data = { [{
             type: '1',
             text: '存款证明',
-            statusText: certificate.length ? '已办理' : '未办理'
+            active: certificate.length
           }, {
             type: '2',
             text: '在线开盘',
-            statusText: open.status === '0' ? '已开盘' : '未开盘'
+            active: open.status === '0',
+            stateText: open.status === '0' ? '已开盘' : '未开盘'
           }, {
             type: '3',
             text: '购房网签',
-            statusText: '未办理'
+            active: sign.length
           }, {
             type: '4',
             text: '购房备案',
-            statusText: '未办理'
+            active: record.length
           }, {
             type: '5',
             text: '房产证',
-            statusText: '未办理'
+            active: property.length
           }] }
         />
       </Box>
@@ -138,7 +176,11 @@ export default class App extends Component {
 
       certificate,
       certificateActive,
-
+      signActive,
+      houseNoActive,
+      sign,
+      record,
+      property,
       open
     } = this.state
 
@@ -165,9 +207,12 @@ export default class App extends Component {
     }
 
     const certificateData = certificate[certificateActive] || {}
+    const signData = sign[signActive] || {}
+    const recordData = _.find(record, _v => _v.HouseId === houseNoActive) || {}
+    const propertyData = _.find(property, _v => _v.HouseId === houseNoActive) || {}
 
     return (
-      <Box bottomText = '由贵阳市房管局提供数据支持' title = '节点跟踪' titleExtra = { stepString }>
+      <Box bottomText = '由贵阳市房管局提供数据支持' title = '节点跟踪' titleExtra = ''>
         <Timeline>
           <TimelineBox
             title = '存款证明'
@@ -180,7 +225,7 @@ export default class App extends Component {
               value: certificateData.name
             }, {
               title: '办理时间',
-              value: moment(parseInt(certificateData.tradeDate)).format('YYYY-MM-DD')
+              value: certificateData.tradeDate ? moment(parseInt(certificateData.tradeDate)).format('YYYY-MM-DD') : '暂无'
             }, {
               title: '办理状态',
               value: '成功办理'
@@ -193,7 +238,7 @@ export default class App extends Component {
         <Timeline>
           <TimelineBox
             title = '在线开盘'
-            complete = { open.openTime }
+            complete = { open.status === '0' }
             current = { stepIndex === 1 }
             leftContent = { open.isselect === '0' ? () => <div className = { style['card-btn'] } onClick = { this.handleChoiceHouse }>去选房</div> : null }
 
@@ -215,22 +260,22 @@ export default class App extends Component {
         <Timeline>
           <TimelineBox
             title = '购房网签'
-            complete = { false }
-            current = { stepIndex === 2 }
+            complete = { sign.length }
+            current = { false }
             leftContent = { () => <div className = { style['card-btn'] } onClick = { e => { this.handleModal('exchangeNVisible', e) } }>切换</div> }
 
             data = { [{
               title: '房源编号',
-              value: '暂无'
+              value: signData.HouseId ? signData.HouseId : '暂无'
             }, {
               title: '网签状态',
-              value: '未办理'
+              value: signData.State ? signData.State : '未办理'
             }, {
               title: '网签时间',
-              value: '暂无'
+              value: signData.RegisterDate ? signData.RegisterDate : '暂无'
             }, {
               title: '网签地址',
-              value: '暂无'
+              value: signData.Address ? signData.Address : '暂无'
             }, {
               value: <a href = '#' onClick = { e => { this.handleModal('signVisible', e) } }>点击了解网签所需材料</a>
             }] }
@@ -239,18 +284,18 @@ export default class App extends Component {
         <Timeline>
           <TimelineBox
             title = '购房备案'
-            complete = { false }
-            current = { stepIndex === 3 }
+            complete = { record.length }
+            current = { stepIndex === 2 }
 
             data = { [{
               title: '房源编号',
-              value: '暂无'
+              value: recordData.HouseId ? recordData.HouseId : '暂无'
             }, {
               title: '备案状态',
-              value: '未办理'
+              value: recordData.state ? recordData.state : '未办理'
             }, {
               title: '备案时间',
-              value: '暂无'
+              value: recordData.RegisterDate ? recordData.RegisterDate : '暂无'
             }, {
               value: <a href = '#' onClick = { e => { this.handleModal('recordVisible', e) } }>点击了解备案可取回材料</a>
             }] }
@@ -259,15 +304,15 @@ export default class App extends Component {
         <Timeline>
           <TimelineBox
             title = '房产证'
-            complete = { false }
-            current = { stepIndex === 4 }
+            complete = { property.length }
+            current = { stepIndex === 3 }
 
             data = { [{
               title: '房源编号',
-              value: '暂无'
+              value: propertyData.HouseId ? propertyData.HouseId : '暂无'
             }, {
               title: '办理状态',
-              value: '未办理'
+              value: propertyData.State ? propertyData.State : '未办理'
             }] }
           />
         </Timeline>
@@ -279,7 +324,6 @@ export default class App extends Component {
 
     return (
       <Fragment>
-        {/* <button onClick = { () => this.setState(prevState => ({ stepIndex: prevState.stepIndex + 1 })) }>加一个步骤</button> */}
         { this.renderSteps() }
         { this.renderTimeline() }
         <Modal visible = { this.state.signVisible } onClose = { () => { this.setState({ signVisible: false }) } }>
@@ -305,13 +349,13 @@ export default class App extends Component {
           onSubmit = { (i, v) => this.setState({ exchangeCVisible: false, certificateActive: i }) }
         />
 
-        {/*  <NetSignModal
-          data = { this.state.certificate }
-          active = { this.state.certificateActive }
+        <NetSignModal
+          data = { this.state.sign }
+          active = { this.state.signActive }
           visible = { this.state.exchangeNVisible }
           onClose = { () => { this.setState({ exchangeNVisible: false }) } }
-          onSubmit = { (i, v) => { this.setState({ exchangeNVisible: false, certificateActive: i }) } }
-        /> */}
+          onSubmit = { (i, v) => { this.setState({ exchangeNVisible: false, signActive: i, houseNoActive: v.HouseId }) } }
+        />
       </Fragment>
     )
   }
@@ -326,8 +370,8 @@ const TimelineBox = props => {
     ...rest
   } = props
 
-  let status = ''
-  let statusText = ''
+  let status     = '',
+      statusText = ''
 
   if (complete) {
     status = 'complete'

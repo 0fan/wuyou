@@ -12,6 +12,7 @@ class App extends Component {
       children,
       data = [],
       index,
+      active,
 
       ...rest
     } = this.props
@@ -23,7 +24,7 @@ class App extends Component {
             <Fragment key = { i }>
               <Step
                 index = { index }
-                active = { index >= i }
+                active = { active }
                 current = { index === i }
                 { ...v }
               />

@@ -11,10 +11,12 @@ class App extends Component {
       current,
       active,
       children,
-      statusText,
+      stateText,
 
       ...rest
     } = this.props
+
+    const state = !stateText ? active ? '已办理' : '未办理' : stateText
 
     return (
       <div
@@ -31,7 +33,7 @@ class App extends Component {
             { text }
           </div>
         </div>
-        <div className = { style['step-wrap-text'] }>{ statusText }</div>
+        <div className = { style['step-wrap-text'] }>{ state }</div>
       </div>
     )
   }
