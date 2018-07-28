@@ -48,7 +48,7 @@ App.Item = props => {
   const classString = cs(
     style.item, {
       [style[`item-${ type }`]]: type,
-      [style['item-date']]: date,
+      [style['item-date']]: typeof date,
     }
   )
 
