@@ -33,7 +33,7 @@ class App extends Component {
             { text }
           </div>
         </div>
-        <div className = { style['step-wrap-text'] }>{ state }</div>
+        <div className = { style['step-wrap-text'] }> </div>
       </div>
     )
   }

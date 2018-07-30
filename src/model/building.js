@@ -72,7 +72,7 @@ export const {
     property: [],
 
     // 是否已签约
-    authorization: false
+    authorization: true
   },
 
   reduxArr: [{
@@ -242,7 +242,7 @@ async function getTrack (buildingId) {
 // 备案信息
 // 房产证信息
 async function getOtherInfo (buildingId, identifyId) {
-  const [err, res] = await axios.post(server + getOtherInfoApi, { projectId: buildingId, certificateNumber: identifyId })
+  const [err, res] = await axios.post(server + getOtherInfoApi, { projectId: '1708081657220113', certificateNumber: '522525197312039386' })
 
   if (err) {
     return [err]

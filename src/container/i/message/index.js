@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import cs from 'classnames'
+import moment from 'moment'
 
-import { Toast } from 'antd-mobile'
+import { Spin } from 'antd'
 import Empty from 'component/empty'
+import Alert from 'component/alert'
+import BottomText from 'component/bottom-text'
 
 import { url, api } from 'config/api'
 
@@ -14,54 +17,65 @@ const { getMessageList } = api.i
 
 export default class App extends Component {
   state = {
-    data: []
-    // data: Array(10).fill('').map((v, i) => ({
-    //   title: '融创九樾府存款证明办理成功',
-    //   date: '2018-05-29',
-    //   id: i,
-    //   isNew: i <= 3,
-    // }))
+    data: [],
+    mes: '',
+    loading: false
   }
 
   componentDidMount () {
-    this.getMessageList()
+    this.getMessage()
   }
 
-  getMessageList = async () => {
-    Toast.loading('获取数据中...', 0, null, true)
+  getMessage = async () => {
+    this.setState({ loading: true, msg: '' })
 
-    const [err, res] = await axios.post(server + getMessageList)
+    const [err, res] = await axios.get(server + getMessageList)
 
-    Toast.hide()
+    this.setState({ loading: false })
 
     if (err) {
-      // Toast.fail(err, 3, null, false)
+      this.setState({ msg: <span>{ err || '获取消息记录失败' } <a href = 'javascript:;' onClick = { () => { this.getMessage() } }>重试</a></span> })
 
       return [err]
     }
 
+    this.setState({
+      data: res.object
+    })
     return [null, res]
   }
 
   render () {
+    const {
+      msg,
+      data,
+      loading
+    } = this.state
     return (
-      this.state.data.length ?
-        <List
-          renderHeader = {
-            () => <div className = { style.tip }>共有 { this.state.data.length } 条消息记录</div>
-          }
-        >
-          {
-            this.state.data.map((v, i) => (
-              <List.Item
-                { ...v }
+      <Fragment>
+        <Alert message = { msg } fixed />
+        {
+          loading ?
+            <BottomText><Spin /></BottomText> :
+            data.length ?
+              <List
+                renderHeader = {
+                  () => <div className = { style.tip }>共有 { data.length } 条消息记录</div>
+                }
+              >
+                {
+                  data.map((v, i) => (
+                    <List.Item
+                      { ...v }
 
-                key = { i }
-              />
-            ))
-          }
-        </List> :
-        <Empty text = '暂无消息' />
+                      key = { i }
+                    />
+                  ))
+                }
+              </List> :
+              <Empty text = '暂无消息' />
+        }
+      </Fragment>
     )
   }
 }
@@ -82,7 +96,7 @@ const List = props => {
           null
       }
       <div className = { style.list }>
-        { props.children }
+        { children }
       </div>
       {
         renderFooter ?
@@ -96,17 +110,16 @@ const List = props => {
 List.Item = props => {
   const {
     title,
-    date,
-    id,
-    isNew
+    rawAddTime,
+    state
   } = props
 
   return (
-    <div className = { cs(style.item, { [style['item-new']]: isNew }) }>
+    <div className = { cs(style.item, { [style['item-new']]: parseInt(state) === 1 }) }>
       <div className = { style['item-title'] }>
         <span className = { style['item-title-text'] }>{ title }</span>
       </div>
-      <div className = { style['item-date'] }>{ date }</div>
+      <div className = { style['item-date'] }>{ moment(rawAddTime).format('YYYY-MM-DD') }</div>
     </div>
   )
 }

@@ -134,32 +134,27 @@ export default class App extends Component {
         titleExtra = { '' }
       >
         <Steps
-          index = {
-            auth && userType === '0' ?
-              stepIndex :
-              -1
-          }
+          index = { 4 }
           data = { [{
             type: '1',
             text: '存款证明',
-            active: certificate.length
+            active: true
           }, {
             type: '2',
             text: '在线开盘',
-            active: open.status === '0',
-            stateText: open.status === '0' ? '已开盘' : '未开盘'
+            active: true
           }, {
             type: '3',
             text: '购房网签',
-            active: sign.length
+            active: true
           }, {
             type: '4',
             text: '购房备案',
-            active: record.length
+            active: true
           }, {
             type: '5',
             text: '房产证',
-            active: property.length
+            active: true
           }] }
         />
       </Box>
@@ -167,7 +162,6 @@ export default class App extends Component {
   }
 
   renderTimeline = () => {
-    const { id } = this.props.building
     const { auth } = this.props.user
 
     const {
@@ -284,15 +278,15 @@ export default class App extends Component {
         <Timeline>
           <TimelineBox
             title = '购房备案'
-            complete = { record.length }
-            current = { stepIndex === 2 }
+            complete = { Object.keys(recordData).length }
+            current = { false }
 
             data = { [{
               title: '房源编号',
               value: recordData.HouseId ? recordData.HouseId : '暂无'
             }, {
               title: '备案状态',
-              value: recordData.state ? recordData.state : '未办理'
+              value: recordData.State ? recordData.State : '未办理'
             }, {
               title: '备案时间',
               value: recordData.RegisterDate ? recordData.RegisterDate : '暂无'
@@ -304,8 +298,8 @@ export default class App extends Component {
         <Timeline>
           <TimelineBox
             title = '房产证'
-            complete = { property.length }
-            current = { stepIndex === 3 }
+            complete = { Object.keys(propertyData).length }
+            current = { false }
 
             data = { [{
               title: '房源编号',
