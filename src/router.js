@@ -2,7 +2,7 @@
   // 登录
   '/login',
   // 绑定手机号码
-  '/bind_phone'，
+  '/bind_phone',
 
   // 新盘
   '/new_building',
@@ -39,7 +39,7 @@
   // 在线选房 我的房源
   '/building/:id/service/choice_house/i',
 
-  '/service/appointment':
+  '/service/appointment',
   
   // 我的
   '/i',
@@ -60,5 +60,5 @@
   // 找不到页面
   '/exception/404',
   // 服务器错误
-  '/exception/500',
+  '/exception/500'
 }
