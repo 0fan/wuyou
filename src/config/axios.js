@@ -29,7 +29,7 @@ export default (store) => {
 
     if (code !== 0) {
       // 等于-2说明登录失败需要重新登录,这里需要触发退出事件
-      if (code ===  -2) {
+      if (code === -2) {
         alert('登录凭证失效', message ? message : '', [{
           text: '进入新盘页面',
           onPress: () => {

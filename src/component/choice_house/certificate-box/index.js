@@ -70,7 +70,7 @@ class App extends Component {
           }
           {
             qrcode ?
-              <div className = { style['box-inner-qrcode'] } onClick = { () => this.setState({ visibleQrcode: true }) }></div> :
+              <div className = { style['box-inner-qrcode'] } onClick = { () => this.setState({ visibleQrcode: true }) }> </div> :
               null
           }
         </div>
@@ -82,7 +82,7 @@ class App extends Component {
                   <Image src = { this.state.qrcodeImage } />
                 </div>
                 <div className = { style['box-qrcode-title'] }>请向售楼处工作人员出示付款二维码</div>
-                <div className = { style['box-qrcode-back'] } onClick = { () => this.setState({ visibleQrcode: false }) }></div>
+                <div className = { style['box-qrcode-back'] } onClick = { () => this.setState({ visibleQrcode: false }) }> </div>
               </div> :
               null
           }

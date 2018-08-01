@@ -71,7 +71,7 @@ export default class App extends Component {
         news: v.renews && v.renews.length ? { text: v.renews[0].content, link: `/building/${ v.id }/detail/dynamic` } : null,
         referencePrice: v.amountArray,
         owner: v.ownerNum,
-        hot: 100,
+        hot: v.hot,
         to: `/building/${ v.id }`
       }))
     })
