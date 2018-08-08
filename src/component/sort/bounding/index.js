@@ -31,6 +31,14 @@ export default class App extends Component {
     return data.value === value
   }
 
+  handleMaskClick = e => {
+    const {
+      onMaskClick
+    } = this.props
+
+    onMaskClick && onMaskClick(e)
+  }
+
   render () {
     const {
       visible,
@@ -47,18 +55,21 @@ export default class App extends Component {
       <div onClick = { e => e.nativeEvent.stopImmediatePropagation() }>
         {
           visible ?
-            <div className = { style['list'] } style = { { top } }>
-              {
-                data.map((v, i) => (
-                  <div
-                    onClick = { e => { onClick(v, i, e) } }
-                    className = { cs(style['item'], { [style['item-select']]: this.isSelect(value, v) }) }
-                    key = { i }
-                  >
-                    <span>{ v.label }</span>
-                  </div>
-                ))
-              }
+            <div className = { style['root'] } style = { { top } }>
+              <div className = { style['mask'] } onClick = { this.handleMaskClick } />
+              <div className = { style['list'] } onClick = { e => e.stopPropagation() }>
+                {
+                  data.map((v, i) => (
+                    <div
+                      onClick = { e => { onClick(v, i, e) } }
+                      className = { cs(style['item'], { [style['item-select']]: this.isSelect(value, v) }) }
+                      key = { i }
+                    >
+                      <span>{ v.label }</span>
+                    </div>
+                  ))
+                }
+              </div>
             </div> :
             null
         }

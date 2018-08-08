@@ -184,6 +184,8 @@ export function getBuilding (buildingId) {
       buildingName,
       // 楼盘标签
       buildingTag,
+      // 预售证
+      presell = [],
 
       renews = [],
       jcvImgArrayMobie = '',
@@ -203,6 +205,7 @@ export function getBuilding (buildingId) {
       backgroundImg,
       buildingName,
       buildingTag,
+      presell,
 
       renews,
       atlas: jcvImgArrayMobie.split(',').filter(v => v),

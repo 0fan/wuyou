@@ -104,3 +104,34 @@
     }
   }
 }
+
+.presell {
+
+  .scrollable();
+
+  ul {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+
+    li {
+      display: inline-block;
+      list-style: none;
+    }
+  }
+
+  &-item {
+    margin-left: 10px;
+
+    &:last-child {
+      margin-left: 0;
+    }
+
+    img {
+      height: 100%;
+      display: block;
+      width: 100%;
+      vertical-align: top;
+    }
+  }
+}

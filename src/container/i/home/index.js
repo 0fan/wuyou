@@ -78,7 +78,7 @@ const Panel = props => {
       <div className = { style.panel }>
         <div className = { style['panel-auth'] }>
           <h2>登录后享受更多服务</h2>
-          <Link className = { style['panel-auth-login'] } to = '/login'>微信登录</Link>
+          <Link className = { style['panel-auth-login'] } to = '/login'>登录</Link>
         </div>
       </div>
     )
@@ -104,7 +104,7 @@ const Panel = props => {
         }
       </div>
       <div className = { style['panel-right'] }>
-        <Avatar size = { 62 } data = { headPhoto } />
+        <Avatar size = { 62 } data = { headPhoto ? headPhoto : require('asset/img/default_avatar.png') } />
       </div>
     </div>
   )

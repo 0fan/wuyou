@@ -1,24 +1,39 @@
 import React from 'react'
 import { createElement } from 'react'
 
-import dynamic from 'util/dynamic'
+import Loadable from 'react-loadable'
 
 let routerDataCache
 
 function dynamicWrapper (component) {
-  return dynamic(() => {
-    if (!routerDataCache) {
-      routerDataCache = getRouterData()
-    }
-
-    return component().then(v => {
-      const Component = v.default || v
-
-      return props => createElement(Component, {
+  if (component.toString().indexOf('.then(') < 0) {
+    return props => {
+      if (!routerDataCache) {
+        routerDataCache = getRouterData()
+      }
+      return createElement(component().default, {
         ...props,
-        routerData: routerDataCache
+        routerData: routerDataCache,
       })
-    })
+    }
+  }
+
+  return Loadable({
+    loader: () => {
+      if (!routerDataCache) {
+        routerDataCache = getRouterData()
+      }
+
+      return component().then(v => {
+        const Component = v.default || v
+
+        return props => createElement(Component, {
+          ...props,
+          routerData: routerDataCache
+        })
+      })
+    },
+    loading: () => null
   })
 }
 
@@ -30,6 +45,11 @@ const routerConfig = {
   '/login': {
     name: '登录',
     component: dynamicWrapper(() => import('container/login'))
+  },
+
+  '/phone_login': {
+    name: '手机号码登录',
+    component: dynamicWrapper(() => import('container/phone_login'))
   },
 
   '/bind_phone': {

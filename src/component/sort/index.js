@@ -43,7 +43,7 @@ export default class App extends Component {
   componentDidMount () {
     this.$content = document.getElementById('content')
 
-    document.addEventListener('click', this.documentClick)
+    // document.addEventListener('click', this.documentClick)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -59,7 +59,7 @@ export default class App extends Component {
   }
 
   componentWillUnmount () {
-    document.removeEventListener('click', this.documentClick)
+    // document.removeEventListener('click', this.documentClick)
   }
 
   documentClick = e => {
@@ -189,6 +189,7 @@ export default class App extends Component {
           {
             _data.map((v, i) => (
               <Bounding
+                onMaskClick = { e => this.handleActive(i) }
                 onClick = { (_v, _i, e) => this.handleSelect(_v, i, keys[i], e) }
                 value = { value[keys[i]] }
                 data = { v }
@@ -200,12 +201,6 @@ export default class App extends Component {
             ))
           }
         </div>
-        <Mask
-          visible = { active !== -1 }
-          top = { 48 }
-          zIndex = { 400 }
-          animate = { false }
-        />
       </Fragment>
     )
   }

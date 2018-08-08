@@ -66,7 +66,8 @@ export default class App extends Component {
       buildingName,
       buildingTag,
       amount,
-      backgroundImg
+      backgroundImg,
+      presell
     } = this.props.building
 
     return (
@@ -81,6 +82,7 @@ export default class App extends Component {
           title = { buildingName }
           tag = { buildingTag ? buildingTag.split(',').filter(v => v) : [] }
           price = { amount }
+          presell = { presell }
         />
         <LinkTabs
           tabs = {
@@ -124,7 +126,27 @@ export default class App extends Component {
           style = { { width: 290 } }
           footer = { [{ text: '确定', onPress: () => { this.setState({ visiblePermit: false }) } }] }
         >
-          <div>正在办理中</div>
+          {
+            presell && presell.length ?
+              <div className = { style['presell'] }>
+                <ul>
+                  {
+                    presell.map((v, i) => (
+                      <li key = { i }>
+                        <div
+                          className = { style['presell-item'] }
+                        >
+                          <Image
+                            src = { v.ImageUrl }
+                          />
+                        </div>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div> :
+              <div>正在办理中</div>
+          }
         </AntdModal>
       </Fragment>
     )
@@ -163,6 +185,7 @@ const Panel = props => {
     title,
     tag = [],
     price,
+    presell,
 
     children,
 

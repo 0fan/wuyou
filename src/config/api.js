@@ -1,7 +1,7 @@
 const url = {
   // server: 'http://10.0.11.157:8080/',
-  // server: 'http://10.0.10.162:8080/',
-  server: 'https://test.1m2.net/',
+  server: 'http://10.0.10.162:8080/',
+  // server: 'https://test.1m2.net/',
 }
 
 const api = {
@@ -13,6 +13,7 @@ const api = {
   bindPhone: 'app/userLogin/addPhone',
 
   login: 'app/userLogin/login',
+  loginByPhone: 'app/userLogin/loginByPhone',
 
   // 首页接口
   new_building: {

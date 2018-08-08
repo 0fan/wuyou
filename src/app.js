@@ -7,6 +7,7 @@ import { getRoutes } from 'util/getRoutes'
 const routerData = getRouterData()
 
 const Login = routerData['/login'].component
+const PhoneLogin = routerData['/phone_login'].component
 const BindPhone = routerData['/bind_phone'].component
 const BasicLayout = routerData['/'].component
 
@@ -16,7 +17,8 @@ export default class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path = '/login' component = { Login } />
+          <Route path = '/login' component = { PhoneLogin } />
+          <Route path = '/phone_login' component = { PhoneLogin } />
           <Route path = '/bind_phone' component = { BindPhone } />
           <Route path = '/' component = { BasicLayout } />
         </Switch>

@@ -36,8 +36,8 @@ export default class App extends Component {
       return <Empty text = { <span>{ msg }</span> } type = 'network' />
     }
 
-    const progress = routerData['/building/:id/track/progress']
-    const protocol = routerData['/building/:id/track/protocol']
+    const Progress = routerData['/building/:id/track/progress'].component
+    const Protocol = routerData['/building/:id/track/protocol'].component
 
     let redirectPath = `/building/${ id }/track/progress`
 
@@ -56,7 +56,7 @@ export default class App extends Component {
                 return <Redirect to = { `/building/${ id }/track/protocol` } />
               }
 
-              return progress.component()
+              return <Progress { ...props } />
             }
           }
         />
@@ -69,7 +69,7 @@ export default class App extends Component {
                 return <Redirect to = { `/building/${ id }/track/progress` } />
               }
 
-              return protocol.component()
+              return <Protocol { ...props } />
             }
           }
 

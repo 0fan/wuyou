@@ -50,6 +50,14 @@ export const {
 
 })
 
+export function login (payload) {
+  return dispatch => {
+    dispatch(success(payload))
+
+    const user = store.get('user')
+  }
+}
+
 export function updatePhone (payload) {
   return dispatch => {
     dispatch({
