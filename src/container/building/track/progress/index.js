@@ -162,7 +162,7 @@ export default class App extends Component {
   }
 
   renderTimeline = () => {
-    const { auth } = this.props.user
+    const { auth, userType } = this.props.user
 
     const {
       stepIndex,
@@ -179,7 +179,7 @@ export default class App extends Component {
     } = this.state
 
     // 没有登录则不显示节点追踪
-    if (!auth) {
+    if (!auth || userType === '1') {
       return (
         <div className = { style['tip-box'] }>
           <div className = { style['tip-content'] }>请挑选楼盘并至售楼处办理存款证明后使用该服务</div>

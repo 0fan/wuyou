@@ -49,7 +49,7 @@ export default class App extends Component {
   }
 
   componentDidMount () {
-    // 只有登录之后才能进入此页面
+    // 只有绑定之后才能进入此页面
     // if (!this.props.user.auth) {
     //   this.props.history.push('/')
     // }
@@ -82,7 +82,7 @@ export default class App extends Component {
   }
 
   login = async () => {
-    Toast.loading('登录中...', 0, null, true)
+    Toast.loading('绑定中...', 0, null, true)
 
     const [err, res] = await axios.post(server + loginByPhone, {
       phone: this.state.phone,
@@ -126,7 +126,7 @@ export default class App extends Component {
     axios.defaults.headers.common['token'] = data.token
     store.set('user', data)
 
-    Toast.success('登录成功', 3, () => {
+    Toast.success('绑定成功', 3, () => {
       this.props.history.push('/')
     }, false)
 
@@ -258,7 +258,7 @@ export default class App extends Component {
                   <a href = '#' onClick = { this.getAuthCode }>获取验证码</a>
               }
             />
-            <Button htmlType = 'submit' type = 'primary' onClick = { this.handleSubmit } style = { { marginBottom: 20 } }>登录</Button>
+            <Button htmlType = 'submit' type = 'primary' onClick = { this.handleSubmit } style = { { marginBottom: 20 } }>绑定</Button>
           </List>
           <Alert
             message = { this.state.msg }

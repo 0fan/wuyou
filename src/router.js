@@ -10,7 +10,7 @@
   'new_building/search',
   // 搜索结果
   'new_building/search/:word',
-  
+
   // 房屋
   '/house',
 
@@ -40,7 +40,7 @@
   '/building/:id/service/choice_house/i',
 
   '/service/appointment',
-  
+
   // 我的
   '/i',
   // 消息记录
@@ -54,7 +54,7 @@
   '/i/feedback',
   // 关于我们
   '/i/about',
-  
+
   // 没有权限
   '/exception/403',
   // 找不到页面

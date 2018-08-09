@@ -77,8 +77,8 @@ const Panel = props => {
     return (
       <div className = { style.panel }>
         <div className = { style['panel-auth'] }>
-          <h2>登录后享受更多服务</h2>
-          <Link className = { style['panel-auth-login'] } to = '/login'>登录</Link>
+          <h2>绑定后享受更多服务</h2>
+          <Link className = { style['panel-auth-login'] } to = '/login'>绑定</Link>
         </div>
       </div>
     )

@@ -72,7 +72,7 @@ export const {
     property: [],
 
     // 是否已签约
-    authorization: true
+    authorization: false
   },
 
   reduxArr: [{
