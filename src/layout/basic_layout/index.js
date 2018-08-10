@@ -63,27 +63,40 @@ export default class App extends Component {
   }
 
   getFooter = (auth, userType) => {
-    if (auth && userType === '0') {
-      return [{
-        type: 'house',
-        to: '/house',
-        text: '房屋'
-      }, {
-        type: 'i',
-        to: '/i',
-        text: '我的'
-      }]
-    }
-
     return [{
       type: 'building',
       to: '/new_building',
       text: '新盘'
     }, {
+      type: 'house',
+      to: '/house',
+      text: '房屋'
+    }, {
       type: 'i',
       to: '/i',
       text: '我的'
     }]
+    // if (auth && userType === '0') {
+    //   return [{
+    //     type: 'house',
+    //     to: '/house',
+    //     text: '房屋'
+    //   }, {
+    //     type: 'i',
+    //     to: '/i',
+    //     text: '我的'
+    //   }]
+    // }
+
+    // return [{
+    //   type: 'building',
+    //   to: '/new_building',
+    //   text: '新盘'
+    // }, {
+    //   type: 'i',
+    //   to: '/i',
+    //   text: '我的'
+    // }]
   }
 
   renderFooter = () => {

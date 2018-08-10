@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import _ from 'lodash'
 import axios from 'axios'
 
@@ -8,6 +9,7 @@ import Search from 'component/search'
 import HouseList from 'component/house-list'
 import Empty from 'component/empty'
 import BottomText from 'component/bottom-text'
+import { getBuildingFilter } from 'model/building_filter'
 
 import { url, api } from 'config/api'
 
@@ -15,6 +17,11 @@ const { server } = url
 const { getBuildingList } = api.new_building
 const { building_filter } = api.dict
 
+@connect(state => ({
+  building_filter: state.building_filter
+}), {
+  getBuildingFilter
+})
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -47,15 +54,15 @@ export default class App extends Component {
     this.getBuilding()
     this.getFilter()
 
-    this.$content.addEventListener('scroll', this.handleSrcoll)
+    this.$content.addEventListener('scroll', _.throttle(this.handleSrcoll.bind(this), 100))
   }
 
   componentWillUnmount () {
-    this.$content.removeEventListener('srcoll', this.handleSrcoll)
+    this.$content.removeEventListener('srcoll', this.handleSrcoll.bind(this))
   }
 
   // 滚动到底部拉去数据
-  handleSrcoll = _.throttle(async e => {
+  handleSrcoll (e) {
     const { loading, isEnd } = this.state
 
     if (isEnd || loading) {
@@ -69,9 +76,9 @@ export default class App extends Component {
     } = e.target
 
     if (clientHeight + scrollTop >= scrollHeight) {
-      await this.getBuilding()
+      this.getBuilding()
     }
-  }, 100)
+  }
 
   // 获取楼盘列表
   getBuilding = async (isFilter) => {
@@ -218,6 +225,10 @@ export default class App extends Component {
       isEnd,
       data
     } = this.state
+
+    const {
+      building_filter
+    } = this.props
 
     if (loading) {
       bottomText = <BottomText><Spin /></BottomText>
