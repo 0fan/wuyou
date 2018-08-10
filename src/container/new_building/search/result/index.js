@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import _ from 'lodash'
 import axios from 'axios'
 
@@ -8,6 +9,7 @@ import Search from 'component/search'
 import HouseList from 'component/house-list'
 import Empty from 'component/empty'
 import BottomText from 'component/bottom-text'
+import { getBuildingFilter } from 'model/building_filter'
 
 import { url, api } from 'config/api'
 
@@ -15,6 +17,11 @@ const { server } = url
 const { getBuildingList } = api.new_building
 const { building_filter } = api.dict
 
+@connect(state => ({
+  building_filter: state.building_filter
+}), {
+  getBuildingFilter
+})
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -47,7 +54,7 @@ export default class App extends Component {
     this.getBuilding()
     this.getFilter()
 
-    this.$content.addEventListener('scroll', _.throttle((this.handleSrcoll.bind(this), 100)))
+    this.$content.addEventListener('scroll', _.throttle(this.handleSrcoll.bind(this), 100))
   }
 
   componentWillUnmount () {
@@ -218,6 +225,10 @@ export default class App extends Component {
       isEnd,
       data
     } = this.state
+
+    const {
+      building_filter
+    } = this.props
 
     if (loading) {
       bottomText = <BottomText><Spin /></BottomText>
