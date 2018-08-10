@@ -16,67 +16,89 @@ import HouseInlineList from 'component/house-inline-list'
 
 import { url, api } from 'config/api'
 
+import { getFlash, getNewBuilding, getBuilding } from 'model/new_building'
+import { getBuildingFilter } from 'model/building_filter'
+
 import wait from 'util/wait'
 
 import style from './index.less'
 
 const { server } = url
 const {
-  getFlash,
+  getFlash: _getFlash,
   getNewBuildingList,
   getBuildingList,
 } = api.new_building
 const { building_filter } = api.dict
 
 @connect(state => ({
-  user: state.user
-}), {})
+  user: state.user,
+  new_building: state.new_building,
+  building_filter: state.building_filter
+}), {
+  getFlash,
+  getNewBuilding,
+  getBuilding,
+  getBuildingFilter
+})
 export default class App extends Component {
   isMount = true
 
-  state = {
-    msg: '',
+  constructor (props) {
+    super(props)
 
-    flash: [],
+    this.state = {
+      msg: '',
 
-    newBuilding: {},
+      flash: [],
 
-    building: [],
-    // 筛选条件
-    buildingFilter: {
-      buildingName: '',
-      area: '',
-      type: '',
-      // omit
-      price: '',
-      minPrice: '',
-      maxPrice: '',
-      layOut: '',
-      currentPage: 1,
-    },
-    // 筛选数据
-    buildingFilterData: [],
-    buildingLoding: true,
+      newBuilding: {},
 
-    isEnd: false,
+      building: [],
+      // 筛选条件
+      buildingFilter: {
+        buildingName: '',
+        area: '',
+        type: '',
+        // omit
+        price: '',
+        minPrice: '',
+        maxPrice: '',
+        layOut: '',
+        currentPage: 1,
 
-    // 右上角选房搜索按钮
-    // 在做楼盘筛选的时候需要隐藏一下
-    visibleFixedSearch: true
+        ...props.new_building.data.query
+      },
+      // 筛选数据
+      buildingFilterData: [],
+      buildingLoding: true,
+
+      isEnd: false,
+
+      // 右上角选房搜索按钮
+      // 在做楼盘筛选的时候需要隐藏一下
+      visibleFixedSearch: true
+    }
+    console.log(props.new_building.data.query)
   }
 
   componentDidMount () {
     this.$content = document.getElementById('content')
 
-    this.initData()
+    this.props.getFlash()
+    this.props.getNewBuilding()
+    this.props.getBuilding()
+    this.props.getBuildingFilter()
 
-    this.$content.addEventListener('scroll', this.handleSrcoll)
+    // this.initData()
+
+    this.$content.addEventListener('scroll', _.throttle(this.handleSrcoll.bind(this), 100))
   }
 
   componentWillUnmount () {
     this.isMount = false
 
-    this.$content.removeEventListener('srcoll', this.handleSrcoll)
+    this.$content.removeEventListener('srcoll', this.handleSrcoll.bind(this))
   }
 
   initData = async () => {
@@ -101,10 +123,10 @@ export default class App extends Component {
   }
 
   // 滚动到底部拉去数据
-  handleSrcoll = _.throttle(async e => {
-    const { buildingLoding, isEnd } = this.state
+  handleSrcoll (e) {
+    const { loading, isEnd } = this.props.new_building.data
 
-    if (isEnd || buildingLoding) {
+    if (isEnd || loading) {
       return
     }
 
@@ -115,13 +137,13 @@ export default class App extends Component {
     } = e.target
 
     if (clientHeight + scrollTop >= scrollHeight) {
-      await this.getBuilding()
+      this.props.getBuilding({}, true)
     }
-  }, 100)
+  }
 
   // 获取轮播图
   getFlash = async () => {
-    const [err, res] = await axios.get(server + getFlash)
+    const [err, res] = await axios.get(server + _getFlash)
 
     if (!this.isMount) {
       return
@@ -310,7 +332,7 @@ export default class App extends Component {
         },
       }, () => {
         // 触发筛选啦
-        this.getBuilding(true)
+        this.props.getBuilding(this.state.buildingFilter, true, true)
       })
     }
   }, 500)
@@ -324,7 +346,12 @@ export default class App extends Component {
       building
     } = this.state
 
-    if (buildingLoding) {
+    const {
+      new_building,
+      building_filter
+    } = this.props
+
+    if (new_building.data.loading) {
       bottomText = <Spin />
     } else {
       if (building.length <= 0) {
@@ -338,17 +365,17 @@ export default class App extends Component {
       <Fragment>
         <Alert message = { this.state.msg } />
         <Carousel
-          data = { this.state.flash }
+          data = { new_building.flash.data }
         />
         <Tabs
           title = '新开楼盘'
-          tabs = { Object.keys(this.state.newBuilding) }
+          tabs = { Object.keys(new_building.new.data) }
         >
           {
-            Object.keys(this.state.newBuilding).map((key, i) => (
+            Object.keys(new_building.new.data).map((key, i) => (
               <HouseInlineList key = { i }>
                 {
-                  this.state.newBuilding[key].map((v, _i) => (
+                  new_building.new.data[key].map((v, _i) => (
                     <HouseInlineList.Item
                       title = { v.buildingName }
                       area = { v.area }
@@ -366,7 +393,7 @@ export default class App extends Component {
           }
         </Tabs>
         <Sort
-          data = { this.state.buildingFilterData }
+          data = { building_filter.data }
           value = { this.state.buildingFilter }
           onChange = { this.handleFilterChange }
           onOpen = { () => this.setState({ visibleFixedSearch: false }) }
@@ -374,7 +401,7 @@ export default class App extends Component {
         />
         <HouseList>
           {
-            this.state.building.map((v, i) => (
+            new_building.data.data.map((v, i) => (
               <HouseList.Item
                 src = { v.imgUrl }
                 title = { v.buildingName }
