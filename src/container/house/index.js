@@ -34,7 +34,9 @@ export default class App extends Component {
   }
 
   componentDidMount () {
-    this.getHouse()
+    if (this.props.user.auth) {
+      this.getHouse()
+    }
   }
 
   componentWillUnmount () {
@@ -85,6 +87,12 @@ export default class App extends Component {
 
   render () {
     const {
+      user: {
+        auth
+      }
+    } = this.props
+
+    const {
       data,
       msg,
       loading
@@ -97,11 +105,13 @@ export default class App extends Component {
           data = { data }
           headerContent = { !loading && data.length ? <div>共绑定{ data.length }个楼盘</div> : null }
           footerContent = {
-            loading ?
-              <BottomText><Spin /></BottomText> :
-              !data.length ?
-                <Empty text = '没有绑定的楼盘' /> :
-                <BottomText>没有更多</BottomText>
+            !auth ?
+              <Empty text = '没有登录,登录后可查看我的房屋信息' /> :
+              loading ?
+                <BottomText><Spin /></BottomText> :
+                !data.length ?
+                  <Empty text = '没有绑定的楼盘' /> :
+                  <BottomText>没有更多</BottomText>
           }
 
           onClick = { this.handleClick }
