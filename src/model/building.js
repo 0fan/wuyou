@@ -152,8 +152,12 @@ export function getBuilding (buildingId) {
       return [trackErr]
     }
 
-    if (auth && userType === '0') {
-      [otherErr, otherRes] = await getOtherInfo(buildingId, trackRes.certificate[0].identityCard)
+    if (
+      auth &&
+      userType === '0' &&
+      trackRes.certificateId
+    ) {
+      [otherErr, otherRes] = await getOtherInfo(buildingId, trackRes.certificateId)
     }
 
     if (otherErr) {
@@ -236,7 +240,7 @@ async function getTrack (buildingId) {
 
   return [null, {
     certificate,
-    certificateId: certificate.length ? certificate[0].idtityId : '',
+    certificateId: certificate.length && certificate[0].id ? certificate[0].idtityId : '',
     open
   }]
 }
@@ -245,7 +249,7 @@ async function getTrack (buildingId) {
 // 备案信息
 // 房产证信息
 async function getOtherInfo (buildingId, identifyId) {
-  const [err, res] = await axios.post(server + getOtherInfoApi, { projectId: '1708081657220113', certificateNumber: '522525197312039386' })
+  const [err, res] = await axios.post(server + getOtherInfoApi, { projectId: buildingId, certificateNumber: identifyId })
 
   if (err) {
     return [err]

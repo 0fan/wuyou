@@ -58,7 +58,7 @@ export default class App extends Component {
   }
 
   componentWillUnmount () {
-    this.$content.removeEventListener('srcoll', this.handleSrcoll.bind(this))
+    this.$content.removeEventListener('scroll', this.handleSrcoll.bind(this))
   }
 
   // 滚动到底部拉去数据
