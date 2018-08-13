@@ -47,6 +47,11 @@ const routerConfig = {
     component: dynamicWrapper(() => import('container/login'))
   },
 
+  '/login_only_phone': {
+    name: '登录',
+    component: dynamicWrapper(() => import('container/login_only_phone'))
+  },
+
   '/phone_login': {
     name: '手机号码登录',
     component: dynamicWrapper(() => import('container/phone_login'))

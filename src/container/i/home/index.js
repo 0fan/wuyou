@@ -33,8 +33,8 @@ export default class App extends Component {
         />
         <List>
           <Item title = '消息记录' to = '/i/message' />
-          <Item title = '账号设置' to = '/i/setting' />
-          <Item title = '授权管理' to = '/i/auth' />
+          {/* <Item title = '账号设置' to = '/i/setting' /> */}
+          {<Item title = '授权管理' to = '/i/auth' />}
           <Item title = '反馈建议' to = '/i/feedback' />
           <Item title = '关于我们' to = '/i/about' />
         </List>
@@ -77,8 +77,9 @@ const Panel = props => {
     return (
       <div className = { style.panel }>
         <div className = { style['panel-auth'] }>
-          <h2>绑定后享受更多服务</h2>
-          <Link className = { style['panel-auth-login'] } to = '/login'>绑定</Link>
+          <h2>登录后享受更多服务</h2>
+          <Link className = { style['panel-auth-login'] } to = '/login'>登录</Link>
+          {/* <a className = { style['panel-auth-login'] } href = 'http://appgy.gyfc.net.cn/UserCenter/Center/LoginPage'>登录</a> */}
         </div>
       </div>
     )
