@@ -88,7 +88,7 @@ const routerConfig = {
   '/house': {
     name: '房屋',
     component: dynamicWrapper(() => import('container/house')),
-    // auth: true
+    auth: true
   },
 
   '/building/:id': {
