@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import store from 'store'
 import axios from 'axios'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 import cs from 'classnames'
+import qs from 'qs'
 
 import { Icon, Spin } from 'antd'
 import { Carousel as AntCarousel, Toast } from 'antd-mobile'
@@ -47,6 +49,12 @@ export default class App extends Component {
   constructor (props) {
     super(props)
 
+    const query = qs.parse(props.location.search.replace(/^\?/g, ''))
+
+    if (query.phone) {
+      store.set('phone', query.phone)
+    }
+
     this.state = {
       msg: '',
 
@@ -79,7 +87,6 @@ export default class App extends Component {
       // 在做楼盘筛选的时候需要隐藏一下
       visibleFixedSearch: true
     }
-    console.log(props.new_building.data.query)
   }
 
   componentDidMount () {

@@ -15,3 +15,7 @@ export default function getUserData (_store) {
     axios.defaults.headers.common['token'] = token
   }
 }
+
+window.addEventListener('unload', () => {
+  store.remove('phone')
+})
