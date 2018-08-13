@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import store from 'store'
 import axios from 'axios'
@@ -61,6 +62,8 @@ export default class App extends Component {
       flash: [],
 
       newBuilding: {},
+
+      phone: query.phone,
 
       building: [],
       // 筛选条件
@@ -348,6 +351,7 @@ export default class App extends Component {
     let bottomText = ''
 
     const {
+      phone,
       buildingLoding,
       isEnd,
       building
@@ -355,8 +359,15 @@ export default class App extends Component {
 
     const {
       new_building,
-      building_filter
+      building_filter,
+      user: {
+        auth
+      },
     } = this.props
+
+    if (!auth && phone) {
+      return <Redirect to = '/login' />
+    }
 
     if (new_building.data.loading) {
       bottomText = <Spin />
