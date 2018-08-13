@@ -90,6 +90,8 @@ export default class App extends Component {
       // 在做楼盘筛选的时候需要隐藏一下
       visibleFixedSearch: true
     }
+
+    this.handleSrcoll = this.handleSrcoll.bind(this)
   }
 
   componentDidMount () {
@@ -102,13 +104,13 @@ export default class App extends Component {
 
     // this.initData()
 
-    this.$content.addEventListener('scroll', _.throttle(this.handleSrcoll.bind(this), 100))
+    this.$content.addEventListener('scroll', this.handleSrcoll)
   }
 
   componentWillUnmount () {
     this.isMount = false
 
-    this.$content.removeEventListener('srcoll', this.handleSrcoll.bind(this))
+    this.$content.removeEventListener('scroll', this.handleSrcoll)
   }
 
   initData = async () => {
