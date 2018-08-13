@@ -53,6 +53,7 @@ const Panel = props => {
     userData: {
       nickName,
       userType,
+      userLevel,
       id,
       headPhoto = ''
     },
@@ -64,10 +65,10 @@ const Panel = props => {
 
   const renderRole = code => {
     switch (code) {
-      case '0':
-        return <span className = { style['panel-name-role'] }>准业主</span>
       case '1':
-        return <span className = { style['panel-name-role'] }>管理员</span>
+        return <span className = { style['panel-name-role'] }>准业主</span>
+      case '2':
+        return <span className = { style['panel-name-role'] }>认证业主</span>
       default:
         return null
     }
@@ -96,7 +97,7 @@ const Panel = props => {
                 nickName
             }
           </span>
-          { renderRole(userType) }
+          { renderRole(userLevel) }
         </div>
         {
           id ?

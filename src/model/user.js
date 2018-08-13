@@ -26,6 +26,8 @@ export const {
 
     userType: '',
 
+    userLevel: 0,
+
     name: '',
     nickName: '',
     headPhoto: '',
