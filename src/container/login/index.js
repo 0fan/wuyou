@@ -77,6 +77,8 @@ export default class App extends Component {
       wechatId: res.object.userInfo.wechatId,
       // 用户类型
       userType: res.object.userInfo.userType,
+      // 用户等级
+      userLevel: res.object.userLevel,
       // 身份证号码
       idCardNo: res.object.userInfo.idCardNo,
       // 性别

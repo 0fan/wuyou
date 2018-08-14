@@ -64,10 +64,10 @@ const Panel = props => {
   } = props
 
   const renderRole = code => {
-    switch (code) {
-      case '1':
+    switch (parseInt(code)) {
+      case 1:
         return <span className = { style['panel-name-role'] }>准业主</span>
-      case '2':
+      case 2:
         return <span className = { style['panel-name-role'] }>认证业主</span>
       default:
         return null
