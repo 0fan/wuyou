@@ -175,43 +175,6 @@ const routerConfig = {
     flex: true
   },
 
-  '/service/choice_house': {
-    name: '在线选房',
-    component: dynamicWrapper(() => import('container/service/choice_house')),
-    auth: true,
-    hideMenu: true
-  },
-  '/service/choice_house/certificate': {
-    name: '存款证明',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate')),
-    hideMenu: true
-  },
-  '/service/choice_house/certificate/home': {
-    name: '存款证明',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate/home')),
-    hideMenu: true
-  },
-  '/service/choice_house/certificate/:id': {
-    name: '选择期数',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period')),
-    hideMenu: true
-  },
-  '/service/choice_house/certificate/:id/home': {
-    name: '选择期数',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/home')),
-    hideMenu: true
-  },
-  '/service/choice_house/certificate/:id/choice_house': {
-    name: '选择房源',
-    component: dynamicWrapper(() => import('container/service/choice_house/certificate/period/choice_house')),
-    hideMenu: true
-  },
-  '/service/choice_house/i': {
-    name: '我的房源',
-    component: dynamicWrapper(() => import('container/service/choice_house/i')),
-    hideMenu: true
-  },
-
   '/i': {
     name: '个人中心',
     component: dynamicWrapper(() => import('container/i'))
