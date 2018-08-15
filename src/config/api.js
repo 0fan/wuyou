@@ -1,7 +1,8 @@
 const url = {
   // server: 'http://10.0.11.157:8080/',
   // server: 'http://10.0.10.162:8080/',
-  server: 'https://test.1m2.net/',
+  // server: 'https://test.1m2.net/',
+  server: 'http://zfwyconsole.gyfc.net.cn/',
 }
 
 const api = {

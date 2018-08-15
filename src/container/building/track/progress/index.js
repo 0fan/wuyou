@@ -234,7 +234,7 @@ export default class App extends Component {
             title = '在线开盘'
             complete = { open.status === '0' }
             current = { stepIndex === 1 }
-            leftContent = { open.isselect === '0' ? () => <div className = { style['card-btn'] } onClick = { this.handleChoiceHouse }>去选房</div> : null }
+            // leftContent = { open.isselect === '0' ? () => <div className = { style['card-btn'] } onClick = { this.handleChoiceHouse }>去选房</div> : null }
 
             data = { [{
               title: '开盘时间',
