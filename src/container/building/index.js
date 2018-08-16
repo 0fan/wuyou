@@ -209,7 +209,7 @@ const Panel = props => {
         }
       </div>
       <div className = { style['panel-right'] }>
-        <div className = { style['panel-price'] }>
+        {/* <div className = { style['panel-price'] }>
           <span className = { style['panel-price-title'] }>参考价</span>
           <span className = { style['panel-price-value'] }>
             {
@@ -219,7 +219,7 @@ const Panel = props => {
 
             }
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   )

@@ -153,10 +153,9 @@ export default class App extends Component {
   render () {
     const {
       value,
-      data,
       active
     } = this.state
-
+    const data = _.omit(this.state.data, 'price')
     const keys = Object.keys(data)
     const _data = keys.map(v => data[v])
 

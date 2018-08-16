@@ -30,7 +30,7 @@ export default class App extends Component {
           <Title text = { title } />
           <Area text = { area } />
           <Tag data = { tag } />
-          <Price text = { price } />
+          {/* <Price text = { price } /> */}
         </Info>
       </Item>
     )

@@ -201,10 +201,10 @@ List.Item = props => {
           }
         </div>
         <div className = { style['item-footer'] }>
-          <div className = { style['item-footer-item'] }>
+          {/* <div className = { style['item-footer-item'] }>
             <div className = { style['item-footer-item-title'] }>参考价格</div>
             <div className = { style['item-footer-item-value'] }>{ _.isNil(referencePrice) ? '未知' : referencePrice }</div>
-          </div>
+          </div> */}
           <div className = { style['item-footer-item'] }>
             <div className = { style['item-footer-item-title'] }>业主人数</div>
             <div className = { style['item-footer-item-value'] }>{ owner }</div>

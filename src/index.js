@@ -26,7 +26,7 @@ const store = createStore(reducer, compose(
 ))
 
 axiosConfig(store)
-getUserData(store)
+// getUserData(store)
 
 // new vConsole()
 

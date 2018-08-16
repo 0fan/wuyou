@@ -22,7 +22,7 @@ export default class App extends Component {
       <Item onClick = { onClick } to = { to }>
         <Title text = { title } />
         <Area text = { area } />
-        <Price text = { price } />
+        {/* <Price text = { price } /> */}
       </Item>
     )
   }

@@ -399,10 +399,6 @@ export default class App extends Component {
                     <HouseInlineList.Item
                       title = { v.buildingName }
                       area = { v.area }
-                      price = {
-                        !v.amount || v.amount.toString() === '0' ?
-                          '暂无价格' :
-                          `参考价${ v.amount }元/平` }
                       key = { _i }
                       to = { `/building/${ v.id }` }
                     />
@@ -427,12 +423,6 @@ export default class App extends Component {
                 title = { v.buildingName }
                 area = { v.area }
                 tag = { v.buildingTag ? v.buildingTag.split(',') : [] }
-                price = {
-                  !v.amount ||
-                  v.amount.toString() === '0' ?
-                    '暂无价格' :
-                    `参考价${ v.amount }元/平`
-                }
                 to = { `/building/${ v.id }` }
 
                 key = { i }
